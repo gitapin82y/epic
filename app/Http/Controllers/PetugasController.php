@@ -41,8 +41,8 @@ class PetugasController extends Controller
           // })
           ->addColumn("password", function($data) {
             $encrypted = Crypt::encryptString('adminutama123');
-		$decrypted = Crypt::decryptString($data->password);
-            return $decrypted;
+		// $decrypted = Crypt::decryptString($data->password);
+            return $data->password;
           })
           ->addColumn("role", function($data) {
             $role = DB::table('role')->where('id', $data->role_id)->first();
@@ -154,7 +154,7 @@ class PetugasController extends Controller
         "nama_lengkap" => $data->nama_lengkap,
         "email" => $data->email,
         "username" => $data->username,
-        "password" => Crypt::decryptString($data->password),
+        "password" => $data->password,
         "role_id" => $data->role_id,
       ];
       // $data->created_at = Carbon::parse($data->created_at)->format("d-m-Y");

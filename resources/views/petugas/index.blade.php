@@ -18,7 +18,7 @@
 
 <!-- Main Content -->
 <div class="main-content">
-    <section class="section">
+    <section class="section mt-4">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
