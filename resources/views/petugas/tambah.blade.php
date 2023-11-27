@@ -4,7 +4,7 @@
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header bg-info text-white p-3 align-items-center d-flex">
+      <div class="modal-header bg-main text-white p-3 align-items-center d-flex">
         <h4 class="modal-title">Form Petugas</h4>
         <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
       </div>

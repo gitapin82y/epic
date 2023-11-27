@@ -1,211 +1,209 @@
 body {
-    background-color: #e4e6f0;
+  background-color: #e4e6f0;
 }
 
 /*  modal blur */
 
 input {
-    letter-spacing: 1px;
+  letter-spacing: 1px;
 }
 
 * {
-    font-display: auto;
+  font-display: auto;
 }
-
 
 /* end modal blur */
 /* dashboard */
 .text-blue {
-    font-weight: 16px;
-    color: #6777ef;
+  font-weight: 16px;
+  color: #499db1;
 }
 
 .bg-clock {
-    background-color: #6777ef;
-    position: relative;
-    height: 510px;
-    justify-content: center;
-    display: flex;
-    align-items: center;
+  background-color: #499db1;
+  position: relative;
+  height: 510px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
 }
 
 .clock {
-    border-radius: 100%;
-    background: #ffffff;
-    font-family: "Montserrat";
-    width: 250px;
-    height: 250px;
-    border: 5px solid white;
-    box-shadow: inset 2px 3px 8px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 100%;
+  background: #ffffff;
+  font-family: "Montserrat";
+  width: 250px;
+  height: 250px;
+  border: 5px solid white;
+  box-shadow: inset 2px 3px 8px 0 rgba(0, 0, 0, 0.1);
 }
 
 .wrap {
-    overflow: hidden;
-    position: relative;
-    width: 250px;
-    height: 250px;
-    border-radius: 100%;
-    left: -5px;
-    top: -5px;
+  overflow: hidden;
+  position: relative;
+  width: 250px;
+  height: 250px;
+  border-radius: 100%;
+  left: -5px;
+  top: -5px;
 }
 
 .minute,
 .hour {
-    position: absolute;
-    height: 100px;
-    width: 6px;
-    margin: auto;
-    top: -40%;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: black;
-    transform-origin: bottom center;
-    transform: rotate(0deg);
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
-    z-index: 1;
+  position: absolute;
+  height: 100px;
+  width: 6px;
+  margin: auto;
+  top: -40%;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: black;
+  transform-origin: bottom center;
+  transform: rotate(0deg);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+  z-index: 1;
 }
 
 .minute {
-    position: absolute;
-    height: 130px;
-    width: 4px;
-    top: -50%;
-    left: 0;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
-    transform: rotate(90deg);
+  position: absolute;
+  height: 130px;
+  width: 4px;
+  top: -50%;
+  left: 0;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+  transform: rotate(90deg);
 }
 
 .second {
-    position: absolute;
-    height: 90px;
-    width: 2px;
-    margin: auto;
-    top: -32%;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    border-radius: 4px;
-    background: #FF4B3E;
-    transform-origin: bottom center;
-    transform: rotate(180deg);
-    z-index: 1;
+  position: absolute;
+  height: 90px;
+  width: 2px;
+  margin: auto;
+  top: -32%;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 4px;
+  background: #ff4b3e;
+  transform-origin: bottom center;
+  transform: rotate(180deg);
+  z-index: 1;
 }
 
 .dot {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 12px;
-    height: 12px;
-    border-radius: 100px;
-    background: white;
-    border: 2px solid #1b1b1b;
-    border-radius: 100px;
-    margin: auto;
-    z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 100px;
+  background: white;
+  border: 2px solid #1b1b1b;
+  border-radius: 100px;
+  margin: auto;
+  z-index: 1;
 }
 
 /* end dashboard */
 .datepicker {
-    background: rgb(230, 228, 228) !important;
-    width: 16% !important;
+  background: rgb(230, 228, 228) !important;
+  width: 16% !important;
 }
 
 .modal-content,
 .bg-soft {
-    background-color: #ebecf0;
+  background-color: #ebecf0;
 }
 
 .card-header-flying {
-    background-color: #ebecf0 !important;
-    box-shadow: 0px 5px 10px #babecc;
-    margin-bottom: 20px;
+  background-color: #ebecf0 !important;
+  box-shadow: 0px 5px 10px #babecc;
+  margin-bottom: 20px;
 }
 
 /* style navbar */
 .navbar .nameUser {
-    font-size: 16px;
-    letter-spacing: 1px;
+  font-size: 16px;
+  letter-spacing: 1px;
 }
 
 .padding-left50 {
-    padding-left: 26%;
+  padding-left: 26%;
 }
 
 .input-hilang {
-    opacity: 0;
-    transform: translateX(-20%);
-    display: none;
-    margin-top: -5vh;
-    animation: input-hilang 0.5s ease-in;
+  opacity: 0;
+  transform: translateX(-20%);
+  display: none;
+  margin-top: -5vh;
+  animation: input-hilang 0.5s ease-in;
 }
 
 .input-muncul {
-    opacity: 1;
-    transform: translateX(0);
-    animation: input-muncul 0.5s ease-in;
+  opacity: 1;
+  transform: translateX(0);
+  animation: input-muncul 0.5s ease-in;
 }
 
 @keyframes input-muncul {
-    0% {
-        opacity: 0;
-        transform: translateX(-20%);
-        display: none;
-    }
+  0% {
+    opacity: 0;
+    transform: translateX(-20%);
+    display: none;
+  }
 
-    100% {
-        display: inline-block;
-        opacity: 1;
-        transform: translateX(0);
-    }
+  100% {
+    display: inline-block;
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes input-hilang {
-    0% {
-        display: inline-block;
-        opacity: 1;
-        transform: translateX(0);
-    }
+  0% {
+    display: inline-block;
+    opacity: 1;
+    transform: translateX(0);
+  }
 
-    100% {
-        opacity: 0;
-        transform: translateX(-20%);
-        display: none;
-    }
+  100% {
+    opacity: 0;
+    transform: translateX(-20%);
+    display: none;
+  }
 }
 
 /* end style navbar */
 .flying {
-    box-shadow: -5px -5px 20px #fff, 5px 5px 10px #babecc !important;
-    transition: all 0.2s ease-in-out !important;
+  box-shadow: -5px -5px 20px #fff, 5px 5px 10px #babecc !important;
+  transition: all 0.2s ease-in-out !important;
 }
 
 .card-flying {
-    box-shadow: -5px -5px 20px #fff, 5px 5px 10px #babecc !important;
+  box-shadow: -5px -5px 20px #fff, 5px 5px 10px #babecc !important;
 }
 
 .flying:hover {
-    box-shadow: inset 2px 2px 5px #babecc, 2px 2px 5px #fff !important;
+  box-shadow: inset 2px 2px 5px #babecc, 2px 2px 5px #fff !important;
 }
 
 .flying:active {
-    box-shadow: inset 2px 2px 5px #babecc, 2px 2px 5px #fff !important;
+  box-shadow: inset 2px 2px 5px #babecc, 2px 2px 5px #fff !important;
 }
 
 .modal-body {
-    padding: 30px;
+  padding: 30px;
 }
 
 .m-min-2 {
-    margin-left: -25px;
+  margin-left: -25px;
 }
 
 .border-top {
-    border-top: 2px black;
-
+  border-top: 2px black;
 }
 
 /* style button all page */
@@ -214,45 +212,45 @@ input {
 
 /* sicebar */
 .text-black {
-    color: rgb(51, 51, 51) !important;
-    font-weight: bolder !important;
+  color: rgb(51, 51, 51) !important;
+  font-weight: bolder !important;
 }
 
 /* end sidebar */
 
 /* daftarAnggota */
 .trash-navbar {
-    background: #fff !important;
+  background: #fff !important;
 }
 
 .card .card-body .btn-cetak a {
-    padding: 2px 15px;
-    color: #fff;
-    transform: translateY(32px);
-    position: relative;
-    z-index: 5;
+  padding: 2px 15px;
+  color: #fff;
+  transform: translateY(32px);
+  position: relative;
+  z-index: 5;
 }
 
 /* endDaftarAnggota */
 
 /* profile */
 .fotoProfile {
-    height: 150px !important;
-    width: 150px !important;
-    box-shadow: 1px 3px 10px 1px rgba(5, 5, 5, 0.288) !important;
-    background-size: cover;
+  height: 150px !important;
+  width: 150px !important;
+  box-shadow: 1px 3px 10px 1px rgba(5, 5, 5, 0.288) !important;
+  background-size: cover;
 }
 
 .navbarFotoProfile {
-    height: 35px !important;
-    width: 35px !important;
-    background-size: cover;
+  height: 35px !important;
+  width: 35px !important;
+  background-size: cover;
 }
 
 /* form edit profile */
 .mt-min-2 {
-    margin-top: -20px;
-    position: absolute;
+  margin-top: -20px;
+  position: absolute;
 }
 
 /* end form edit profile */
@@ -264,108 +262,104 @@ input {
 .loader,
 .loader:before,
 .loader:after {
-    width: 1em;
-    height: 4em;
-    position: absolute;
-    top: -20px;
+  width: 1em;
+  height: 4em;
+  position: absolute;
+  top: -20px;
 }
 
 .loader:before,
 .loader:after {
-    position: absolute;
-    top: 0;
-    content: "";
+  position: absolute;
+  top: 0;
+  content: "";
 }
 
 .loader:before {
-    -webkit-animation: load1 1s infinite ease-in-out;
-    animation: load1 1s infinite ease-in-out;
-    left: -1.5em;
-    -webkit-animation-delay: -0.32s;
-    animation-delay: -0.32s;
-    background: #e7e983;
+  -webkit-animation: load1 1s infinite ease-in-out;
+  animation: load1 1s infinite ease-in-out;
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+  background: #e7e983;
 }
 
 .loader {
-    -webkit-animation: load2 1s infinite ease-in-out;
-    animation: load2 1s infinite ease-in-out;
-    text-indent: -9999em;
-    margin: 88px auto;
-    position: relative;
-    font-size: 11px;
-    -webkit-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-animation-delay: -0.16s;
-    animation-delay: -0.16s;
-    background: rgb(226, 131, 131);
+  -webkit-animation: load2 1s infinite ease-in-out;
+  animation: load2 1s infinite ease-in-out;
+  text-indent: -9999em;
+  margin: 88px auto;
+  position: relative;
+  font-size: 11px;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+  background: rgb(226, 131, 131);
 }
 
 .loader:after {
-    -webkit-animation: load3 1s infinite ease-in-out;
-    animation: load3 1s infinite ease-in-out;
-    background: #98e68b;
-    left: 1.5em;
+  -webkit-animation: load3 1s infinite ease-in-out;
+  animation: load3 1s infinite ease-in-out;
+  background: #98e68b;
+  left: 1.5em;
 }
 
 @-webkit-keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0 #656592;
+    height: 4em;
+  }
 
-    0%,
-    80%,
-    100% {
-        box-shadow: 0 0 #656592;
-        height: 4em;
-    }
-
-    40% {
-        box-shadow: 0 -2em #6f6a9b;
-        height: 5em;
-    }
+  40% {
+    box-shadow: 0 -2em #6f6a9b;
+    height: 5em;
+  }
 }
 
 @keyframes load1 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0 #e7e983;
+    height: 4em;
+  }
 
-    0%,
-    80%,
-    100% {
-        box-shadow: 0 0 #e7e983;
-        height: 4em;
-    }
-
-    40% {
-        box-shadow: 0 -2em #e7e983;
-        height: 5em;
-    }
+  40% {
+    box-shadow: 0 -2em #e7e983;
+    height: 5em;
+  }
 }
 
 @keyframes load2 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0 rgb(226, 131, 131);
+    height: 4em;
+  }
 
-    0%,
-    80%,
-    100% {
-        box-shadow: 0 0 rgb(226, 131, 131);
-        height: 4em;
-    }
-
-    40% {
-        box-shadow: 0 -2em rgb(226, 131, 131);
-        height: 5em;
-    }
+  40% {
+    box-shadow: 0 -2em rgb(226, 131, 131);
+    height: 5em;
+  }
 }
 
 @keyframes load3 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 0 #98e68b;
+    height: 4em;
+  }
 
-    0%,
-    80%,
-    100% {
-        box-shadow: 0 0 #98e68b;
-        height: 4em;
-    }
-
-    40% {
-        box-shadow: 0 -2em #98e68b;
-        height: 5em;
-    }
+  40% {
+    box-shadow: 0 -2em #98e68b;
+    height: 5em;
+  }
 }
 
 /*akhir loader*/
@@ -374,25 +368,24 @@ input {
 
 /* konfigurasi umum */
 .formkonfigurasiumum textarea {
-    width: 100%;
-    min-height: 200px;
-    height: vertical;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border-radius: 4px;
-    transition: all 0.2s ease-in-out !important;
-    background-color: transparent;
-    font-size: 16px;
+  width: 100%;
+  min-height: 200px;
+  height: vertical;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out !important;
+  background-color: transparent;
+  font-size: 16px;
 }
-
 
 /* end konfigurasi - umum  */
 
 /* login */
 .costum-text-login {
-    color: rgb(100, 100, 100);
+  color: rgb(100, 100, 100);
 }
 /* end login */
-.modal-content{
-    overflow-x: scroll;
+.modal-content {
+  overflow-x: scroll;
 }

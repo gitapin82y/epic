@@ -1,8 +1,8 @@
 <div class="main-sidebar" >
     <aside id="sidebar-wrapper">
-        <div class="sidebar-brand">
+        <div class="sidebar-brand my-3">
             <a href="">
-                <img src="{{asset('assets/img/epic.jpg')}}" alt="logo" style="margin: auto; width:30%; height:100%" >
+                <img src="{{asset("assets/logo/logo-epic.png")}}" alt="logo" width="50" class="shadow-light">
             </a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">

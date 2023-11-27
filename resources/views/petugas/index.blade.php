@@ -76,6 +76,7 @@
     var table = $('#table-data').DataTable({
             processing: true,
             // responsive:true,
+            scrollX: true,
             serverSide: true,
             searching: true,
             paging: true,
@@ -100,11 +101,11 @@
                   },
                   {
                      targets: 2,
-                     className: 'type center'
+                     className: 'type center',
                   },
                   {
                      targets: 3,
-                     className: 'center'
+                     className: 'center',
                   },
                   {
                      targets: 4,
