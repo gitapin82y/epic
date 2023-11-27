@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('petugas', 'PetugasController@index');
+Route::get('petugastable', 'PetugasController@datatable');
+Route::get('editpetugas', 'PetugasController@edit');
+Route::get('simpanpetugas', 'PetugasController@simpan');
+Route::get('hapuspetugas', 'PetugasController@hapus');
+
+
 Route::get('/', function () {
     return view('pages.landingpage');
 });

@@ -24,7 +24,8 @@
                         <a href="#" class="nav-link has-dropdown "><i class="fas fa-window-restore"></i><span>Master Akun</span></a>
                         <ul class="dropdown-menu">
                             <li class=""><a class="nav-link"
-                                    href="">sub menu 1</a></li>
+                                    href="{{url('/petugas')}}">Petugas</a></li>
+                                    
                                     <li class=""><a class="nav-link"
                                         href="">sub menu 2</a></li>
                         </ul>
