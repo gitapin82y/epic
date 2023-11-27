@@ -22,7 +22,6 @@ class PetugasController extends Controller
 {
     public function index() {
     $roles = DB::table("role")->get();
-
       return view('petugas.index', compact('roles'));
     }
 

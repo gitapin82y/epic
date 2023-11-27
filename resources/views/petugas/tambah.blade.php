@@ -23,10 +23,10 @@
             <td>
               <select class="form-control form-control-sm role_id" name="role" id="role_id" >
                 <option disabled>Pilih</option>
-                @foreach ($roles as $key => $value)
-                <option value="{{$value->id}}">{{$value->nama}}</option>
+                @foreach ($roles as $role)
+                <option value="{{$role->id}}">{{$role->nama}}</option>
               @endforeach
-              </select>
+            </select>
             </td>
           </tr>
           <tr>
