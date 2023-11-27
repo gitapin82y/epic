@@ -41,6 +41,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Email</th>
                                             <th>Username</th>
                                             <th>Password</th>
                                             <th>Nama Lengkap</th>
@@ -112,6 +113,7 @@
                 ],
             "columns": [
               {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+              {data: 'email', name: 'email'},
               {data: 'username', name: 'username'},
               {data: 'password', name: 'password'},
               {data: 'nama_lengkap', name: 'Nama Lengkap'},
@@ -134,6 +136,7 @@
             $('.id').val(data.id);
             $('.nama_lengkap').val(data.nama_lengkap);
             $('.username').val(data.username);
+            $('.email').val(data.email);
             $('.password').val(data.password);
             $('#role_id').val(data.role_id);
             $('#role_id').select2();
@@ -160,6 +163,7 @@
               });
               reloadall();
             }else if(data.status == 2){
+                console.log(data.message);
               iziToast.warning({
                   icon: 'fa fa-info',
                   message: 'Data Gagal disimpan!',

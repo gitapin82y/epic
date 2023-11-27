@@ -86,6 +86,7 @@ class PetugasController extends Controller
         DB::table("user")
               ->insertGetId([
               "nama_lengkap" => $req->nama_lengkap,
+              "email" => $req->email,
               "username" => $req->username,
               "password" => Crypt::encryptString($req->password),
               "role_id" => $req->role,
@@ -108,6 +109,7 @@ class PetugasController extends Controller
             ->where("id", $req->id)
             ->update([
               "nama_lengkap" => $req->nama_lengkap,
+              "email" => $req->email,
               "username" => $req->username,
               "password" => Crypt::encryptString($req->password),
               "role_id" => $req->role,
@@ -150,6 +152,7 @@ class PetugasController extends Controller
       $petugas = [
         "id" => $data->id,
         "nama_lengkap" => $data->nama_lengkap,
+        "email" => $data->email,
         "username" => $data->username,
         "password" => Crypt::decryptString($data->password),
         "role_id" => $data->role_id,

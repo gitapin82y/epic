@@ -21,12 +21,19 @@
           <tr>
             <td>Role</td>
             <td>
-              <select class="form-control form-control-sm role_id" name="role" id="role_id" >
+              <select class="form-control form-control-sm role_id select" name="role" id="role_id" >
                 <option disabled>Pilih</option>
-                @foreach ($roles as $role)
-                <option value="{{$role->id}}">{{$role->nama}}</option>
+                @foreach ($roles as $key => $value)
+                <option value="{{$value->id}}">{{$value->nama}}</option>
               @endforeach
             </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>
+              <input type="text" class="form-control form-control-sm inputtext email" name="email">
+
             </td>
           </tr>
           <tr>
