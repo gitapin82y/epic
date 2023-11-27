@@ -11,3 +11,9 @@
 <link rel="stylesheet" href="{{asset('assets/css/bootstrap-datepicker3.min.css')}}">
 {{-- css sendiri --}}
 <link rel="stylesheet" href="{{asset('assets/css/all-style.css')}}">
+
+<style>
+    .select2-container{
+        width: 100% !important;
+    }
+</style>
