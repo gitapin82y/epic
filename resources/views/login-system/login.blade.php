@@ -23,15 +23,15 @@
             </div>
 
             <div class="card-body">
-                <form action="" method="POST" class="needs-validation" novalidate="">
-                    @csrf
+                <form class="needs-validation" novalidate="" method="GET" action="{{ url('login') }}">
+                    {{ csrf_field() }}
+                    
                     <div class="form-group">
                         <label for="username">Username</label>
-                        <input id="username" type="username" class="form-control @error('username') is-invalid @enderror"
-                            name="username" tabindex="1" value="{{old('username')}}" autofocus>
-                            @error('username')
-                            <i class="text-danger">{{ $message }}</i>
-                            @enderror
+                        <input id="username"class="form-control" type="text" name="username" id="username" placeholder="Username" autofocus="">
+                        @if (session('username'))
+                        <div class="red"  style="color: red"><b>Username Tidak Ada</b></div>
+                      @endif
     
                     </div>
 
@@ -40,17 +40,16 @@
                             <label for="password" class="control-label">Password</label>
                         </div>
                         <input id="password" type="password"
-                            class="form-control @error('password') is-invalid @enderror" name="password"
-                            tabindex="2">
-                        @error('password')
-                            <i class="text-danger">{{ $message }}</i>
-                        @enderror
+                            class="form-control" value="" type="password" name="password" id="password" placeholder="Password">
+                            @if (session('password'))
+                            <div class="red"  style="color: red"><b>Password Yang Anda Masukan Salah</b></div>
+                            @endif
 
                     </div>
                     <div class="form-group">
-                        <a href="/dashboard" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                             Login
-                        </a>
+                        </button>
                     </div>
                     <div class="mt-2 text-muted text-center">
                         Tidak Punya Akun? <a href="/register">Daftar</a>

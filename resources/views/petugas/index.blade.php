@@ -24,7 +24,7 @@
                 <div class="card">
                     <div class="card-header p-0 col-12 justify-content-between px-4">
                         <div class="col-md-6 col-lg-6 text-left col-12">
-                            <h5 class="text-blue">Kelola Petugas</h5>
+                            <h5 class="text-blue">Petugas</h5>
                         </div>
                         <div class="col-md-6 col-lg-6 d-flex col-12 justify-content-end">
                             <div class="card-header-action mx-1">

@@ -1,4 +1,4 @@
-<div class="main-sidebar" >
+<div class="main-sidebar">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand my-3">
             <a href="">
@@ -10,27 +10,71 @@
         </div>
         <ul class="sidebar-menu pb-5">
             <li class="menu-header text-black">Dashboard</li>
-            <li class=""><a class="nav-link" href=""><i
-                        class="fas fa-home"></i></i> <span>Dashboard</span></a></li>
-
-
-            <li class="menu-header text-black">Laporan</li>
-            <li class=""><a class="nav-link"
-                    href=""><i class="fas fa-file-alt"></i><span>Perizinan</span></a></li>
-
-                    <li class="menu-header text-black">Master</li>
-                    <li
-                        class="nav-item dropdown">
-                        <a href="#" class="nav-link has-dropdown "><i class="fas fa-window-restore"></i><span>Master Akun</span></a>
-                        <ul class="dropdown-menu">
-                            <li class=""><a class="nav-link"
-                                    href="{{url('/petugas')}}">Petugas</a></li>
-                                    
-                                    <li class=""><a class="nav-link"
-                                        href="">sub menu 2</a></li>
-                        </ul>
-                    </li>
         
+
+            <li class=""><a class="nav-link" href=""><i class="fas fa-home"></i></i> <span>Dashboard</span></a></li>
+            @if (Auth::user()->role_id ===1)
+
+            <li class="menu-header text-black">Master</li>
+
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown "><i class="fas fa-window-restore"></i><span>Data Master</span></a>
+                <ul class="dropdown-menu">
+                    <li class=""><a class="nav-link" href="{{url('petugas')}}">Petugas</a></li>
+
+                    <li class=""><a class="nav-link" href="{{ url('pemohon') }}">Pemohon</a></li>
+                    <li class=""><a class="nav-link" href="{{ url('surat-jenis') }}">Jenis dan Syarat Perizinan</a></li>
+                    <li class=""><a class="nav-link" href="{{ url('video-panduan') }}">Video Panduan</a></li>
+                </ul>
+            </li>
+            @endif
+
+
+            <li class="menu-header text-black">Perizinan</li>
+            <li class=""><a class="nav-link" href="{{ url('surat') }}"><i class="fas fa-file-alt"></i><span>Daftar Perizinan</span></a></li>
+
+            <li class=""><a class="nav-link" href=""><i class="fas fa-file-alt"></i><span>Arsip Perizinan</span></a></li>
+            @if (Auth::user()->role_id === 1 || Auth::user()->role_id == 6)
+
+            <li class="menu-header text-black">Survey</li>
+
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown "><i class="fas fa-window-restore"></i><span>Survey</span></a>
+                <ul class="dropdown-menu">
+                    <li class=""><a class="nav-link" href="{{url('penugasan-survey')}}">Penugasan Survey</a></li>
+
+                    <li class=""><a class="nav-link" href="{{ url('hasil-survey') }}">Hasil Survey</a></li>
+                </ul>
+            </li>
+            @endif
+
+            @if (Auth::user()->role_id === 1)
+
+            <li class="menu-header text-black">Survey Kepuasan</li>
+
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown "><i class="fas fa-window-restore"></i><span>Survey Kepuasan</span></a>
+                <ul class="dropdown-menu">
+                    <li class=""><a class="nav-link" href="{{url('hasil-kepuasan')}}">Hasil Kepuasan</a></li>
+
+                    <li class=""><a class="nav-link" href="{{ url('survey-kepuasan/management-pertanyaan') }}">Kelola Pertanyaan</a></li>
+                </ul>
+            </li>
+            @endif
+
+            @if (Auth::user()->role_id == 5)
+
+            <li class=""><a class="nav-link" href="{{ url('chatbot') }}"><i class="fas fa-file-alt"></i><span>Chatbot</span></a></li>
+            @endif
+
+            @if (Auth::user()->role_id == 5 || Auth::user()->role_id == 9)
+
+            <li class=""><a class="nav-link" href="{{ url('chat') }}"><i class="fas fa-file-alt"></i><span>Live Chat</span></a></li>
+
+            @endif
+
+
+
 
         </ul>
     </aside>

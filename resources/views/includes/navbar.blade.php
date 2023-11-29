@@ -17,7 +17,7 @@
           <i class="far fa-user"></i> Profile
         </a>
         <div class="dropdown-divider"></div>
-      <a href="" class="dropdown-item has-icon text-danger">
+      <a href="{{ url('logout') }}" class="dropdown-item has-icon text-danger">
           <i class="fas fa-sign-out-alt"></i> Logout
         </a>
       </div>

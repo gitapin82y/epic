@@ -8,7 +8,10 @@
       <div class="main-content">
         <section class="section">
           <div class="section-header">
-            <h4 class="text-blue">Beranda</h4>
+            <h4 class="text-blue">Beranda (  @php
+              echo 'Role : '. Auth::user()->role_id;
+              
+            @endphp )</h4>
           </div>
           <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">

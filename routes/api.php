@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +13,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('api')->group(function () {
+
+    // Route::any('/notif', 'HomeController@apinotif');
+
+    Route::any('login', 'loginController@loginApi');
+
+    // User Petugas
+    Route::get('/petugas', 'PetugasController@getData');
+    
+    // pemohon
+    Route::post('pemohon/register', 'PemohonController@simpan');
+
+    // Surat
+    Route::post('surat/create', 'SuratController@simpan');
+    Route::post('surat/upload-dokumen', 'SuratController@uploadDokumenSyarat');
+    Route::post('surat/kirim-surat', 'SuratController@kirimSuratPengajuan');
+    Route::post('surat/validasi-surat', 'SuratController@validasi');
+
+
+    Route::any('/listroom', 'ChatController@apilistroom');
+    Route::any('/listchat', 'ChatController@apilistchat');
+    Route::any('/sendchat', 'ChatController@apisendchat');
+    Route::any('/countchat', 'ChatController@apicountchat');
+
+    Route::any('loginpemohon', 'LoginPemohonController@loginApi');
+    Route::any('registerpemohon', 'RegisterPemohonController@apiregister');
 });
