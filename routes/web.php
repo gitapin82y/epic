@@ -122,7 +122,7 @@ Route::get('/chat', 'ChatController@index');
 Route::get('/listroom', 'ChatController@listroom');
 Route::get('/listchat', 'ChatController@listchat');
 Route::get('/sendchat', 'ChatController@sendchat');
-
+Route::get('/newroom', 'ChatController@newroom');
 // Video Panduan
 Route::get('video-panduan', 'VideoPanduanController@index');
 Route::get('videopanduantable', 'VideoPanduanController@datatable');
