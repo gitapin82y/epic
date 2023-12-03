@@ -67,7 +67,7 @@
             <li class=""><a class="nav-link" href="{{ url('chatbot') }}"><i class="fas fa-file-alt"></i><span>Chatbot</span></a></li>
             @endif
 
-            @if (Auth::user()->role_id == 5 || Auth::user()->role_id == 9)
+            @if (Auth::user()->role_id == 7 || Auth::user()->role_id == 9 || Auth::user()->role_id == 5)
 
             <li class=""><a class="nav-link" href="{{ url('chat') }}"><i class="fas fa-file-alt"></i><span>Live Chat</span></a></li>
 

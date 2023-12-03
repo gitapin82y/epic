@@ -29,9 +29,7 @@ class ChatController extends Controller
     // }
 
     public function index() {
-      if (Auth::user()->role_id == "9") {
-       return view('chatpemohon.index');
-      }
+       return view('chat.index');
     }
 
     public function newroom(Request $req) {
@@ -122,14 +120,14 @@ class ChatController extends Controller
 
     public function listroom(Request $req) {
         $resultRoom = array();
+        $getOperator = DB::table("user")->where("role_id", "5")->first();
 
-        if (Auth::user()->role_id == "9") {
-          $getOperator = DB::table("user")->where("role_id", "5")->first();
+        if (Auth::user()->role_id == "9" || Auth::user()->role_id == "7" ) {
           $cekOperatorRoom = $chat = DB::table('roomchat')
-                                      ->where('account', 'like', '%' . $getOperator->id . '%')
+                                      ->where('account', 'like', '%' . Auth::user()->id . "-" . $getOperator->id . '%')
                                       ->orderby("created_at", "DESC")
                                       ->first();
-          
+
           if($cekOperatorRoom != null) {
             $account = explode("-",$cekOperatorRoom->account);
 
@@ -158,7 +156,7 @@ class ChatController extends Controller
             ]);
 
             $cekOperatorRoom = $chat = DB::table('roomchat')
-                                        ->where('account', 'like', '%' . $getOperator->id . '%')
+                                        ->where('account', 'like', '%' . Auth::user()->id . "-" . $getOperator->id . '%')
                                         ->orderby("created_at", "DESC")
                                         ->first();
             
@@ -182,28 +180,53 @@ class ChatController extends Controller
           }
         }
 
-        $chat = DB::table('roomchat')
-                 ->where('account', 'like', '%' . Auth::user()->id_account . '%')
-                 ->where('account', 'not like', '%' . $getOperator->id . '%')
-                 ->orderby("created_at", "DESC")
-                 ->get();
-
-        foreach ($chat as $key => $value) {
-          $account = explode("-",$value->account);
-
-          if ($account[0] != Auth::user()->id) {
-            $value->account = DB::table("user")
-                                ->where("id", $account[0])
-                                ->first();
-          } else if ($account[1] != Auth::user()->id) {
-            $value->account = DB::table("user")
-                                ->where("id", $account[1])
-                                ->first();
+        if (Auth::user()->role_id == "9" || Auth::user()->role_id == "7" ) {
+          $chat = DB::table('roomchat')
+                  ->where('account', 'like', '%' . Auth::user()->id . '%')
+                  ->where('account', 'not like', '%' . $getOperator->id . '%')
+                  ->orderby("created_at", "DESC")
+                  ->get();
+                  
+          foreach ($chat as $key => $value) {
+            $account = explode("-",$value->account);
+  
+            if ($account[0] != Auth::user()->id) {
+              $value->account = DB::table("user")
+                                  ->where("id", $account[0])
+                                  ->first();
+            } else if ($account[1] != Auth::user()->id) {
+              $value->account = DB::table("user")
+                                  ->where("id", $account[1])
+                                  ->first();
+            }
+  
+            $value->created_at = Carbon::parse($value->created_at)->diffForHumans();
+  
+            $resultRoom[$key + 1] = $value;
           }
+        } else {
+          $chat = DB::table('roomchat')
+          ->where('account', 'like', '%' . Auth::user()->id . '%')
+          ->orderby("created_at", "DESC")
+          ->get();
 
-          $value->created_at = Carbon::parse($value->created_at)->diffForHumans();
-
-          $resultRoom[$key + 1] = $value;
+          foreach ($chat as $key => $value) {
+            $account = explode("-",$value->account);
+  
+            if ($account[0] != Auth::user()->id) {
+              $value->account = DB::table("user")
+                                  ->where("id", $account[0])
+                                  ->first();
+            } else if ($account[1] != Auth::user()->id) {
+              $value->account = DB::table("user")
+                                  ->where("id", $account[1])
+                                  ->first();
+            }
+  
+            $value->created_at = Carbon::parse($value->created_at)->diffForHumans();
+  
+            $resultRoom[$key] = $value;
+          }
         }
 
         return Response()->json($resultRoom);
@@ -211,22 +234,22 @@ class ChatController extends Controller
 
     public function apilistroom(Request $req) {
       $resultRoom = array();
+      $getOperator = DB::table("user")->where("role_id", "5")->first();
 
-      if (Auth::user()->role_id == "9") {
-        $getOperator = DB::table("user")->where("role_id", "5")->first();
+      if ($req->role_id == "9" || $req->role_id == "7" ) {
         $cekOperatorRoom = $chat = DB::table('roomchat')
-                                    ->where('account', 'like', '%' . $getOperator->id . '%')
+                                    ->where('account', 'like', '%' . $req->id . "-" . $getOperator->id . '%')
                                     ->orderby("created_at", "DESC")
                                     ->first();
         
         if($cekOperatorRoom != null) {
           $account = explode("-",$cekOperatorRoom->account);
 
-          if ($account[0] != Auth::user()->id) {
+          if ($account[0] != $req->id) {
             $cekOperatorRoom->account = DB::table("user")
                                 ->where("id", $account[0])
                                 ->first();
-          } else if ($account[1] != Auth::user()->id) {
+          } else if ($account[1] != $req->id) {
             $cekOperatorRoom->account = DB::table("user")
                                 ->where("id", $account[1])
                                 ->first();
@@ -238,25 +261,25 @@ class ChatController extends Controller
         } else {
           DB::table('roomchat')
             ->insert([
-              'account' => Auth::user()->id . "-" . $getOperator->id,
+              'account' => $req->id . "-" . $getOperator->id,
               'last_message' => "",
               'counter_kedua' => 0,
               'created_at' => Carbon::now('Asia/Jakarta'),
           ]);
 
           $cekOperatorRoom = $chat = DB::table('roomchat')
-                                      ->where('account', 'like', '%' . $getOperator->id . '%')
+                                      ->where('account', 'like', '%' . $req->id . "-" . $getOperator->id . '%')
                                       ->orderby("created_at", "DESC")
                                       ->first();
           
           if($cekOperatorRoom != null) {
             $account = explode("-",$cekOperatorRoom->account);
 
-            if ($account[0] != Auth::user()->id) {
+            if ($account[0] != $req->id) {
               $cekOperatorRoom->account = DB::table("user")
                                   ->where("id", $account[0])
                                   ->first();
-            } else if ($account[1] != Auth::user()->id) {
+            } else if ($account[1] != $req->id) {
               $cekOperatorRoom->account = DB::table("user")
                                   ->where("id", $account[1])
                                   ->first();
@@ -268,29 +291,54 @@ class ChatController extends Controller
           }
         }
       }
+      
+      if ($req->role_id == "9" || $req->role_id == "7" ) {
+        $chat = DB::table('roomchat')
+                ->where('account', 'like', '%' . $req->id . '%')
+                ->where('account', 'not like', '%' . $getOperator->id . '%')
+                ->orderby("created_at", "DESC")
+                ->get();
 
-      $chat = DB::table('roomchat')
-               ->where('account', 'like', '%' . Auth::user()->id_account . '%')
-               ->where('account', 'not like', '%' . $getOperator->id . '%')
-               ->orderby("created_at", "DESC")
-               ->get();
-
-      foreach ($chat as $key => $value) {
-        $account = explode("-",$value->account);
-
-        if ($account[0] != Auth::user()->id) {
-          $value->account = DB::table("user")
-                              ->where("id", $account[0])
-                              ->first();
-        } else if ($account[1] != Auth::user()->id) {
-          $value->account = DB::table("user")
-                              ->where("id", $account[1])
-                              ->first();
+        foreach ($chat as $key => $value) {
+          $account = explode("-",$value->account);
+  
+          if ($account[0] != $req->id) {
+            $value->account = DB::table("user")
+                                ->where("id", $account[0])
+                                ->first();
+          } else if ($account[1] != $req->id) {
+            $value->account = DB::table("user")
+                                ->where("id", $account[1])
+                                ->first();
+          }
+  
+          $value->created_at = Carbon::parse($value->created_at)->diffForHumans();
+  
+          $resultRoom[$key + 1] = $value;
         }
+      } else {
+        $chat = DB::table('roomchat')
+        ->where('account', 'like', '%' . $req->id. '%')
+        ->orderby("created_at", "DESC")
+        ->get();
 
-        $value->created_at = Carbon::parse($value->created_at)->diffForHumans();
-
-        $resultRoom[$key + 1] = $value;
+        foreach ($chat as $key => $value) {
+          $account = explode("-",$value->account);
+  
+          if ($account[0] != Auth::user()->id) {
+            $value->account = DB::table("user")
+                                ->where("id", $account[0])
+                                ->first();
+          } else if ($account[1] != $req->id) {
+            $value->account = DB::table("user")
+                                ->where("id", $account[1])
+                                ->first();
+          }
+  
+          $value->created_at = Carbon::parse($value->created_at)->diffForHumans();
+  
+          $resultRoom[$key] = $value;
+        }
       }
 
        return Response()->json($chat);
@@ -443,7 +491,7 @@ class ChatController extends Controller
          DB::table("listchat")
             ->insert([
               'roomchat_id' => $req->id,
-              'account' => Auth::user()->id . "-" . $req->penerima,
+              'account' => $req->id . "-" . $req->penerima,
               'message' => $req->message,
               'created_at' => Carbon::now('Asia/Jakarta'),
             ]);
@@ -455,7 +503,7 @@ class ChatController extends Controller
            // foreach ($chat as $key => $value) {
              $account = explode("-",$room->account);
 
-             if ($account[0] != Auth::user()->id) {
+             if ($account[0] != $req->id) {
 
                $count = $room->counter_satu;
 
