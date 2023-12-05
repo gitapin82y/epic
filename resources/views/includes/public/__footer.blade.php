@@ -12,7 +12,7 @@
       <div class="col-12 col-md-3 mt-4 mt-md-0">
         <img src="{{asset('assets/public/img/logo.png')}}" class="mb-4" width="80px" alt="" />
         <p>Ajukan perizinan secara mandiri dengan sistem daring (online).</p>
-        <small>Copyright 2023 By Epic | All Rights Reserved.</small>
+        <small>Copyright 2023 By Epic - All Rights Reserved.</small>
       </div>
       <div class="col-12 col-md-3 mt-4 mt-md-0">
         <h3>Sosial Media</h3>
