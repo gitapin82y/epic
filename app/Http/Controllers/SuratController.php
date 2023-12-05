@@ -104,7 +104,7 @@ else if(Auth::user()->role_id == 6){
         try {
 
         DB::table("surat")
-              ->insertGetId([
+              ->insert([
               "nama" => $req->nama,
               "user_id" => $req->user_id,
               "surat_jenis_id" => $req->surat_jenis_id,
@@ -118,6 +118,8 @@ else if(Auth::user()->role_id == 6){
             ]);
 
           DB::commit();
+          $dataBaru = DB::table("surat")->orderBy("id", "DESC")->first();
+          return response()->json(["status" => 1,'message' => 'success', 'data' => $dataBaru]);
           return response()->json(["status" => 1,'message' => 'success']);
         } catch (\Exception $e) {
           DB::rollback();
@@ -136,10 +138,10 @@ else if(Auth::user()->role_id == 6){
 
          
           DB::commit();
-          return response()->json(["status" => 3]);
+          return response()->json(["status" => 1]);
         } catch (\Exception $e) {
           DB::rollback();
-          return response()->json(["status" => 4, "message" =>$e->getMessage()]);
+          return response()->json(["status" => 2, "message" =>$e->getMessage()]);
         }
       }
 
@@ -147,93 +149,120 @@ else if(Auth::user()->role_id == 6){
 
     public function uploadDokumenSyarat(Request $req)
     {
-        try {
-          $imgPath = null;
-          $tgl = Carbon::now('Asia/Jakarta');
-          $folder = $tgl->year . $tgl->month . $tgl->timestamp;
-          $childPath ='file/uploads/dokumen-syarat-pemohon/';
-          $path = $childPath;
-          $cekDataSurat = DB::table("surat")->where("id", $req->surat_id)->first();
-          $cekDataSuratDokumen = DB::table("surat_dokumen")->where("surat_syarat_id", $req->surat_syarat_id)->first();
-          if ($cekDataSurat == null ) {
-          return response()->json(["status" => 2, "message" => 'Data Surat Tidak Ditemukan']);
+      try {
+        $imgPath = null;
+        $tgl = Carbon::now('Asia/Jakarta');
+        $folder = $tgl->year . $tgl->month . $tgl->timestamp;
+        $childPath ='file/uploads/dokumen-syarat-pemohon/';
+        $path = $childPath;
+        $cekDataSurat = DB::table("surat")->where("id", $req->surat_id)->first();
+        $cekDataSuratDokumen = DB::table("surat_dokumen")->where("surat_syarat_id", $req->surat_syarat_id)->where("surat_id", $req->surat_id)->first();
+        if ($cekDataSurat == null ) {
+        return response()->json(["status" => 2, "message" => 'Data Surat Tidak Ditemukan']);
 
-          }
-          else if($cekDataSuratDokumen != null){
-          return response()->json(["status" => 2, "message" => 'Data Dokumen Sudah Ada']);
-
-          }
-          else{
-          $file = $req->file('dokumen_syarat_pemohon');
-          $name = null;
-          if ($file != null) {
-            $name = $folder . '.' . $file->getClientOriginalExtension();
-            $file->move($path, $name);
-            $imgPath = $childPath . $name;
-          } else {
-              return 'error';
-          }
-  
-         
-          DB::table("surat_dokumen")
-          ->insertGetId([
-            // "id" => $max,
-            "surat_id" => $req->surat_id,
-            "surat_syarat_id" => $req->surat_syarat_id,
-            "dokumen_upload"=>$imgPath,
-            "created_at" => $tgl,
-            "updated_at" => $tgl
-          ]);
-            
-            DB::commit();
         }
-  
-          return response()->json(["status" => 1, "message" => "Sukses Upload Dokumen Syarat"]);
-        } catch (\Exception $e) {
-          DB::rollback();
-          return response()->json(["status" => 2, "message" => $e]);
+        else if($cekDataSuratDokumen != null){
+        // return response()->json(["status" => 2, "message" => 'Data Dokumen Sudah Ada']);
+        $file = $req->file('dokumen_syarat_pemohon');
+        $name = null;
+        if ($file != null) {
+          $name = $folder . '.' . $file->getClientOriginalExtension();
+          $file->move($path, $name);
+          $imgPath = $childPath . $name;
+        } else {
+            return 'error';
         }
-    }
 
-    public function kirimSuratPengajuan(Request $req) {
-     $cekJumlahSuratSyarat = DB::table("surat_syarat")->where("surat_jenis_id", $req->surat_jenis_id)->count();
-     $cekJumlahSuratDokumen = DB::table("surat_dokumen")->where("surat_id", $req->surat_id)->count();
-     $cekDataUser = DB::table("surat")->join('user', 'user.id', '=', 'surat.user_id')
-     ->where('surat.id', $req->surat_id)->first();
-     $operator = DB::table('user')->where('role_id', '5')->first(); 
-
-    //  if($cekDataUser){
-    //   return $cekDataUser->user_id;
-    //  }
-
-     if($cekJumlahSuratDokumen < $cekJumlahSuratSyarat){
-      return response()->json(["status" => 2, "message" => "Dokumen Syarat Mohon Dilengkapi Terlebih Dahulu"]);
-
-     }else{
-        DB::beginTransaction();
-     try {
-
-        DB::table("surat")
-              ->where("id", $req->surat_id)
-              ->update([
-                "status" => 'Validasi Operator',
-                "updated_at" => Carbon::now("Asia/Jakarta")
-              ]);
-
-          DB::commit();
-          SendemailController::Send($cekDataUser->nama_lengkap, "Selamat! Pengajuan surat Anda telah sukses diajukan. Kami akan melakukan Validasi Operator, mohon tunggu pemberitahuan selanjutnya yaa","Permohonan Perizinan Berhasil Diajukan", $cekDataUser->email);
-          PushNotifController::sendMessage($cekDataUser->user_id,'Permohonan Perizinan Berhasil Diajukan','Selamat! Pengajuan surat Anda telah sukses diajukan. Kami akan melakukan Validasi Operator, mohon tunggu pemberitahuan selanjutnya yaa' );
-
-          PushNotifController::sendMessage($operator->id,'Hai Operator, Anda memiliki tugas baru menanti dengan nomor surat #'.$req->surat_id.' !','Ada surat dari pemohon yang perlu segera divalidasi. Silakan akses tugas Anda sekarang dan lakukan validasi. Terima kasih!' );
+       
+        DB::table("surat_dokumen")
+        ->where("surat_syarat_id", $req->surat_syarat_id)->where("surat_id", $req->surat_id)
+        ->update([
+          // "id" => $max,
+          "surat_id" => $req->surat_id,
+          "surat_syarat_id" => $req->surat_syarat_id,
+          "dokumen_upload"=>$imgPath,
+          // "created_at" => $tgl,
+          "updated_at" => $tgl
+        ]);
           
-          return response()->json(["status" => 1,'message' => 'Surat Berhasil Diajukan']);
-        } catch (\Exception $e) {
-          DB::rollback();
-          return response()->json(["status" => 2, "message" =>$e->getMessage()]);
+          DB::commit();
+      
+          return response()->json(["status" => 1, "message" => "Sukses Upload Dokumen Syarat Baru"]);
         }
-     }
+        else{
+        $file = $req->file('dokumen_syarat_pemohon');
+        $name = null;
+        if ($file != null) {
+          $name = $folder . '.' . $file->getClientOriginalExtension();
+          $file->move($path, $name);
+          $imgPath = $childPath . $name;
+        } else {
+            return 'error';
+        }
 
+       
+        DB::table("surat_dokumen")
+        ->insertGetId([
+          // "id" => $max,
+          "surat_id" => $req->surat_id,
+          "surat_syarat_id" => $req->surat_syarat_id,
+          "dokumen_upload"=>$imgPath,
+          "created_at" => $tgl,
+          "updated_at" => $tgl
+        ]);
+          
+          DB::commit();
+      }
+
+        return response()->json(["status" => 1, "message" => "Sukses Upload Dokumen Syarat"]);
+      } catch (\Exception $e) {
+        DB::rollback();
+        return response()->json(["status" => 2, "message" => $e]);
+      }
+  }
+
+  public function kirimSuratPengajuan(Request $req) {
+    $cekJumlahSuratSyarat = DB::table("surat_syarat")->where("surat_jenis_id", $req->surat_jenis_id)->count();
+    $cekJumlahSuratDokumen = DB::table("surat_dokumen")->where("surat_id", $req->surat_id)->count();
+    $cekDataUser = DB::table("surat")->join('user', 'user.id', '=', 'surat.user_id')
+    ->where('surat.id', $req->surat_id)->first();
+    $operator = DB::table('user')->where('role_id', '5')->first(); 
+
+   //  if($cekDataUser){
+   //   return $cekDataUser->user_id;
+   //  }
+   if($req->surat_jenis_id && $req->surat_id){
+    if($cekJumlahSuratDokumen < $cekJumlahSuratSyarat){
+     return response()->json(["status" => 2, "message" => "Dokumen Syarat Mohon Dilengkapi Terlebih Dahulu"]);
+
+    }else{
+       DB::beginTransaction();
+    try {
+
+       DB::table("surat")
+             ->where("id", $req->surat_id)
+             ->update([
+               "status" => 'Validasi Operator',
+               "updated_at" => Carbon::now("Asia/Jakarta")
+             ]);
+
+         DB::commit();
+         SendemailController::Send($cekDataUser->nama_lengkap, "Selamat! Pengajuan surat Anda telah sukses diajukan. Kami akan melakukan Validasi Operator.<br><br> Mohon tunggu pemberitahuan selanjutnya yaa","Permohonan Perizinan Berhasil Diajukan", $cekDataUser->email);
+         PushNotifController::sendMessage($cekDataUser->user_id,'Permohonan Perizinan Berhasil Diajukan','Selamat! Pengajuan surat Anda telah sukses diajukan. Kami akan melakukan Validasi Operator, mohon tunggu pemberitahuan selanjutnya yaa' );
+
+         PushNotifController::sendMessage($operator->id,'Hai Operator, Anda memiliki tugas baru menanti dengan nomor surat #'.$req->surat_id.' !','Ada surat dari pemohon yang perlu segera divalidasi. Silakan akses tugas Anda sekarang dan lakukan validasi. Terima kasih!' );
+         
+         return response()->json(["status" => 1,'message' => 'Surat Berhasil Diajukan']);
+       } catch (\Exception $e) {
+         DB::rollback();
+         return response()->json(["status" => 2, "message" =>$e->getMessage()]);
+       }
     }
+   }else{
+     return response()->json(["status" => 2, "message" => "Surat Jenis belum dipilih"]);
+   }
+
+   }
 
     public function validasi(Request $req) {
       DB::beginTransaction();
