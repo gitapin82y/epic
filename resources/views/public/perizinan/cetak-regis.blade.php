@@ -34,14 +34,16 @@
 </head>
 <body>
     <div class="card">
-        <img src="{{asset('assets/logo.png')}}" alt="">
+        <img src="{{asset('assets/public/img/logo.png')}}" alt="">
+        <p>EPIC</p>
+        <br>
+        <img src="data:image/png;base64, {!! $qrcode !!}">
+        <h4>Nomor Registrasi</h4>
+        <h1 class="nomor">{{$data->id}}</h1>
         <h4>Nama Instansi</h4>
         <p>{{$data->nama}}</p>
         <h4>Jenis Perizinan</h4>
         <p>{{$namaPerizinan}}</p>
-        <h4>Nomor Registrasi</h4>
-        <h1 class="nomor">{{$data->id}}</h1>
-        <img src="data:image/png;base64, {!! $qrcode !!}">
 </div>
 </body>
 </html>
