@@ -133,4 +133,16 @@ class SuratJenisController extends Controller
 
       return response()->json($data);
     }
+    
+    public function getData(Request $req){
+      try {
+        $data = DB::table("surat_jenis")->get();
+
+        return response()->json(['status' => 1, 'data' => $data]);
+        
+      } catch (\Exception $e) {
+        //throw $th;
+        return response()->json(['status' => 2, "message" => $e->getMessage()]);
+      }
+    }
 }

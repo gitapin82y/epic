@@ -437,4 +437,22 @@ else if(Auth::user()->role_id === 6){
       // 'surat' => $surat->updated_at->tz('Asia/Jakarta')->toDateString(),
     ]);
   }
+  public function getData(Request $req){
+    try{
+      if($req->user_id){
+        $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('user_id',$req->user_id)->where(function ($query) {
+          $query->where('status','not like', 'Ditolak')
+                ->orWhere('status','not like', 'Selesai');
+      })->get();
+      }else{
+        $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where(function ($query) {
+          $query->where('status','not like', 'Ditolak')
+                ->orWhere('status','not like', 'Selesai');
+      })->get();
+      }
+      return response()->json(['status' => 1, 'data' => $data]);
+    }catch(\Exception $e){
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
 }
