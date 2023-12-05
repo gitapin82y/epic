@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SuratController;
 use Illuminate\Http\Request;
 
 /*
@@ -28,7 +29,7 @@ Route::middleware('api')->group(function () {
     Route::post('pemohon/register', 'PemohonController@simpan');
 
     // Surat
-    Route::get('list-surat/', 'SuratController@getData');
+    Route::get('list-surat', [SuratController::class, 'getData']);
     Route::get('surat/detail', 'SuratController@edit');
     Route::post('surat/create', 'SuratController@simpan');
     Route::post('surat/upload-dokumen', 'SuratController@uploadDokumenSyarat');

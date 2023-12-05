@@ -439,14 +439,11 @@ else if(Auth::user()->role_id == 6){
   }
   public function getData(Request $req){
     try{
-      if($req->user_id){
-        $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('user_id',$req->user_id)->where(function ($query) {
-          $query->where('status','not like', 'Ditolak')
-                ->orWhere('status','not like', 'Selesai');
-      })->get();
+      if($req->input('user_id') ){
+        $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('user_id', $req->input('user_id'))->whereNotIn('surat.status', ['Selesai', 'Ditolak'])->get();
       }else{
-        if($req->status){
-        $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('status', $req->status)->where(function ($query) {
+        if($req->input('status')){
+        $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('status', $req->input('status'))->where(function ($query) {
           $query->where('status','not like', 'Ditolak')
                 ->orWhere('status','not like', 'Selesai');
       })->get();
