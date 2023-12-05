@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginPemohonController extends Controller
 {
@@ -22,6 +23,26 @@ class LoginPemohonController extends Controller
     public function index() {
         return view('login-system.loginpemohon');
     }
+
+    public function redirectToGoogle()
+{
+    return Socialite::driver('google')->redirect();
+}
+public function handleGoogleCallback()
+{
+    $user = Socialite::driver('google')->user();
+
+    $findUser = Account::where("email", $user->email)->where("role_id", "9")->first();
+
+    if ($findUser != null) {
+        Auth::login($findUser);
+        return redirect('/home');
+    } else {
+        // return response()->json(2);
+        return redirect('/registerpemohon?fullname='.$user->name.'&email='.$user->email);
+    }
+    // Proses login atau registrasi pengguna di sini
+}
 
     public function loginApi(Request $req) {
         $email = $req->email;

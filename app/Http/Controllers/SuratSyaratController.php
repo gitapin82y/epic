@@ -208,4 +208,19 @@ class SuratSyaratController extends Controller
 
       return response()->json($data);
     }
+
+    public function getData(Request $req){
+      try {
+        if($req->surat_jenis_id){
+        $data = DB::table("surat_syarat")->where('surat_jenis_id', $req->surat_jenis_id)->get();
+        }else{
+          $data = DB::table("surat_syarat")->get();
+        }
+        return response()->json(['status' => 1, 'data' => $data]);
+        
+      } catch (\Exception $e) {
+        //throw $th;
+        return response()->json(['status' => 2, "message" => $e->getMessage()]);
+      }
+    }
 }
