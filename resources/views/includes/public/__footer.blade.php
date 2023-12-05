@@ -11,7 +11,7 @@
     <div class="row col-12">
       <div class="col-12 col-md-3 mt-4 mt-md-0">
         <img src="{{asset('assets/public/img/logo.png')}}" class="mb-4" width="80px" alt="" />
-        <p>Lorem ipsum is placeholder text commonly used</p>
+        <p>Ajukan perizinan secara mandiri dengan sistem daring (online).</p>
         <small>Copyright 2023 By Epic | All Rights Reserved.</small>
       </div>
       <div class="col-12 col-md-3 mt-4 mt-md-0">
@@ -44,7 +44,7 @@
       <div class="col-12 col-md-3 mt-4 mt-md-0">
         <h3>Alamat</h3>
         <p>
-          Jalan Pagesangan 3 No.426, Pagesangan, Surabaya, Jawa Timur 60233
+          Jl Kenari No 57, Kec Jambangan, Kota Surabaya, Jawa Timur 60234
         </p>
       </div>
     </div>
