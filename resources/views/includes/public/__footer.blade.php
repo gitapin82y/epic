@@ -1,8 +1,10 @@
+@if (Auth::check())
 <div id="livechat">
   <a href="" class="btn-livechat"
     ><img src="{{asset('assets/public/img/icon-livechat.png')}}" alt="" /> Live Chat</a
   >
 </div>
+@endif
 
 <footer>
   <div class="container pt-3 pt-md-5">

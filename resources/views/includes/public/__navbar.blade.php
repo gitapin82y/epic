@@ -28,11 +28,13 @@
             >Buat Permohonan</a
           >
         </li>
+        @if (Auth::check())
         <li class="nav-item {{Request::is('permohonan-saya') ? 'active' : ''}}">
           <a class="nav-link" href="{{route('list-perizinan')}}"
             >Permohonan Saya</a
           >
         </li>
+        @endif
         <li class="nav-item {{Request::is('lacak-perizinan') || Request::is('detail-perizinan') ? 'active' : ''}}">
           <a class="nav-link" href="{{route('lacak-perizinan')}}"
             >Lacak Perizinan</a
