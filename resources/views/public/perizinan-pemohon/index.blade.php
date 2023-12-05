@@ -2,8 +2,9 @@
 @section('title','Permohonan Saya')
 
 @push('extra_style')
-<link rel="stylesheet" href="{{asset('assets/node_modules/izitoast/dist/css/iziToast.min.css')}}">
-<link rel="stylesheet" href="{{asset('assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
+<script src="{{asset('assets\js\sweetalert2.all.min.js')}}"></script>
+<link rel="stylesheet" href="{{asset('assets\DataTables-1.10.21\css\dataTables.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets\DataTables-1.10.21\css\jquery.dataTables.min.css')}}">
 <style>
 body {
     background-color: #f3f8fb;
@@ -79,8 +80,9 @@ id="buat-perizinan"
 @endsection
 
 @push('extra_script')
-<script type="text/javascript" src="{{asset('assets/datatables/datatables.min.js')}}"></script>
-<script src="{{asset('assets/node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="{{ asset('assets\DataTables-1.10.21\js\jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets\DataTables-1.10.21\js\dataTables.bootstrap4.js') }}"></script>
 
 <script>
     var selectedStatus = 'Semua'; 
@@ -203,7 +205,7 @@ function edit(id) {
         
             // Apply CSS styles to reduce the margin between para and link
             para.style.marginBottom = "1px";  // Adjust the value as needed
-            link.style.color = "#F3B137"
+            link.style.color = "#499db1"
             // Append paragraph and link to the container
             container.appendChild(para);
             container.appendChild(link);

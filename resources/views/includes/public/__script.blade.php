@@ -17,7 +17,18 @@ crossorigin="anonymous"
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@srexi/purecounterjs/dist/purecounter_vanilla.js"></script>
 <script src="{{asset('assets/public/main.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js" integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
    var baseUrl = '{{ url('/') }}';
+
+   iziToast.settings({
+  timeout: 3000,
+  icon: 'material-icons',
+  transitionIn: 'flipInX',
+  transitionOut: 'flipOutX',
+  closeOnClick: true,
+  position:'topRight'
+  });
+
 </script>

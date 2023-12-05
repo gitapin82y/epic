@@ -4,9 +4,9 @@
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header bg-warning">
+      <div class="modal-header bg-main text-white">
         <h4 class="modal-title">Detail Surat Perizinan</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body bg-light">
         <div class="row table_modal">
@@ -42,7 +42,7 @@
          @if (Auth::user()->role_id === 5 || Auth::user()->role_id === 6)
          <div class="col-12">
           <input type="hidden" class="form-control form-control-sm id" name="id" id="id">
-          <button class="btn btn-warning btn-md w-100 mb-3" id="validasi" type="button">
+          <button class="btn btn-main btn-md w-100 mb-3" id="validasi" type="button">
          @if (Auth::user()->role_id === 5)
            
             Validasi
@@ -50,7 +50,7 @@
             Verifikasi
             @endif
           </button>
-          <button class="btn btn-light btn-md w-100 text-warning border border-warning" id="showModalTolak" type="button">
+          <button class="btn btn-light btn-md w-100 text-main border border-main" id="showModalTolak" type="button">
             Tolak
           </button>
         </div>
