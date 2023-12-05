@@ -331,10 +331,7 @@
               >
                 <div class="accordion-body">
                   <p>
-                    Klik <a href="#pricelist">Gunakan Jasa</a> dan klik
-                    button masing" paket lalu akan diarahkan ke chat wa
-                    selanjutnya diskusi, pembayaran ( DP/full payment ),
-                    proses, revisi & finishing
+                    - Pemohon dapat melihat panduan penggunaan aplikasi di menu panduan
                   </p>
                 </div>
               </div>
@@ -361,12 +358,10 @@
               >
                 <div class="accordion-body">
                   <p>
-                    Kami menerima pembayaran ovo,dana,shopepay, bca dan bri.
-                    <br />
-                    Pembayaran ada 2 opsi : <br />
-                    - Full payment <br />
-                    - DP 50% dan kekurangan bisa di transfer ketika project
-                    sudah selesai
+                    Perizinan yang terdapat pada aplikasi ini, yaitu: <br>
+- Izin Pendirian Sekolah<br>
+- Izin Operasional <br>
+- Perpanjangan Surat Izin Operasional
                   </p>
                 </div>
               </div>
@@ -393,10 +388,7 @@
             >
               <div class="accordion-body">
                 <p>
-                  Anda dapat masuk ke akun anda dan melihat status perizinan
-                  anda. anda juga dapat mengakses menu tracking dan
-                  menginputkan id surat atau melakukan scan QR Code untuk
-                  melihat status perizinan
+                  Setelah mengajukan perizinan, Anda dapat masuk ke akun Anda dan melihat status perizinan Anda. Anda juga dapat mengakses menu tracking dan menginputkan ID Surat atau melakukan scan QR Code untuk melihat status perizinan.
                 </p>
               </div>
             </div>
@@ -422,9 +414,7 @@
             >
               <div class="accordion-body">
                 <p>
-                  Paling cepat 1 hari selesai namun tergantung tingkat
-                  kesulitan project, tetapi kebanyakan project selesai
-                  dengan waktu 2-4 hari
+                  Aplikasi ini tidak ada biaya dalam penggunaannya
                 </p>
               </div>
             </div>
@@ -450,9 +440,7 @@
             >
               <div class="accordion-body">
                 <p>
-                  Paling cepat 1 hari selesai namun tergantung tingkat
-                  kesulitan project, tetapi kebanyakan project selesai
-                  dengan waktu 2-4 hari
+                  Ya, aplikasi ini dirancang untuk diakses dari perangkat seluler, memudahkan pengguna untuk mengajukan perizinan kapan pun dan di mana pun. Anda dapat mengunduh aplikasi mobile untuk kenyamanan penggunaan yang lebih baik.
                 </p>
               </div>
             </div>
