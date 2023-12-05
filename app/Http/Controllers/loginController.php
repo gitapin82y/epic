@@ -24,22 +24,38 @@ class loginController extends Controller
     }
 
     public function loginApi(Request $req) {
-        $username = $req->username;
+        $email = $req->email;
         $password = $req->password;
-        $user = Account::where("username", $username)->first();
         // if ($user && Crypt::decryptString($user->password) ===  $req->password) {
-        if ($user && $user->password ===  $req->password) {
+        try{
+        $user = Account::where("email", $email)->first();
 
-
+            if ($user) {
+                if($user->password ===  $req->password){
+                $role = DB::table('role')->where('id', $user->role_id)->first();
             return response()->json([
-                        'success' => 'succes',
-                        'data' => $user
+                        'status' => 1,
+                        'message' => 'success login',
+                        'data' => [
+                            'user' => $user,
+                            'role' => $role
+                        ]
             ]);
+        }else{
+            return response()->json([
+                'status' => 2,
+                'message' => 'password yang anda masukkan salah'
+    ]);
+        }
         } else {
             return response()->json([
-                        'success' => 'gagal',
+                        'status' => 2,
+                        'message' => 'akun tidak ditemukan'
             ]);
         }
+    }catch (\Exception $e) {
+        return response()->json(["status" => 2, "message" =>$e->getMessage()]);
+    }
     }
     
 

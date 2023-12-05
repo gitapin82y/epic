@@ -61,15 +61,19 @@
                         </button>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                        {{-- <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4" > --}}
+                            <a href="{{ url('login/google') }}" class="btn btn-primary btn-lg btn-block">Login with Google</a>
+
 
                         {{-- <center> --}}
-                            <div id="g_id_onload"
+                            {{-- <div id="g_id_onload"
                                 data-client_id="971078947082-62am4du0ve1elv6aesj4tmgamsjd41fp.apps.googleusercontent.com"
                                 data-context="signin"
                                 data-ux_mode="popup"
                                 data-callback="handleCredentialResponse"
-                                data-auto_prompt="false">
+                                data-auto_prompt="false"
+                                style="display: none;"
+                                >
                             </div>
                   
                             <div class="g_id_signin"
@@ -78,9 +82,30 @@
                                 data-theme="outline"
                                 data-text="signin_with"
                                 data-size="large"
-                                data-logo_alignment="left">
-                            </div>
-                        </button>
+                                data-logo_alignment="left"
+                                data-custom_translations='{"signin_with":"", "use_another_account":""}'
+                                >
+                            </div> --}}
+{{-- 
+
+                            <div id="g_id_onload"
+    data-client_id="971078947082-62am4du0ve1elv6aesj4tmgamsjd41fp.apps.googleusercontent.com"
+    data-context="signin"
+    data-ux_mode="popup"
+    data-callback="handleCredentialResponse"
+    data-auto_prompt="false"
+    class="g_id_onload-class" style="display: none;">
+</div>
+
+<div class="g_id_signin"
+    data-type="standard"
+    data-shape="rectangular"
+    data-theme="outline"
+    data-size="large"
+    data-logo_alignment="left"
+    data-custom_translations='{"signin_with":"", "use_another_account":""}'> --}}
+{{-- </div> --}}
+                        {{-- </button> --}}
                             {{-- </center> --}}
                     </div>
                 </form>

@@ -57,12 +57,12 @@
                                       <div class="card-header p-0 col-12 justify-content-between px-4">
                                           <div class="col-md-6 col-lg-6 text-left col-12">
                                               <h5 class="text-blue">List Permohonan Perizinan 
-                                                @if(Auth::user()->role_id === 1) 
+                                                @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 9) 
                                                 ( <span id="filter_status">Semua</span> )
                                                 @endif</h5>
                                           </div>
                                           <div class="col-md-6 col-lg-6 d-flex col-12 justify-content-end">
-                                            @if(Auth::user()->role_id === 1)
+                                            @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 9)
 
                                             <div class="btn-group">
                                               <button type="button" class="btn btn-warning dropdown-toggle border-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #499DB1 !important">
