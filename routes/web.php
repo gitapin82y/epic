@@ -12,9 +12,29 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', 'PublicController@index')->name('homepage');
+
+Route::get('/buat-permohonan', 'PublicController@buatPermohonan')->name('buat-perizinan');
+Route::get('/ajukan-perizinan', 'PublicController@ajukanPerizinan')->name('ajukan-perizinan');
+Route::get('/ajukan-syarat-perizinan', 'PublicController@ajukanSyaratPerizinan')->name('ajukan-syarat-perizinan');
+Route::post('/create-perizinan', 'PublicController@createPerizinan');
+Route::get('/perizinan-berhasil-diajukan', 'PublicController@success')->name('pengajuan-berhasil');
+Route::get('/generate-pdf', 'PublicController@cetakRegisPdf');
+
+Route::get('/lacak-perizinan', 'PublicController@lacakPerizinan')->name('lacak-perizinan');
+Route::post('/lacak-perizinan', 'PublicController@detailPerizinan')->name('detail-perizinan');
+
+Route::get('/permohonan-saya', 'PerizinanPemohonController@index')->name('list-perizinan');
+Route::get('/get-data-perizinan', 'PublicController@getDataByJenis');
+
+Route::get('perizinan', 'PerizinanPemohonController@index');
+Route::get('perizinantable/{status}', 'PerizinanPemohonController@datatable');
+Route::get('editperizinan', 'PerizinanPemohonController@edit');
+Route::get('pemohonaccjadwalperizinan', 'PerizinanPemohonController@pemohonAccJadwalSurvey');
+Route::get('jadwalulang', 'PerizinanPemohonController@jadwalulang');
 
 Route::group(['middleware' => 'guest'], function () {
-    Route::get('/', 'loginController@admin')->name('admin');
+    Route::get('/admin', 'loginController@admin')->name('admin');
 
     Route::get('login', 'loginController@authenticate')->name('login');
     Route::get('register', 'RegisterController@index')->name('register');
