@@ -20,7 +20,7 @@ class LoginPemohonController extends Controller
     }
 
     public function index() {
-        return view('auth.loginpemohon');
+        return view('login-system.loginpemohon');
     }
 
     public function loginApi(Request $req) {
