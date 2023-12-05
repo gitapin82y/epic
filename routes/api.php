@@ -35,6 +35,9 @@ Route::middleware('api')->group(function () {
     Route::post('surat/upload-dokumen', 'SuratController@uploadDokumenSyarat');
     Route::post('surat/kirim-surat', 'SuratController@kirimSuratPengajuan');
     Route::post('surat/validasi-surat', 'SuratController@validasi');
+    Route::post('surat/verifikasi-surat', 'SuratController@validasi');
+    Route::post('surat/kembalikan', 'SuratController@kembalikan');
+
 
      // Surat Jenis
      Route::get('surat-jenis/', 'SuratJenisController@getData');
