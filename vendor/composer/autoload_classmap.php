@@ -2209,7 +2209,6 @@ return array(
     'Laravel\\Socialite\\Two\\LinkedInProvider' => $vendorDir . '/laravel/socialite/src/Two/LinkedInProvider.php',
     'Laravel\\Socialite\\Two\\ProviderInterface' => $vendorDir . '/laravel/socialite/src/Two/ProviderInterface.php',
     'Laravel\\Socialite\\Two\\SlackProvider' => $vendorDir . '/laravel/socialite/src/Two/SlackProvider.php',
-    'Laravel\\Socialite\\Two\\Token' => $vendorDir . '/laravel/socialite/src/Two/Token.php',
     'Laravel\\Socialite\\Two\\TwitterProvider' => $vendorDir . '/laravel/socialite/src/Two/TwitterProvider.php',
     'Laravel\\Socialite\\Two\\User' => $vendorDir . '/laravel/socialite/src/Two/User.php',
     'Laravel\\Tinker\\ClassAliasAutoloader' => $vendorDir . '/laravel/tinker/src/ClassAliasAutoloader.php',

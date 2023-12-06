@@ -9,10 +9,16 @@
             <a href="">EPIC</a>
         </div>
         <ul class="sidebar-menu pb-5">
+
+            @if (Auth::user()->role_id ==9)
+            <li class="menu-header text-black">Profil</li>
+
+            <li class=""><a class="nav-link" href="{{ url('profil-pengguna') }}"><i class="fas fa-user"></i></i> <span>Profil Pengguna</span></a></li>
+            @else
             <li class="menu-header text-black">Dashboard</li>
-        
 
             <li class=""><a class="nav-link" href="{{ url('home') }}"><i class="fas fa-home"></i></i> <span>Dashboard</span></a></li>
+            @endif
             @if (Auth::user()->role_id ==1)
 
             <li class="menu-header text-black">Master</li>

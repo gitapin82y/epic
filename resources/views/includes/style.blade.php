@@ -16,4 +16,28 @@
     .select2-container{
         width: 100% !important;
     }
+
+    .btn-main{
+        background-color:#499db1 !important;
+  color: white !important;
+  padding: 10px 30px;
+  border-radius: 60px;
+    }
+    .btn-white {
+  color: #499db1;
+  background-color: white;
+  padding: 10px 30px;
+  border: 1px solid #499db1;
+  border-radius: 60px;
+}
+.btn-white:hover {
+  color: #499db1;
+  border: 1px solid #499db1;
+}
+    .bg-main{
+        background-color: #499db1;
+    }
+    .btn-update-profile{
+        justify-content: center;
+    }
 </style>

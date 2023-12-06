@@ -35,6 +35,11 @@ Route::get('editperizinan', 'PerizinanPemohonController@edit');
 Route::get('pemohonaccjadwalperizinan', 'PerizinanPemohonController@pemohonAccJadwalSurvey');
 Route::get('jadwalulang', 'PerizinanPemohonController@jadwalulang');
 
+
+Route::get('profil-pengguna', 'PublicController@profilPengguna');
+Route::put('/profil-pengguna/{id}', 'PublicController@profilPenggunaUpdate')->name('profil-pengguna.update');
+
+
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/admin', 'loginController@admin')->name('admin');
 

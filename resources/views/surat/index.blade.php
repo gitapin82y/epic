@@ -21,34 +21,6 @@
 <style type="text/css">
 
 </style>
-<!-- partial -->
-
-                    {{-- <h4 class="card-title">List Permohonan Perizinan 
-                      @if(Auth::user()->role_id === 1) 
-                      ( <span id="filter_status">Semua</span> )
-                      @endif
-                    </h4> --}}
-                    
-                    {{-- <div class="col-md-12 col-sm-12 col-xs-12" align="right" style="margin-bottom: 15px;">
-                      @if(Auth::user()->role_id === 1)
-
-                    	<div class="btn-group">
-                        <button type="button" class="btn btn-warning dropdown-toggle border-0 shadown-none" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #499DB1 !important">
-                            Filter Status
-                        </button>
-                        <div class="dropdown-menu">
-                             <a class="dropdown-item" href="#" onclick="handleFilter('Semua')">Semua</a>
-                            <a class="dropdown-item" href="#" onclick="handleFilter('Pengisian Dokumen')">Pengisian Dokumen</a>
-                            <a class="dropdown-item" href="#" onclick="handleFilter('Validasi Operator')">Validasi Operator</a>
-                            <a class="dropdown-item" href="#" onclick="handleFilter('Verifikasi Verifikator')">Verifikasi Verifikator</a>
-                            <a class="dropdown-item" href="#" onclick="handleFilter('Penjadwalan Survey')">Penjadwalan Survey</a>
-                            <a class="dropdown-item" href="#" onclick="handleFilter('Verifikasi Hasil Survey')">Verifikasi Hasil Survey</a>
-                            <a class="dropdown-item" href="#" onclick="handleFilter('Verifikasi Kepala Dinas')">Verifikasi Kepala Dinas</a>
-                            <a class="dropdown-item" href="#" onclick="handleFilter('Selesai')">Selesai</a>
-                        </div>
-                    </div>
-                      @endif
-                    </div> --}}
                     <div class="main-content">
                       <section class="section mt-4">
                           <div class="row">

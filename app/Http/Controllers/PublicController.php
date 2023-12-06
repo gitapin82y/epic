@@ -123,5 +123,31 @@ class PublicController extends Controller
 
 
     }
+
+    public function profilPengguna(Request $req){
+        $user = DB::table('user')->where('id',Auth::user()->id)->first();
+        return view('profil-pengguna',compact('user'));
+    }
+
+    public function profilPenggunaUpdate(Request $req,$id){
+        $data = DB::table('user')->where('id',$id)->update([
+            'nama_lengkap' => $req->input('nama_lengkap'),
+            'email' => $req->input('email'),
+            'no_telp' => $req->input('no_telp'),
+            'tanggal_lahir' => $req->input('tanggal_lahir'),
+            'kabupaten_kota' => $req->input('kabupaten_kota'),
+            'jenis_kelamin' => $req->input('jenis_kelamin'),
+            'jenis_identitas' => $req->input('jenis_identitas'),
+            'nomor_identitas' => $req->input('nomor_identitas'),
+            'alamat' => $req->input('alamat'),
+            'pekerjaan' => $req->input('pekerjaan'),
+            'kelurahan' => $req->input('kelurahan'),
+            'kecamatan' => $req->input('kecamatan'),
+            'provinsi' => $req->input('provinsi'),
+            'username' => $req->input('username'),
+            // ... tambahkan kolom lainnya
+        ]);
+        return redirect()->back()->with('success', 'Perubahan berhasil disimpan');
+    }
     
 }
