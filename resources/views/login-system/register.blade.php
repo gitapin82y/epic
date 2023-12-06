@@ -86,7 +86,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="provinsi" class="mb-2">Provinsi</label>
                             <select class="form-control form-control-sm provinsi" name="provinsiselect" id="provinsiselect" onchange="selectProvinsi()" >
-                              <option disabled>Pilih</option>
+                              <option>Pilih</option>
                             </select>
                             <input type="hidden" name="provinsi" id="provinsivalue">
                           </div>
@@ -97,7 +97,7 @@
                           <div class="col-md-6 mb-3">
                             <label for="kabupaten_kota" class="mb-2">Kabupaten / Kota</label>
                             <select class="form-control form-control-sm provinsi" name="kabupatenselect" id="kabupatenselect" onchange="selectKabupaten()" >
-                              <option disabled>Pilih</option>
+                              <option>Pilih</option>
                             </select>
                             <input type="hidden" name="kabupaten_kota" id="kabupatenvalue">
                           </div>
@@ -111,14 +111,14 @@
                           <div class="col-md-6 mb-3">
                             <label for="kecamatan" class="mb-2">Kecamatan</label>
                             <select class="form-control form-control-sm provinsi" name="kecamatanselect" id="kecamatanselect" onchange="selectKecamatan()" >
-                              <option disabled>Pilih</option>
+                              <option>Pilih</option>
                             </select>
                             <input type="hidden" name="kecamatan" id="kecamatanvalue">
                           </div>
                           <div class="col-md-6 mb-3">
                             <label for="jenis_kelamin" class="mb-2">Jenis Kelamin</label>
                             <select class="form-control form-control-sm jenis_kelamin" name="jenis_kelamin" id="jenis_kelamin" >
-                              <option disabled>Pilih</option>
+                              <option>Pilih</option>
                               <option value="Laki-Laki">Laki - Laki</option>
                               <option value="Perempuan">Perempuan</option>
                             </select>
@@ -126,14 +126,14 @@
                           <div class="col-md-6 mb-3">
                             <label for="kelurahan" class="mb-2">Kelurahan</label>
                             <select class="form-control form-control-sm provinsi" name="kelurahanselect" id="kelurahanselect" onchange="selectKelurahan()" >
-                              <option disabled>Pilih</option>
+                              <option>Pilih</option>
                             </select>
                             <input type="hidden" name="kelurahan" id="kelurahanvalue">
                           </div>
                           <div class="col-md-6 mb-3">
                             <label for="jenis_identitas" class="mb-2">Jenis Identitas</label>
                             <select class="form-control form-control-sm jenis_identitas" name="jenis_identitas" id="jenis_identitas" >
-                              <option disabled>Pilih</option>
+                              <option>Pilih</option>
                               <option value="KTP">KTP</option>
                               <option value="Paspor">Paspor</option>
                             </select>
