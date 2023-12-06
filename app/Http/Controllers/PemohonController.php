@@ -126,7 +126,7 @@ class PemohonController extends Controller
               "tanggal_lahir" => $req->tanggal_lahir,
               "tempat_lahir" => $req->tempat_lahir,
               "pekerjaan" => $req->pekerjaan,
-              "is_active" => "N",
+              "is_active" => "Y",
               "created_at" => Carbon::now("Asia/Jakarta"),
               "updated_at" => Carbon::now("Asia/Jakarta")
             ]);
