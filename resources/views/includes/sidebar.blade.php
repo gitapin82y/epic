@@ -12,7 +12,7 @@
             <li class="menu-header text-black">Dashboard</li>
         
 
-            <li class=""><a class="nav-link" href=""><i class="fas fa-home"></i></i> <span>Dashboard</span></a></li>
+            <li class=""><a class="nav-link" href="{{ url('home') }}"><i class="fas fa-home"></i></i> <span>Dashboard</span></a></li>
             @if (Auth::user()->role_id ==1)
 
             <li class="menu-header text-black">Master</li>
