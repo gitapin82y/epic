@@ -96,6 +96,7 @@
     data-auto_prompt="false"
     class="g_id_onload-class" style="display: none;">
 </div>
+asd
 
 <div class="g_id_signin"
     data-type="standard"

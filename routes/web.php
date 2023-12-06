@@ -61,8 +61,8 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('registerpemohon/register', 'RegisterPemohonController@register');
     Route::get('loginGoogle', 'LoginPemohonController@google');
     // routes/web.php
-Route::get('login/google', 'LoginPemohonController@redirectToGoogle');
-Route::get('login/google/callback', 'LoginPemohonController@handleGoogleCallback');
+    Route::get('login/google', 'LoginPemohonController@redirectToGoogle');
+    Route::get('login/google/callback', 'LoginPemohonController@handleGoogleCallback');
 
 });
 

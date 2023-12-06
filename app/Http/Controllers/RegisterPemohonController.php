@@ -33,6 +33,7 @@ class RegisterPemohonController extends Controller
     public function register(Request $req) {
       DB::beginTransaction();
       try { 
+
         $cekemail = DB::table("user")->where("email", $req->email)->first();
         $ceknohp = DB::table("user")->where("no_telp", $req->no_telp)->first();
 
@@ -56,9 +57,9 @@ class RegisterPemohonController extends Controller
           Session::flash('tanggal_lahir','Tanggal lahir kosong!');
           $valid = false;
         }
-        
+
         if ($valid == false) {
-          return back();
+          // return back();
         } else {
           DB::table("user")
             ->insert([
@@ -70,7 +71,7 @@ class RegisterPemohonController extends Controller
               "nomor_identitas" => $req->nomor_identitas,
               "jenis_kelamin" => $req->jenis_kelamin,
               "tempat_lahir" => $req->tempat_lahir,
-              "tanggal_lahir" => Carbon::parse($req->tanggal_lahir)->format("d M y"),
+              "tanggal_lahir" => Carbon::parse($req->tanggal_lahir)->format("Y-m-d"),
               "provinsi" => $req->provinsi,
               "kabupaten_kota" => $req->kabupaten_kota,
               "kecamatan" => $req->kecamatan,
@@ -136,7 +137,7 @@ class RegisterPemohonController extends Controller
               "nomor_identitas" => $req->nomor_identitas,
               "jenis_kelamin" => $req->jenis_kelamin,
               "tempat_lahir" => $req->tempat_lahir,
-              "tanggal_lahir" => Carbon::parse($req->tanggal_lahir)->format("d M y"),
+              "tanggal_lahir" => Carbon::parse($req->tanggal_lahir)->format("Y-m-d"),
               "provinsi" => $req->provinsi,
               "kabupaten_kota" => $req->kabupaten_kota,
               "kecamatan" => $req->kecamatan,

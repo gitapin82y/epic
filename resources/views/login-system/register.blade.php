@@ -182,9 +182,10 @@
 <script src="{{asset('assets/js/hoverable-collapse.js')}}"></script>
 <script src="{{asset('assets/js/misc.js')}}"></script>
 <script>
-
-    provinsi();
-  
+    $(document).ready(function(){
+      provinsi();
+    })
+    
     function provinsi() {
       $.ajax({
         url: "https://twilight-frost-2680.fly.dev/prov",

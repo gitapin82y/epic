@@ -25,24 +25,25 @@ class LoginPemohonController extends Controller
     }
 
     public function redirectToGoogle()
-{
-    return Socialite::driver('google')->redirect();
-}
-public function handleGoogleCallback()
-{
-    $user = Socialite::driver('google')->user();
-
-    $findUser = Account::where("email", $user->email)->where("role_id", "9")->first();
-
-    if ($findUser != null) {
-        Auth::login($findUser);
-        return redirect('/');
-    } else {
-        // return response()->json(2);
-        return redirect('/registerpemohon?fullname='.$user->name.'&email='.$user->email);
+    {
+        return Socialite::driver('google')->redirect();
     }
-    // Proses login atau registrasi pengguna di sini
-}
+    public function handleGoogleCallback()
+    {
+        $user = Socialite::driver('google')->user();
+
+        dd($user);
+        $findUser = Account::where("email", $user->email)->where("role_id", "9")->first();
+
+        if ($findUser != null) {
+            Auth::login($findUser);
+            return redirect('/');
+        } else {
+            // return response()->json(2);
+            return redirect('/registerpemohon?fullname='.$user->name.'&email='.$user->email);
+        }
+        // Proses login atau registrasi pengguna di sini
+    }
 
     public function loginApi(Request $req) {
         $email = $req->email;
