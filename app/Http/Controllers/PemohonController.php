@@ -149,7 +149,7 @@ class PemohonController extends Controller
               "nama_lengkap" => $req->nama_lengkap,
               "username" => $req->username,
               "email" => $req->email,
-              "password" => encryptString$req->password,
+              "password" => $req->password,
               "alamat" => $req->alamat,
               "provinsi" => $req->provinsi,
               "kabupaten_kota" => $req->kabupaten_kota,
