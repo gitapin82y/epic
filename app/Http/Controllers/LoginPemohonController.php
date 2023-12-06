@@ -36,7 +36,7 @@ public function handleGoogleCallback()
 
     if ($findUser != null) {
         Auth::login($findUser);
-        return redirect('/home');
+        return redirect('/');
     } else {
         // return response()->json(2);
         return redirect('/registerpemohon?fullname='.$user->name.'&email='.$user->email);
@@ -97,7 +97,7 @@ public function handleGoogleCallback()
 	            			          ->first();
 
             	// if (Crypt::decryptString($user_pass->password) === $password) {
-            	if (Crypt::decryptString($user_pass->password) === $password) {
+            	if ($user_pass->password === $password) {
 
            			Account::where('email',$email)->update([
                      'updated_at'=>Carbon::now(),
@@ -108,7 +108,7 @@ public function handleGoogleCallback()
                 if ($user_pass->is_active == "Y") {
                   Auth::login($user);
                   // logController::inputlog('Login', 'Login', $username);
-                  return Redirect('/home');
+                  return Redirect('/');
                 } else {
                   $id = $user_pass->id;
                   return redirect("/verification/".encrypt($id)."");

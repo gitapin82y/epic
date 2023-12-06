@@ -32,14 +32,14 @@
             </div>
 
             <div class="card-body">
-                <form class="needs-validation" novalidate="" method="GET" action="{{ url('login') }}">
+                <form class="needs-validation" novalidate="" method="GET" action="{{ url('loginpemohon/auth') }}">
                     {{ csrf_field() }}
                     
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input id="username"class="form-control" type="text" name="username" id="username" placeholder="Username" autofocus="">
-                        @if (session('username'))
-                        <div class="red"  style="color: red"><b>Username Tidak Ada</b></div>
+                        <label for="email">Email</label>
+                        <input id="email"class="form-control" type="email" name="email" id="email" placeholder="email" autofocus="">
+                        @if (session('email'))
+                        <div class="red"  style="color: red"><b>Email Tidak Ada</b></div>
                       @endif
     
                     </div>

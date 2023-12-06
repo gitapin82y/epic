@@ -31,10 +31,11 @@ class PerizinanPemohonController extends Controller
             if(Auth::user()->role_id == 1 || Auth::user()->role_id == 9){
       
             if($status != 'Semua'){
-            $data = DB::table('surat')->where('status', $status)->get();
+            $data = DB::table('surat')->where('status', $status)->orderBy("created_at", "asc")
+            ->get();
           }else{
             // $data;
-            $data = DB::table('surat')->where('status' ,'not like', 'Selesai')->where('status' ,'not like', 'Ditolak')->get();
+            $data = DB::table('surat')->where('status' ,'not like', 'Selesai')->where('status' ,'not like', 'Ditolak')->orderBy("created_at", "asc")->get();
       
           }
         }else if(Auth::user()->role_id == 5){

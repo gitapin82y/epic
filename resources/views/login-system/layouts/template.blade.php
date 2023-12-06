@@ -20,8 +20,7 @@
         </section>
     </div>
 
-
-    @include('includes.script')
+    {{-- @include('includes.script') --}}
 </body>
 
 </html>

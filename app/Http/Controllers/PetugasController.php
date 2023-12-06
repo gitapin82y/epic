@@ -40,7 +40,7 @@ class PetugasController extends Controller
           //   return FormatRupiah($data->uangkeluar_nominal);
           // })
           ->addColumn("password", function($data) {
-            $encrypted = Crypt::encryptString('adminutama123');
+            // $encrypted = Crypt::encryptString('adminutama123');
 		// $decrypted = Crypt::decryptString($data->password);
             return $data->password;
           })
@@ -88,7 +88,7 @@ class PetugasController extends Controller
               "nama_lengkap" => $req->nama_lengkap,
               "email" => $req->email,
               "username" => $req->username,
-              "password" => Crypt::encryptString($req->password),
+              "password" => $req->password,
               "role_id" => $req->role,
               "is_active" => "Y",
               "created_at" => Carbon::now("Asia/Jakarta"),
@@ -111,7 +111,7 @@ class PetugasController extends Controller
               "nama_lengkap" => $req->nama_lengkap,
               "email" => $req->email,
               "username" => $req->username,
-              "password" => Crypt::encryptString($req->password),
+              "password" => $req->password,
               "role_id" => $req->role,
               "updated_at" => Carbon::now("Asia/Jakarta")
             ]);

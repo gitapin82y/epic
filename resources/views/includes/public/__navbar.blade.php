@@ -49,7 +49,7 @@
           <div class="dropdown-content">
             <a href="#">Profil Pengguna</a>
             <a href="{{ url('arsip') }}">Arsip Perizinan</a>
-            <a href="#">Ulasan</a>
+            {{-- <a href="#">Ulasan</a> --}}
             <a href="{{ url('logout') }}">Logout</a>
           </div>
         </div>

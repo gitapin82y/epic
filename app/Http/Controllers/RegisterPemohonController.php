@@ -24,9 +24,9 @@ class RegisterPemohonController extends Controller
       if ($req->fullname != null) {
         $nama = $req->fullname;
         $email = $req->email;
-        return view("auth.registerpemohon", compact("email", "nama"));
+        return view("login-system.register", compact("email", "nama"));
       } else {
-        return view("auth.registerpemohon");
+        return view("login-system.register");
       }
     }
 
@@ -63,7 +63,7 @@ class RegisterPemohonController extends Controller
           DB::table("user")
             ->insert([
               "role_id" => "9",
-              "password" => Crypt::encryptString($req->password),
+              "password" => $req->password,
               "email" => $req->email,
               "nama_lengkap" => $req->nama_lengkap,
               "jenis_identitas" => $req->jenis_identitas,

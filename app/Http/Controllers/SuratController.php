@@ -35,10 +35,10 @@ class SuratController extends Controller
       if(Auth::user()->role_id == 1 || Auth::user()->role_id == 9){
 
       if($status != 'Semua'){
-      $data = DB::table('surat')->where('status', $status)->get();
+      $data = DB::table('surat')->where('status', $status)->orderby("created_at", "DESC")->get();
     }else{
       // $data;
-      $data = DB::table('surat')->where('status' ,'not like', 'Selesai')->where('status' ,'not like', 'Ditolak')->get();
+      $data = DB::table('surat')->where('status' ,'not like', 'Selesai')->where('status' ,'not like', 'Ditolak')->orderby("created_at", "DESC")->get();
 
     }
   }else if(Auth::user()->role_id == 5){

@@ -62,7 +62,7 @@ class loginController extends Controller
     public function authenticate(Request $req) {
 
         $rules = array(
-            'username' => 'required|min:3', // make sure the email is an actual email
+            'email' => 'required|min:3', // make sure the email is an actual email
             'password' => 'required|min:2' // password can only be alphanumeric and has to be greater than 3 characters
         );
     	// dd($req->all());
@@ -72,7 +72,7 @@ class loginController extends Controller
                             ->withErrors($validator) // send back all errors to the login form
                             ->withInput($req->except('password')); // send back the input (not the password) so that we can repopulate the form
         } else {
-            $username  = $req->username;
+            $email  = $req->email;
             $password  = $req->password;
             // $encrypt = Crypt::encryptString('adminutama123');
             
@@ -80,20 +80,20 @@ class loginController extends Controller
             // $pass_benar=$password;
             // $username = str_replace('\'', '', $username);
 
-            $user = Account::where("username", $username)->first();
+            $user = Account::where("email", $email)->first();
 
             $user_valid = [];
             // dd($req->all());
 
            	if ($user != null) {
-           		$user_pass = Account::where('username',$username)
+           		$user_pass = Account::where('email',$email)
 	            			        //   ->where('password',$encrypt)
 	            			          ->first();
 
             	// if (Crypt::decryptString($user_pass->password) === $password) {
             	if ($user_pass->password === $password) {
 
-           			Account::where('username',$username)->update([
+           			Account::where('email',$email)->update([
                      'updated_at'=>Carbon::now(),
                      'is_login' => "Y"
                  	  ]);
@@ -110,11 +110,11 @@ class loginController extends Controller
                 }
             	}else{
                 Session::flash('password','Password Yang Anda Masukan Salah!');
-                return back()->with('password','username');
+                return back()->with('password','email');
             	}
            	}else{
-           		Session::flash('username','Username Tidak Ada');
-           		return back()->with('password','username');
+           		Session::flash('email','Email Tidak Ada');
+           		return back()->with('password','email');
            	}
 
 
