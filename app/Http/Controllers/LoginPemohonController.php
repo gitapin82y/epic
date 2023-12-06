@@ -45,6 +45,21 @@ class LoginPemohonController extends Controller
         // Proses login atau registrasi pengguna di sini
     }
 
+    public function apigoogle(Request $req) {
+        $findUser = Account::where("email", $req->email)->first();
+
+        if ($findUser != null) {
+            return response()->json([
+                'success' => 'succes',
+                'data' => $findUser
+            ]);
+        } else {
+            return response()->json([
+                'success' => 'belum register',
+            ]);
+        }
+    }
+
     public function loginApi(Request $req) {
         $email = $req->email;
         $password = $req->password;

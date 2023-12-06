@@ -39,14 +39,11 @@ Route::middleware('api')->group(function () {
     Route::post('surat/kembalikan', 'SuratController@kembalikan');
     Route::get('generate-pdf', 'PublicController@cetakRegisPdf');
 
+    // Surat Jenis
+    Route::get('surat-jenis/', 'SuratJenisController@getData');
 
-
-
-     // Surat Jenis
-     Route::get('surat-jenis/', 'SuratJenisController@getData');
-
-     // Surat Syarat
-     Route::get('surat-syarat/', 'SuratSyaratController@getData');
+    // Surat Syarat
+    Route::get('surat-syarat/', 'SuratSyaratController@getData');
 
     Route::any('/listroom', 'ChatController@apilistroom');
     Route::any('/listchat', 'ChatController@apilistchat');
@@ -55,4 +52,6 @@ Route::middleware('api')->group(function () {
 
     Route::any('loginpemohon', 'LoginPemohonController@loginApi');
     Route::any('registerpemohon', 'RegisterPemohonController@apiregister');
+
+    Route::get('logingoogle', 'LoginPemohonController@apigoogle');
 });
