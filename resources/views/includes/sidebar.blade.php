@@ -13,7 +13,7 @@
         
 
             <li class=""><a class="nav-link" href=""><i class="fas fa-home"></i></i> <span>Dashboard</span></a></li>
-            @if (Auth::user()->role_id ===1)
+            @if (Auth::user()->role_id ==1)
 
             <li class="menu-header text-black">Master</li>
 
@@ -34,7 +34,7 @@
             <li class=""><a class="nav-link" href="{{ url('surat') }}"><i class="fas fa-file-alt"></i><span>Daftar Perizinan</span></a></li>
 
             <li class=""><a class="nav-link" href=""><i class="fas fa-file-alt"></i><span>Arsip Perizinan</span></a></li>
-            @if (Auth::user()->role_id === 1 || Auth::user()->role_id == 6)
+            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 6)
 
             <li class="menu-header text-black">Survey</li>
 
@@ -48,7 +48,7 @@
             </li>
             @endif
 
-            @if (Auth::user()->role_id === 1)
+            @if (Auth::user()->role_id == 1)
 
             <li class="menu-header text-black">Survey Kepuasan</li>
 
