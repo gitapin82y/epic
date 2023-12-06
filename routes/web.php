@@ -22,7 +22,9 @@ Route::get('/perizinan-berhasil-diajukan', 'PublicController@success')->name('pe
 Route::get('/generate-pdf', 'PublicController@cetakRegisPdf');
 
 Route::get('/lacak-perizinan', 'PublicController@lacakPerizinan')->name('lacak-perizinan');
-Route::post('/lacak-perizinan/{id}', 'PublicController@detailPerizinan')->name('detail-perizinan');
+Route::post('/lacak-perizinan', 'PublicController@detailPerizinan')->name('detail-perizinan');
+// Route::get('/detail-perizinan/{id}', 'PublicController@getDetailPerizinan')->name('detail-perizinan');
+
 
 Route::get('/permohonan-saya', 'PerizinanPemohonController@index')->name('list-perizinan');
 Route::get('/get-data-perizinan', 'PublicController@getDataByJenis');
