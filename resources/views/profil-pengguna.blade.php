@@ -36,8 +36,8 @@
                             <div class="form-group col-md-6 col-12">
                                 <label for="jenis_kelamin">Jenis Kelamin</label>
                                 <select class="form-control" id="jenis_kelamin" name="jenis_kelamin">
-                                    <option value="male" {{ $user->jenis_kelamin == 'Laki-Laki' ? 'selected' : '' }}>Laki-laki</option>
-                                    <option value="female" {{ $user->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                                    <option value="Laki-Laki" {{ $user->jenis_kelamin == 'Laki-Laki' ? 'selected' : '' }}>Laki-laki</option>
+                                    <option value="Perempuan" {{ $user->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                                 </select>
                             </div>
                     
@@ -111,7 +111,7 @@
 <!-- content-wrapper ends -->
 @endsection
 
-@section('extra_script')
+@section('soloScript')
 <script>
   @if (session('success'))
   iziToast.success({
