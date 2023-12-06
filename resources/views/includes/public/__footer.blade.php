@@ -1,6 +1,6 @@
 @if (Auth::check())
 <div id="livechat">
-  <a href="" class="btn-livechat"
+  <a href="{{ url("chat") }}" class="btn-livechat"
     ><img src="{{asset('assets/public/img/icon-livechat.png')}}" alt="" /> Live Chat</a
   >
 </div>
