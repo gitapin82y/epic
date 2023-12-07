@@ -47,7 +47,7 @@
           {{Auth::user()->nama_lengkap}}
           <i class="fa-solid fa-chevron-down ms-1 ml-1"></i>
           <div class="dropdown-content">
-            <a href="#">Profil Pengguna</a>
+            <a href="{{ url('profil-pengguna') }}">Profil Pengguna</a>
             <a href="{{ url('arsip') }}">Arsip Perizinan</a>
             {{-- <a href="#">Ulasan</a> --}}
             <a href="{{ url('logout') }}">Logout</a>
