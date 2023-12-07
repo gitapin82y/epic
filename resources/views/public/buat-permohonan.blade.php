@@ -36,9 +36,16 @@ id="buat-perizinan"
   <div class="content px-5">
     <div class="row px-2 justify-content-between">
       <h4 class="align-self-center col-12 col-md-6">Panduan Permohonan Perizinan</h4>
-      <a href="#" class="btn ajukanPerizinan btn-main col-12 col-md-4 px-4 py-3"
+      @if (Auth::check())
+        <a href="#" class="btn ajukanPerizinan btn-main col-12 col-md-4 px-4 py-3"
         >Syarat Lengkap? Ajukan Permohonan</a
       >
+      @else
+      <a href="{{url('loginpemohon')}}" class="btn btn-main col-12 col-md-4 px-4 py-3"
+      >Syarat Lengkap? Ajukan Permohonan</a
+    >
+      @endif
+
     </div>
     <div class="row mt-5">
       <table class="table" id="table_perizinan">

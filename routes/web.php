@@ -24,22 +24,11 @@ Route::get('/generate-pdf', 'PublicController@cetakRegisPdf');
 Route::get('/lacak-perizinan', 'PublicController@lacakPerizinan')->name('lacak-perizinan');
 Route::post('/lacak-perizinan', 'PublicController@detailPerizinan')->name('detail-perizinan');
 // Route::get('/detail-perizinan/{id}', 'PublicController@getDetailPerizinan')->name('detail-perizinan');
-
-
 Route::get('/permohonan-saya', 'PerizinanPemohonController@index')->name('list-perizinan');
 Route::get('/get-data-perizinan', 'PublicController@getDataByJenis');
 
-Route::get('perizinan', 'PerizinanPemohonController@index');
-Route::get('perizinantable/{status}', 'PerizinanPemohonController@datatable');
-Route::get('editperizinan', 'PerizinanPemohonController@edit');
-Route::get('pemohonaccjadwalperizinan', 'PerizinanPemohonController@pemohonAccJadwalSurvey');
-Route::get('jadwalulang', 'PerizinanPemohonController@jadwalulang');
 
 
-Route::get('profil-pengguna', 'PublicController@profilPengguna');
-Route::put('/profil-pengguna/{id}', 'PublicController@profilPenggunaUpdate')->name('profil-pengguna.update');
-
-Route::post('/update-password-pemohon', 'PublicController@updatePassword');
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/admin', 'loginController@admin')->name('admin');
@@ -74,6 +63,19 @@ Route::group(['middleware' => 'guest'], function () {
 
 
 Route::group(['middleware' => 'auth'], function () {
+
+//pemohon
+Route::get('perizinan', 'PerizinanPemohonController@index');
+Route::get('perizinantable/{status}', 'PerizinanPemohonController@datatable');
+Route::get('editperizinan', 'PerizinanPemohonController@edit');
+// Route::get('pemohonaccjadwalperizinan', 'PerizinanPemohonController@pemohonAccJadwalSurvey');
+// Route::get('jadwalulang', 'PerizinanPemohonController@jadwalulang');
+
+Route::get('profil-pengguna', 'PublicController@profilPengguna');
+Route::put('/profil-pengguna/{id}', 'PublicController@profilPenggunaUpdate')->name('profil-pengguna.update');
+Route::post('/update-password-pemohon', 'PublicController@updatePassword');
+//end pemohon
+
 
 Route::get('/home', 'HomeController@index')->name('index');
 Route::get('logout', 'HomeController@logout')->name('logout');
