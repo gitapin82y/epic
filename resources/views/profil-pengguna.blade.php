@@ -44,8 +44,8 @@
                             <div class="form-group col-md-6 col-12">
                                 <label for="jenis_identitas">Jenis Identitas</label>
                                 <select class="form-control" id="jenis_identitas" name="jenis_identitas">
-                                    <option value="ktp" {{ $user->jenis_identitas == 'KTP' ? 'selected' : '' }}>KTP</option>
-                                    <option value="sim" {{ $user->jenis_identitas == 'Paspor' ? 'selected' : '' }}>Paspor</option>
+                                    <option value="KTP" {{ $user->jenis_identitas == 'KTP' ? 'selected' : '' }}>KTP</option>
+                                    <option value="Paspor" {{ $user->jenis_identitas == 'Paspor' ? 'selected' : '' }}>Paspor</option>
                                     <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
                                 </select>
                             </div>
@@ -120,6 +120,8 @@
           <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
+            <form id="changePasswordForm" method="POST" action="update-password-pemohon">
+                @csrf
           <div class="row">
             <div class="form-group w-100">
                 <div class="d-block">
@@ -134,17 +136,17 @@
                         </span>
                     </div>
                 </div>
-                @if (session('password'))
-                <div class="red"  style="color: red"><b>Password Yang Anda Masukan Salah</b></div>
-                @endif
+                  @if (session('password'))
+                    <div class="red"  style="color: red"><b>Password Yang Anda Masukan Salah</b></div>
+                    @endif
             </div>
-            </table>
           </div>
           <div class="modal-footer p-0">
-            <button class="btn btn-main w-100" id="simpan" type="button">Simpan</button>
+            <button class="btn btn-main w-100" id="simpan" type="submit">Simpan</button>
           </div>
         </div>
         </div>
+    </form>
   
     </div>
   </div>
@@ -158,7 +160,14 @@
   @if (session('success'))
   iziToast.success({
       icon: 'fa fa-save',
-      message: 'Perubahan Berhasil Disimpan!',
+      message: 'Profil Berhasil Diubah',
+  });
+  @endif
+
+  @if (session('passwordUpadate'))
+  iziToast.success({
+      icon: 'fa fa-save',
+      message: 'Password Berhasil Diubah',
   });
   @endif
 </script>
