@@ -98,7 +98,7 @@
                     </div>
                         </form>
                         <div class="row btn-update-profile col-12 mx-0 px-0">
-                            <button type="submit" class="btn btn-white mt-4 mb-4">Ubah Password</button>
+                            <button type="button" data-toggle="modal" data-target="#changePasswordModal" class="btn btn-white mt-4 mb-4">Ubah Password</button>
                         </div>
                   </div>
                   
@@ -109,6 +109,48 @@
   </div>
 </div>
 <!-- content-wrapper ends -->
+<!-- Modal -->
+<div id="changePasswordModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-xs">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header bg-main text-white p-3 align-items-center d-flex">
+          <h4 class="modal-title">Ubah Password</h4>
+          <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group w-100">
+                <div class="d-block">
+                    <label for="new_password" class="control-label">Password</label>
+                </div>
+                <div class="input-group">
+                <input id="new_password" type="password"
+                    class="form-control" value="" type="password" name="password" id="password" placeholder="Password">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fa fa-eye" id="togglePassword"></i>
+                        </span>
+                    </div>
+                </div>
+                @if (session('password'))
+                <div class="red"  style="color: red"><b>Password Yang Anda Masukan Salah</b></div>
+                @endif
+            </div>
+            </table>
+          </div>
+          <div class="modal-footer p-0">
+            <button class="btn btn-main w-100" id="simpan" type="button">Simpan</button>
+          </div>
+        </div>
+        </div>
+  
+    </div>
+  </div>
+
+  
+
 @endsection
 
 @section('soloScript')
@@ -119,5 +161,15 @@
       message: 'Perubahan Berhasil Disimpan!',
   });
   @endif
+</script>
+<script>
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('new_password');
+
+    togglePassword.addEventListener('click', function () {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        togglePassword.classList.toggle('fa-eye-slash');
+    });
 </script>
 @endsection

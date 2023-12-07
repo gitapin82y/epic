@@ -27,7 +27,7 @@
   color: #499db1;
   background-color: white;
   padding: 10px 30px;
-  border: 1px solid #499db1;
+  border: 1px solid #499db1 !important;
   border-radius: 60px;
 }
 .btn-white:hover {
