@@ -46,7 +46,20 @@ class HomeController extends Controller
 
     //    $saldo = SaldoController::ceksaldo();
 
-       return view("pages.dashboard");
+    $currentYear = now()->year;
+
+    $linechart = DB::table('surat')
+        ->select(
+            DB::raw('MONTH(created_at) as month'),
+            DB::raw('COUNT(*) as total'),
+            DB::raw('SUM(CASE WHEN status = "Selesai" THEN 1 ELSE 0 END) as total_diterbitkan'),
+            DB::raw('SUM(CASE WHEN status = "Ditolak" THEN 1 ELSE 0 END) as total_ditolak'),
+            DB::raw('SUM(CASE WHEN status != "Ditolak" AND status != "Selesai" THEN 1 ELSE 0 END) as total_masuk'),
+        )
+        ->whereYear('created_at', $currentYear)
+        ->groupBy(DB::raw('MONTH(created_at)'))
+        ->get();
+       return view("pages.dashboard",compact('linechart'));
      }
 
     public function logout(){

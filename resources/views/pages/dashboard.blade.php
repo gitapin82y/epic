@@ -80,10 +80,10 @@
             <div class="col-md-12 col-12 col-sm-12">
               <div class="card">
                 <div class="card-header">
-                  <h4>Statistics Tahun 2023</h4>
+                  <h4>Statistics Tahun {{ now()->year }}</h4>
                 </div>
                 <div class="card-body">
-                    <div id="chartEjjc"></div>
+                    <div id="line-chart-container"></div>
                 </div>
               </div>
             </div>
@@ -93,99 +93,61 @@
 @endsection
 @section('soloScript')
 <script src="{{ asset('assets\highcharts\highcharts.js') }}"></script>
+
  <script>
    $(document).ready(function () {
-    // hight chart
-    Highcharts.chart('chartEjjc', {
-title: {
-    text: 'Grafik Jumlah Transaksi EJJC'
-},
+     var linechart = @json($linechart);
 
-subtitle: {
-        text: 'Dari Bulan ke 1 sampai 12'
-    },
+     linechart.forEach(function(item) {
+        item.total_diterbitkan = Number(item.total_diterbitkan);
+        item.total_ditolak = Number(item.total_ditolak);
+        item.total_masuk = Number(item.total_masuk);
+    });
 
-yAxis: {
-    title: {
-        text: 'Jumlah'
+     Highcharts.chart('line-chart-container', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Total Perizinan Masuk, Diterbitkan dan Ditolak'
+            },
+            xAxis: {
+                categories: linechart.map(item => monthName(item.month)),
+                title: {
+                    text: 'Bulan'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Jumlah Perizinan'
+                }
+            },
+            series: [{
+                name: 'Diterbitkan',
+                data: linechart.map(item => item.total_diterbitkan),
+                color: '#93D7FE'
+            },{
+                name: 'Masuk',
+                data: linechart.map(item => item.total_masuk),
+                color: '#A2FF99'
+            }, {
+                name: 'Ditolak',
+                data: linechart.map(item => item.total_ditolak),
+                color: '#FFCE95'
+            }]
+          });
+
+              // Fungsi untuk mendapatkan nama bulan berdasarkan angka bulan
+    function monthName(monthNumber) {
+        var monthNames = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+        return monthNames[monthNumber - 1];
     }
-},
-
-xAxis: {
-    accessibility: {
-        rangeDescription: 'Range: 1 to 12'
-    }
-},
-
-legend: {
-    layout: 'vertical',
-    align: 'right',
-    verticalAlign: 'middle'
-},
-
-plotOptions: {
-    series: {
-        label: {
-            connectorAllowed: false
-        },
-        pointStart: 1
-    }
-},
-
-series: [{
-    name: 'Bank In (BI)',
-    data: [90908, 29548, 38105]
-}, {
-    name: 'Bank Out (BO)',
-    data: [18908, 25548, 51105]
-}, {
-    name: 'Kas Kecil (PC)',
-    data: [21908, 42548, 61105]
-}, {
-    name: 'Memorial (MM)',
-    data: [11908, 75548, 95105]
-}],
-
-responsive: {
-    rules: [{
-        condition: {
-            maxWidth: 500
-        },
-        chartOptions: {
-            legend: {
-                layout: 'horizontal',
-                align: 'center',
-                verticalAlign: 'bottom'
-            }
-        }
-    }]
-}
-});
 
 
-    //  clock
-    var inc = 1000;
-
-clock();
-
-function clock() {
-  const date = new Date();
-
-  const hours = ((date.getHours() + 11) % 12 + 1);
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
-  
-  const hour = hours * 30;
-  const minute = minutes * 6;
-  const second = seconds * 6;
-  
-  document.querySelector('.hour').style.transform = `rotate(${hour}deg)`
-  document.querySelector('.minute').style.transform = `rotate(${minute}deg)`
-  document.querySelector('.second').style.transform = `rotate(${second}deg)`
-}
-
-setInterval(clock, inc);
-
-   });
+        });
+        
 </script>   
 @endsection
