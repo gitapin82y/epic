@@ -14,14 +14,14 @@
             @endphp )</h4>
           </div>
           <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
-                <div class="card-icon bg-primary">
-                  <i class="fas fa-users"></i>
+            <div class="col-md-4 col-sm-6 col-12">
+              <div class="card card-statistic-1 semua-perizinan">
+                <div class="card-icon bg-white">
+                  <img src="{{asset('assets/dashboard/semua-perizinan.png')}}" class="icon-card-dashboard" alt="">
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Total Perizinan</h4>
+                    <h4>Semua Perizinan</h4>
                   </div>
                   <div class="card-body">
                     12312
@@ -29,10 +29,10 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
-                <div class="card-icon bg-danger">
-                  <i class="fas fa-user"></i>
+            <div class="col-md-4 col-sm-6 col-12">
+              <div class="card card-statistic-1 perizinan-masuk">
+                <div class="card-icon bg-white">
+                  <img src="{{asset('assets/dashboard/perizinan-masuk.png')}}" class="icon-card-dashboard" alt="">
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
@@ -44,10 +44,10 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
-                <div class="card-icon bg-warning">
-                  <i class="fas fa-comment-dollar"></i>
+            <div class="col-md-4 col-sm-6 col-12">
+              <div class="card card-statistic-1 perizinan-terlambat">
+                <div class="card-icon bg-white">
+                  <img src="{{asset('assets/dashboard/perizinan-terlambat.png')}}" class="icon-card-dashboard" alt="">
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
@@ -60,14 +60,29 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
-                <div class="card-icon bg-success">
-                  <i class="fas fa-comments-dollar"></i>
+            <div class="col-md-4 col-sm-6 col-12">
+              <div class="card card-statistic-1 perizinan-dikembalikan">
+                <div class="card-icon bg-white">
+                  <img src="{{asset('assets/dashboard/perizinan-dikembalikan.png')}}" class="icon-card-dashboard" alt="">
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Perizinan Ditolak</h4>
+                    <h4>Perizinan Dikembalikan</h4>
+                  </div>
+                  <div class="card-body">
+                    12312
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-12">
+              <div class="card card-statistic-1 perizinan-diterbitkan">
+                <div class="card-icon bg-white">
+                  <img src="{{asset('assets/dashboard/perizinan-diterbitkan.png')}}" class="icon-card-dashboard" alt="">
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Perizinan Diterbitkan</h4>
                   </div>
                   <div class="card-body">
                     12312

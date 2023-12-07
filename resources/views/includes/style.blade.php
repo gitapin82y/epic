@@ -40,4 +40,32 @@
     .btn-update-profile{
         justify-content: center;
     }
+
+
+    /* dashboard perizinan card*/
+    .semua-perizinan{
+      background-color: #9081EF;
+    }
+    .perizinan-masuk{
+      background-color: #6FDC6C;
+    }
+.icon-card-dashboard{
+  margin-bottom: 12px;
+}
+.main-content .card-wrap .card-header h4,
+.main-content .card-wrap .card-body {
+  color: white;
+}
+    .perizinan-terlambat{
+      background-color: #EA7F7F;
+    }
+
+    .perizinan-dikembalikan{
+      background-color: #FBC168;
+    }
+
+    .perizinan-diterbitkan{
+      background-color: #48C8E5;
+    }
+
 </style>
