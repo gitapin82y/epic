@@ -143,7 +143,7 @@ class PublicController extends Controller
 
             // create new avatar
             $childPath ='file/uploads/profile-avatar/';
-            $req->file('avatar')->move($childPath, $id . '_avatar.jpg', 'public');
+            $req->file('avatar')->move($childPath, $id . '_avatar.jpg');
             $imgPath =  $childPath. $id . '_avatar.jpg';
         }else{
             $imgPath = Auth::user()->avatar; //old
