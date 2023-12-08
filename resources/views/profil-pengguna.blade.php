@@ -1,6 +1,17 @@
 @extends('layouts.app')
 
 @section('title','Profil Pengguna')
+
+@section('soloStyle')
+<style>
+    .profile-avatar{
+        width: 100px;
+        height: 100px;
+        border-radius: 100px;
+    }
+</style>
+@endsection
+
 @section('content')
 <!-- partial -->
 <div class="main-content">
@@ -8,10 +19,20 @@
   <div class="row">
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
-                  <div class="card-body row">
-                        <form action="{{ route('profil-pengguna.update', $user->id) }}" method="post">
+                  <div class="card-body row justify-content-center ">
+                        <form action="{{ route('profil-pengguna.update', $user->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('put')
+                            <div class="text-center mb-4">
+                            <img src="{{ asset(optional(Auth::user())->avatar ? Auth::user()->avatar : 'assets/img/avatar/avatar-1.png')  }}" class="profile-avatar" alt=""><br>
+                            <div class="row justify-content-center">
+                                <div class="col-md-4 col-12 mt-3">
+                                    <input type="file" class="form-control" name="avatar" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+
+
                      <div class="row col-12">
                             <div class="form-group col-md-6 col-12">
                                 <label for="nama_lengkap">Nama</label>

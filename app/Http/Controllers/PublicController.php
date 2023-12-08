@@ -131,6 +131,26 @@ class PublicController extends Controller
     }
 
     public function profilPenggunaUpdate(Request $req,$id){
+
+        if ($req->hasFile('avatar')) {
+            //hapus img avatar old
+            if (Auth::user()->avatar) {
+                $oldPath = public_path('file/uploads/profile-avatar/' . Auth::user()->avatar);
+                if (file_exists($oldPath)) {
+                    unlink($oldPath);
+                }
+            }
+
+            // create new avatar
+            $childPath ='file/uploads/profile-avatar/';
+            $req->file('avatar')->move($childPath, $id . '_avatar.jpg', 'public');
+            $imgPath =  $childPath. $id . '_avatar.jpg';
+        }else{
+            $imgPath = Auth::user()->avatar; //old
+        }
+
+
+
         $data = DB::table('user')->where('id',$id)->update([
             'nama_lengkap' => $req->input('nama_lengkap'),
             'email' => $req->input('email'),
@@ -146,8 +166,11 @@ class PublicController extends Controller
             'kecamatan' => $req->input('kecamatan'),
             'provinsi' => $req->input('provinsi'),
             'username' => $req->input('username'),
+            'avatar' => $imgPath
             // ... tambahkan kolom lainnya
         ]);
+
+
         return redirect()->back()->with('success', 'Perubahan berhasil disimpan');
     }
 

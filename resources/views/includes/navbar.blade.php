@@ -27,7 +27,12 @@
     @endif
     <li class="dropdown"><a href="#" data-toggle="dropdown"
         class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+
+        @if (Auth::user()->avatar)
+        <img alt="image" src="{{asset(Auth::user()->avatar)}}" class="rounded-circle mr-1 navbarFotoProfile">
+        @else
         <img alt="image" src="{{asset('assets/img/avatar/avatar-1.png')}}" class="rounded-circle mr-1 navbarFotoProfile">
+        @endif
         <div class="d-sm-none nameUser d-lg-inline-block">@php
          echo Auth::user()->nama_lengkap;
         @endphp</div>
