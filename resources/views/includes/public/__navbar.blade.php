@@ -43,7 +43,11 @@
         @if (Auth::check())
         <li class="nav-item">
         <div class="dropdown">
-          <img src="{{asset('assets/public/avatar/avatar1.png')}}" class="avatar mr-1 ms-2 me-1 ml-2" alt="">
+          @if (Auth::user()->avatar)
+          <img alt="image" src="{{asset(Auth::user()->avatar)}}" class="avatar mr-1 ms-2 me-1 ml-2">
+          @else
+          <img alt="image" src="{{asset('assets/img/avatar/avatar-1.png')}}" class="avatar mr-1 ms-2 me-1 ml-2">
+          @endif
           {{Auth::user()->nama_lengkap}}
           <i class="fa-solid fa-chevron-down ms-1 ml-1"></i>
           <div class="dropdown-content">
