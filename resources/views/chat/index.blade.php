@@ -117,6 +117,12 @@
       border-radius: 5px;
       }
 
+      ul.no-bullets {
+        list-style-type: none; /* Remove bullets */
+        padding: 0; /* Remove padding */
+        margin: 0; /* Remove margins */
+      }
+
       .card-body {
         height: 500px;
       }
@@ -217,6 +223,14 @@
 <!-- partial -->
 <div class="main-content">
   <section class="section mt-4">
+    @if(Auth::user()->role_id == 9)
+    <div id="warningSpan">
+    <br>
+    <center>
+    <span style="margin-bottom: -30px; font-size: 15px; margin-top: 10px; " class="badge badge-warning">Peringatan : Saat ini live chat berada di luar jam kerja, mohon maaf jika slow respon, terima kasih!</span>
+    </center>
+    </div>
+    @endif
     <div class="row">
     <div class="col-3 grid-margin stretch-card  mt-5" style="padding-left:0px; border-radius: 10px; ">
             <div class="card">
@@ -240,7 +254,11 @@
 
                     </div>
                     <div class="message-footer">
+                    @if(Auth::user()->role_id == 9)
+                    <input type="text" data-placeholder="Send a message to {0}" id="placeholder" placeholder="Ketik /topik untuk pertanyaan umum" onkeydown="entermessage()" />
+                    @else 
                     <input type="text" data-placeholder="Send a message to {0}" id="placeholder" placeholder="Pesan" onkeydown="entermessage()" />
+                    @endif
                     &nbsp
                     <button type="button" name="button" onclick="sendmessage()" style="background-color: #499DB1; width:40px; color:white; border-radius: 4px; border:0px;"> <span class="fas fa-paper-plane"></span> </button>
                     </div>
@@ -287,11 +305,16 @@
           $.ajax({
     				url: "{{url('/')}}" + "/listroom",
     				success: function(data) {
-              console.log(data);
 
-              if (data.length != 0) {
-                for (var i = 0; i < data.length; i++) {
-                  let res = data[i]
+              if(data.peringatan == true) {
+                $("#warningSpan").css("display", "")
+              } else {
+                $("#warningSpan").css("display", "none")
+              }
+
+              if (data.data.length != 0) {
+                for (var i = 0; i < data.data.length; i++) {
+                  let res = data.data[i]
 
                   if (res.counter_kedua > 0) {
                     if (res.account.profile_toko != null) {
@@ -301,7 +324,7 @@
                           '<span class="user">'+res.account.nama_lengkap+'</span>'+
                           '<span class="text">'+res.last_message+'</span>'+
                         '</div>'+
-                        '<span class="count">'+res.counter+'</span>'+
+                        '<span class="count">'+res.counter_kedua+'</span>'+
                         '<span class="time">'+res.created_at+'</span>'+
                         '<input type="hidden" class="iduser" name="id" value="'+res.id+'">'+
                         '</div>';
@@ -312,7 +335,7 @@
                           '<span class="user">'+res.account.nama_lengkap+'</span>'+
                           '<span class="text">'+res.last_message+'</span>'+
                         '</div>'+
-                        '<span class="count">'+res.counter+'</span>'+
+                        '<span class="count">'+res.counter_kedua+'</span>'+
                         '<span class="time">'+res.created_at+'</span>'+
                         '<input type="hidden" class="iduser" name="id" value="'+res.id+'">'+
                         '</div>';
@@ -344,7 +367,7 @@
 
 
                 if (selectedroom == false) {
-                  idselect = data[0].id;
+                  idselect = data.data[0].id;
                 }
 
                 // listchat();
@@ -461,7 +484,20 @@
 
               for (var i = 0; i < data.length; i++) {
                 let res = data[i]
-                let arraccount = res.account.split("-");
+
+                if (res.is_topik == "Y") {
+                    html += '<div class="message-list">'+
+                    '<ul class="no-bullets msg">'+
+                       '<li style="cursor: pointer" onclick="selectTopik(1)">1. Bagaimana cara menggunakan aplikasi perizinan online</li>'+
+                       '<li style="cursor: pointer" onclick="selectTopik(2)">2. Jenis perizinan apa yang dapat diajukan melalui aplikasi ini?</li>'+
+                       '<li style="cursor: pointer" onclick="selectTopik(3)">3. Bagaimana cara memantau status perizinan saya?</li>'+
+                       '<li style="cursor: pointer" onclick="selectTopik(4)">4. Apakah ada biaya untuk aplikasi ini?</li>'+
+                       '<li style="cursor: pointer" onclick="selectTopik(5)">5. Apakah aplikasi ini dapat diakses dari seluler?</li>'+
+                    '</ul>'+
+                    '<span>Note : Silahkan pilih topik yang ingin ditanyakan dengan cara klik text / nomor topik</span>'+
+                    '</div>';
+                } else {
+                  let arraccount = res.account.split("-");
 
                 if (arraccount[0] == "{{Auth::user()->id}}") {
                   penerima = arraccount[1];
@@ -506,6 +542,7 @@
                             '</div>';
                   }
                 }
+                }
               }
 
               $('#listchat').html(html);
@@ -541,6 +578,30 @@
         function clicked(id) {
             penerima = id
             scrolled = false;
+        }
+
+        function selectTopik(id) {
+          var message = "";
+
+          if(id == 1) {
+            message = "/cara-perizinan";
+          } else if(id == 2) {
+            message = "/jenis-perizinan";
+          } else if(id == 3) {
+            message = "/cara-pantau";
+          } else if(id == 4) {
+            message = "/biaya";
+          } else if(id == 5) {
+            message = "/akses";
+          } 
+
+          $.ajax({
+    				url: "{{url('/')}}" + "/sendchat",
+            data: {id: idselect, message: message, penerima: penerima},
+    				success: function(data) {
+              listchat();
+            }
+          });
         }
 
 </script>

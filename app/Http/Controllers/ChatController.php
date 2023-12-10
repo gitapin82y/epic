@@ -229,7 +229,21 @@ class ChatController extends Controller
           }
         }
 
-        return Response()->json($resultRoom);
+        $peringatan = false;
+        $botchat = DB::table("chatbot")->where("id", 1)->first();
+        if ($botchat->is_active == "Y") {
+          $now = Carbon::now('Asia/Jakarta');
+          $time = $now->format('H:i');
+
+          if ($time >= $botchat->jam_active && $time <= $botchat->jam_selesai) {
+            $peringatan = true;
+          }
+        }
+
+        return Response()->json([
+          "data" => $resultRoom,
+          "peringatan" => $peringatan
+        ]);
     }
 
     public function apilistroom(Request $req) {
@@ -340,8 +354,22 @@ class ChatController extends Controller
           $resultRoom[$key] = $value;
         }
       }
+      
+      $peringatan = false;
+      $botchat = DB::table("chatbot")->where("id", 1)->first();
+      if ($botchat->is_active == "Y") {
+        $now = Carbon::now('Asia/Jakarta');
+        $time = $now->format('H:i');
 
-       return Response()->json($chat);
+        if ($time >= $botchat->jam_active && $time <= $botchat->jam_selesai) {
+          $peringatan = true;
+        }
+      }
+
+      return Response()->json([
+        "data" => $resultRoom,
+        "peringatan" => $peringatan
+      ]);
     }
 
     public function listchat(Request $req) {
@@ -442,6 +470,8 @@ class ChatController extends Controller
               'created_at' => Carbon::now('Asia/Jakarta'),
             ]);
 
+          $this->aksesBot($req->id, Auth::user()->id, $req->penerima);
+
           $count = 0;
           $room = DB::table('roomchat')
                ->where("id", $req->id)
@@ -496,6 +526,24 @@ class ChatController extends Controller
               'created_at' => Carbon::now('Asia/Jakarta'),
             ]);
 
+          $this->aksesBot($req->id, Auth::user()->id, $req->penerima);
+
+          $botchat = DB::table("chatbot")->where("id", 1)->first();
+          if ($botchat->is_active == "Y") {
+            $now = Carbon::now('Asia/Jakarta');
+            $time = $now->format('H:i');
+
+            if ($time >= $botchat->jam_active && $time <= $botchat->jam_selesai) {
+              DB::table("listchat")
+                ->insert([
+                  'roomchat_id' => $req->id,
+                  'account' => $req->penerima . "-" . $req->id,
+                  'message' => "Mohon maaf saat ini kami sedang offline, akan kita balas dijam aktif kami, terima kasih",
+                  'created_at' => Carbon::now('Asia/Jakarta'),
+                ]);
+            }
+          }
+
           $count = 0;
           $room = DB::table('roomchat')
                ->where("id", $req->id)
@@ -531,6 +579,68 @@ class ChatController extends Controller
          DB::commit();
     } catch (\Exception $e) {
          DB::rollback();
+    }
+  }
+
+  public function aksesBot($idRoom, $idUser, $idPenerima) {
+    $cekPromp = DB::table("listchat")
+                  ->where('account', 'like', '%' . $idUser . "-" . '%')
+                  ->orderBy("id", "desc")
+                  ->first();
+
+    $cekBot = DB::table("listchat")
+                  ->where("roomchat_id", $idRoom)
+                  ->orderBy("id", "desc")
+                  ->first();
+
+    $botAnswer = "";
+    $topik = false;
+
+    if($cekPromp->message == "/cara-perizinan") {
+      $botAnswer = "Perizinan yang terdapat pada aplikasi ini, yaitu:
+      - Izin Pendirian Sekolah
+      - Izin Operasional 
+      - Perpanjangan Surat Izin Operasional";
+    } else if($cekPromp->message == "/jenis-perizinan") {
+      $botAnswer = "Setelah mengajukan perizinan, Anda dapat masuk ke akun Anda dan melihat status perizinan Anda. Anda juga dapat mengakses menu tracking dan menginputkan ID Surat atau melakukan scan QR Code untuk melihat status perizinan.";
+    } else if($cekPromp->message == "/cara-pantau") {
+      $botAnswer = "Aplikasi ini tidak ada biaya dalam penggunaannya";
+    } else if($cekPromp->message == "/biaya") {
+      $botAnswer = "Aplikasi ini tidak ada biaya dalam penggunaannya";
+    } else if($cekPromp->message == "/akses") {
+      $botAnswer = "Ya, aplikasi ini dirancang untuk diakses dari perangkat seluler, memudahkan pengguna untuk mengajukan perizinan kapan pun dan di mana pun. Anda dapat mengunduh aplikasi mobile untuk kenyamanan penggunaan yang lebih baik.";
+    } else if($cekPromp->message == "/topik") {
+      $topik = true;
+    }
+
+    if ($topik == true || $botAnswer != "") {
+      if($cekBot != null && $cekBot->is_bot == "N") {
+        DB::table("listchat")
+        ->insert([
+          'roomchat_id' => $cekPromp->roomchat_id,
+          'account' => $idPenerima . "-" . $idUser,
+          'message' => $botAnswer,
+          'is_topik' => $topik ? "Y" : "N",
+          'is_bot' => "Y",
+          'created_at' => Carbon::now('Asia/Jakarta'),
+        ]);
+      }
+    } else {
+      $botchat = DB::table("chatbot")->where("id", 1)->first();
+      if ($botchat->is_active == "Y") {
+        $now = Carbon::now('Asia/Jakarta');
+        $time = $now->format('H:i');
+
+        if ($time >= $botchat->jam_active && $time <= $botchat->jam_selesai) {
+          DB::table("listchat")
+            ->insert([
+              'roomchat_id' => $idRoom,
+              'account' => $idPenerima . "-" . $idUser,
+              'message' => "Mohon maaf saat ini kami sedang offline, akan kita balas dijam aktif kami, terima kasih",
+              'created_at' => Carbon::now('Asia/Jakarta'),
+            ]);
+        }
+      }
     }
   }
 }
