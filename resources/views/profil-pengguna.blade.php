@@ -20,6 +20,8 @@
   	<div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body row justify-content-center ">
+                    @if (Auth::user()->role_id == 9)
+                        
                         <form action="{{ route('profil-pengguna.update', $user->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('put')
@@ -112,8 +114,7 @@
                                 <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" value="{{ $user->pekerjaan }}">
                             </div>
                         </div>
-                    
-                            <!-- Tambahkan input lainnya sesuai kebutuhan -->
+                                                    <!-- Tambahkan input lainnya sesuai kebutuhan -->
                     <div class="row btn-update-profile">
                         <button type="submit" class="btn btn-main">Simpan Perubahan</button>
                     </div>
@@ -121,6 +122,46 @@
                         <div class="row btn-update-profile col-12 mx-0 px-0">
                             <button type="button" data-toggle="modal" data-target="#changePasswordModal" class="btn btn-white mt-4 mb-4">Ubah Password</button>
                         </div>
+                    @else
+
+                    <form action="{{ route('profil-pengguna.update', $user->id) }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        @method('put')
+                        <div class="text-center mb-4">
+                        <img src="{{ asset(optional(Auth::user())->avatar ? Auth::user()->avatar : 'assets/img/avatar/avatar-1.png')  }}" class="profile-avatar" alt=""><br>
+                        <div class="row justify-content-center px-2">
+                            <div class="col-12 mt-3">
+                                <input type="file" class="form-control" name="avatar" accept="image/*">
+                            </div>
+                        </div>
+                        <div class="row btn-update-profile mt-3 px-4">
+                            <button type="submit" class="btn w-100 btn-main">Ubah Foto</button>
+                        </div>
+                    </div>
+
+
+                        <div class="form-group col-12">
+                            <label for="nama_lengkap">Nama</label>
+                            <input type="text" class="form-control" id="nama_lengkap" value="{{ $user->nama_lengkap }}" disabled>
+                        </div>
+                
+                        <div class="form-group col-12">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" value="{{ $user->email }}" disabled>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label for="petugas">Petugas</label>
+                            <input type="petugas" class="form-control" id="petugas" value="{{ $user->role_user }}" disabled>
+                        </div>
+                                                <!-- Tambahkan input lainnya sesuai kebutuhan -->
+                    </form>
+
+
+
+                    @endif
+
+
                   </div>
                   
                 </div>
