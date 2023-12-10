@@ -179,7 +179,6 @@ class PublicController extends Controller
             ]);
         }
 
-
         return redirect()->back()->with('success', 'Perubahan berhasil disimpan');
     }
 
@@ -196,11 +195,9 @@ class PublicController extends Controller
         ]);
 
         $passwordUpdate = Crypt::encryptString($req->password);
-        // $passwordUpdate = $req->password;
         
-        $user = auth()->user(); // Mendapatkan pengguna yang sedang login
+        $user = auth()->user(); 
         
-        // Update password di dalam tabel users
         DB::table('user')
         ->where('id', $user->id)
         ->update(['password' => $passwordUpdate]);
