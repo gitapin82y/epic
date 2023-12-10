@@ -177,6 +177,11 @@
       display: flex;
       margin-top: 3px;
       font-size: 0.85em;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
       }
       sidebar .list-wrap .list .time {
       margin-right: 5px;
