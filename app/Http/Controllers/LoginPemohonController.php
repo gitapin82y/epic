@@ -113,7 +113,10 @@ class LoginPemohonController extends Controller
 	            			          ->first();
 
             	// if (Crypt::decryptString($user_pass->password) === $password) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 688357f (Fix)
             	if ($user_pass->password == $password) {
 
            			Account::where('email',$email)->update([
