@@ -176,6 +176,16 @@ class PublicController extends Controller
 
     
     public function updatePassword(Request $req){
+        $req->validate([
+            'password' => 'required|min:8',
+            'password_confirmation' => 'required||same:password',
+        ], [
+            'password.required' => 'Kata sandi harus diisi.',
+            'password_confirmation.required' => 'Konfirmasi kata sandi harus diisi.',
+            'password.min' => 'Kata sandi minimal harus :min karakter.',
+            'password_confirmation.same' => 'Konfirmasi kata sandi tidak sesuai dengan kata sandi baru',
+        ]);
+
         $passwordUpdate = Crypt::encrypt($req->password);
         // $passwordUpdate = $req->password;
         

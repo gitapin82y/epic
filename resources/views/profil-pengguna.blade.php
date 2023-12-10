@@ -146,20 +146,37 @@
           <div class="row">
             <div class="form-group w-100">
                 <div class="d-block">
-                    <label for="new_password" class="control-label">Password</label>
+                    <label for="new_password" class="control-label">Kata Sandi Baru</label>
                 </div>
                 <div class="input-group">
                 <input id="new_password" type="password"
-                    class="form-control" value="" type="password" name="password" id="password" placeholder="Password">
+                    class="form-control @error('password') is-invalid @enderror" value="" type="password" name="password" id="password">
                     <div class="input-group-append">
                         <span class="input-group-text">
                             <i class="fa fa-eye" id="togglePassword"></i>
                         </span>
                     </div>
                 </div>
-                  @if (session('password'))
-                    <div class="red"  style="color: red"><b>Password Yang Anda Masukan Salah</b></div>
-                    @endif
+                @error('password')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group w-100">
+                <div class="d-block">
+                    <label for="confirm_password" class="control-label">Konfirmasi Kata Sandi Baru</label>
+                </div>
+                <div class="input-group">
+                <input id="confirm_password" type="password"
+                    class="form-control @error('password_confirmation') is-invalid @enderror" value="" type="password" name="password_confirmation" id="KataSandiBaru">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fa fa-eye" id="toggleKataSandiBaru"></i>
+                        </span>
+                    </div>
+                </div>
+                @error('password_confirmation')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
           </div>
           <div class="modal-footer p-0">
@@ -201,5 +218,15 @@
         passwordInput.setAttribute('type', type);
         togglePassword.classList.toggle('fa-eye-slash');
     });
+
+    const toggleKataSandiBaru = document.getElementById('toggleKataSandiBaru');
+    const confirm_password = document.getElementById('confirm_password');
+
+    toggleKataSandiBaru.addEventListener('click', function () {
+        const type = confirm_password.getAttribute('type') === 'password' ? 'text' : 'password';
+        confirm_password.setAttribute('type', type);
+        toggleKataSandiBaru.classList.toggle('fa-eye-slash');
+    });
 </script>
+
 @endsection
