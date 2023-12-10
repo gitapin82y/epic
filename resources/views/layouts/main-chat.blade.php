@@ -36,6 +36,5 @@
 
 {{-- @yield('extra_script') --}}
 @yield('soloScript'){{-- script khusus pada page tertentu --}}
-
 </body>
 </html>

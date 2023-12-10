@@ -353,7 +353,15 @@
 
 
     </script>
-
+    
+<script>
+  	      @if (session('sendSurvey'))
+  iziToast.success({
+      icon: 'fa fa-save',
+      message: 'Survey Berhasil Dikirim',
+  });
+  @endif
+</script>
 
 <script type="text/javascript">
 

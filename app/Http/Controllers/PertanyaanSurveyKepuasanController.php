@@ -128,4 +128,22 @@ class PertanyaanSurveyKepuasanController extends Controller
 
       return response()->json($data);
     }
+
+    public function sendSurveyKepuasan(Request $req) {
+      $questions = $req->except(['_token']);
+      $totalPertanyaan = DB::table('ulasan_pertanyaan')->get();
+
+      foreach ($totalPertanyaan as $key => $answer) {
+        $question_id = intval($key);
+        DB::table('ulasan')->insertGetId([
+          'user_id' => Auth::user()->id,
+          'ulasan_pertanyaan_id' => $req->input("question{$question_id}"),
+          'isi' => $req->input("answer{$question_id}"),
+          'created_at' => Carbon::now("Asia/Jakarta"),
+        ]);
+      }
+      Session::flash('sendSurvey', 'sendSurvey');
+
+      return back();
+    }
 }

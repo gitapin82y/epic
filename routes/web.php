@@ -68,6 +68,8 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('perizinan', 'PerizinanPemohonController@index');
 Route::get('perizinantable/{status}', 'PerizinanPemohonController@datatable');
 Route::get('editperizinan', 'PerizinanPemohonController@edit');
+Route::post('penilaian-app', 'PertanyaanSurveyKepuasanController@sendSurveyKepuasan')->name('penilaian-app');
+
 // Route::get('pemohonaccjadwalperizinan', 'PerizinanPemohonController@pemohonAccJadwalSurvey');
 // Route::get('jadwalulang', 'PerizinanPemohonController@jadwalulang');
 
