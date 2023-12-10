@@ -87,8 +87,8 @@ class PublicController extends Controller
 
     public function cetakRegisPdf(Request $req)
     {
-        $data = DB::table('surat')->where('id',$req->noSurat)->first();
-        $qrcode = base64_encode(QrCode::format('svg')->size(300)->errorCorrection('H')->generate('http://epic-apps.my.id/project/lacak-perizinan/'.$req->dataId));
+        $data = DB::table('surat')->where('id',$req->dataId)->first();
+        $qrcode = base64_encode(QrCode::format('svg')->size(300)->errorCorrection('H')->generate('http://epic-apps.my.id/lacak-perizinan/'.$req->dataId));
         $namaPerizinan=DB::table('surat_jenis')->where('id',$data->surat_jenis_id)->first()->nama;
         $pdf = \PDF::loadView('public.perizinan.cetak-regis', compact('data','qrcode','namaPerizinan'));
         return $pdf->stream('registrasi-permohonan.pdf');
@@ -202,6 +202,22 @@ class PublicController extends Controller
         ->where('id', $user->id)
         ->update(['password' => $passwordUpdate]);
         return back()->with('passwordUpadate', 'Password Berhasil Diubah');
+    }
+    public function getDetailPerizinan($id){
+        $data = DB::table('surat')
+    ->join('surat_jenis', 'surat_jenis.id', '=', 'surat.surat_jenis_id')
+    ->select('surat.*', 'surat_jenis.nama as nama_perizinan')
+    ->where('surat.id',$id)
+    ->first();
+    if($data){
+        $data->created_at = Carbon::parse($data->created_at)->format('d F Y');
+        $data->jadwal_survey = Carbon::parse($data->jadwal_survey)->format('d F Y');
+        return view('public.lacak-perizinan.detail',compact('data'));
+    }else{
+        return back()->with('gagal','Nomor Surat Tidak Ditemukan');
+    }
+
+
     }
     
 }
