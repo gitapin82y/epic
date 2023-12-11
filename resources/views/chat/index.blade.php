@@ -493,11 +493,10 @@
                 if (res.is_topik == "Y") {
                     html += '<div class="message-list">'+
                     '<ul class="no-bullets msg">'+
-                       '<li style="cursor: pointer" onclick="selectTopik(1)">1. Bagaimana cara menggunakan aplikasi perizinan online</li>'+
-                       '<li style="cursor: pointer" onclick="selectTopik(2)">2. Jenis perizinan apa yang dapat diajukan melalui aplikasi ini?</li>'+
-                       '<li style="cursor: pointer" onclick="selectTopik(3)">3. Bagaimana cara memantau status perizinan saya?</li>'+
-                       '<li style="cursor: pointer" onclick="selectTopik(4)">4. Apakah ada biaya untuk aplikasi ini?</li>'+
-                       '<li style="cursor: pointer" onclick="selectTopik(5)">5. Apakah aplikasi ini dapat diakses dari seluler?</li>'+
+                       '<li style="cursor: pointer" onclick="selectTopik(1)">1. Berapa lama surat selesai diproses?</li>'+
+                       '<li style="cursor: pointer" onclick="selectTopik(2)">2. Bagaimana cara mengambil surat perizinan yang sudah jadi?</li>'+
+                       '<li style="cursor: pointer" onclick="selectTopik(3)">3. Bagaimana jika surat yang saya ajukan dikembalikan?</li>'+
+                       '<li style="cursor: pointer" onclick="selectTopik(4)">4. Apakah saya perlu menyerahkan dokumen fisik untuk proses pengajuan surat perizinan?</li>'+
                     '</ul>'+
                     '<span>Note : Silahkan pilih topik yang ingin ditanyakan dengan cara klik text / nomor topik</span>'+
                     '</div>';
@@ -589,16 +588,14 @@
           var message = "";
 
           if(id == 1) {
-            message = "/cara-perizinan";
+            message = "/lama-proses";
           } else if(id == 2) {
-            message = "/jenis-perizinan";
+            message = "/cara-ambil-surat";
           } else if(id == 3) {
-            message = "/cara-pantau";
+            message = "/ajukan-kembalikan-surat";
           } else if(id == 4) {
-            message = "/biaya";
-          } else if(id == 5) {
-            message = "/akses";
-          } 
+            message = "/penyerahan-dokumen-fisik";
+          }
 
           $.ajax({
     				url: "{{url('/')}}" + "/sendchat",

@@ -596,19 +596,14 @@ class ChatController extends Controller
     $botAnswer = "";
     $topik = false;
 
-    if($cekPromp->message == "/cara-perizinan") {
-      $botAnswer = "Perizinan yang terdapat pada aplikasi ini, yaitu:
-      - Izin Pendirian Sekolah
-      - Izin Operasional 
-      - Perpanjangan Surat Izin Operasional";
-    } else if($cekPromp->message == "/jenis-perizinan") {
-      $botAnswer = "Setelah mengajukan perizinan, Anda dapat masuk ke akun Anda dan melihat status perizinan Anda. Anda juga dapat mengakses menu tracking dan menginputkan ID Surat atau melakukan scan QR Code untuk melihat status perizinan.";
-    } else if($cekPromp->message == "/cara-pantau") {
-      $botAnswer = "Aplikasi ini tidak ada biaya dalam penggunaannya";
-    } else if($cekPromp->message == "/biaya") {
-      $botAnswer = "Aplikasi ini tidak ada biaya dalam penggunaannya";
-    } else if($cekPromp->message == "/akses") {
-      $botAnswer = "Ya, aplikasi ini dirancang untuk diakses dari perangkat seluler, memudahkan pengguna untuk mengajukan perizinan kapan pun dan di mana pun. Anda dapat mengunduh aplikasi mobile untuk kenyamanan penggunaan yang lebih baik.";
+    if($cekPromp->message == "/lama-proses") {
+      $botAnswer = "Surat anda akan selesai diproses selama kurang lebih 15 hari kerja.";
+    } else if($cekPromp->message == "/cara-ambil-surat") {
+      $botAnswer = "Anda tidak perlu mengambil surat yang sudah jadi secara offline, cukup klik `Download` pada .... maka surat Anda siap dicetak";
+    } else if($cekPromp->message == "/ajukan-kembalikan-surat") {
+      $botAnswer = "Anda dapat mengajukan surat kembali dan pastikan dokumen persyaratan yang diperlukan sudah benar agar surat dapat diproses.";
+    } else if($cekPromp->message == "/penyerahan-dokumen-fisik") {
+      $botAnswer = "Tidak, Anda cukup menyerahkan dokumen digital dengan format PDF, PNG, JPG, JPEG.";
     } else if($cekPromp->message == "/topik") {
       $topik = true;
     }
