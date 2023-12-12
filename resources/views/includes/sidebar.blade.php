@@ -10,9 +10,7 @@
         </div>
         <ul class="sidebar-menu pb-5">
 
-            @if (Auth::user()->role_id ==9)
-            <li class="menu-header text-black">Profil</li>
-
+            @if (Auth::user()->role_id == 9)
             <li class=""><a class="nav-link" href="{{ url('profil-pengguna') }}"><i class="fas fa-user"></i></i> <span>Profil Pengguna</span></a></li>
             @else
             <li class="menu-header text-black">Dashboard</li>
@@ -72,11 +70,10 @@
             @endif
 
             @if (Auth::user()->role_id == 5)
-
             <li class=""><a class="nav-link" href="{{ url('chatbot') }}"><i class="fas fa-file-alt"></i><span>Chatbot</span></a></li>
             @endif
 
-            @if (Auth::user()->role_id != 1)
+            @if (Auth::user()->role_id != 1 && Auth::user()->role_id != 9)
             <li class="menu-header text-black">Master</li>
             <li class=""><a class="nav-link" href="{{ url('video-panduan') }}"><i class="fas fa-video"></i><span>Video Panduan</span></a></li>
             @endif
