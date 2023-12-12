@@ -113,7 +113,7 @@ class LoginPemohonController extends Controller
 	            			          ->first();
 
             	// if (Crypt::decryptString($user_pass->password) === $password) {
-            	if ($user_pass->password == $password) {
+            	if (Crypt::decryptString($user_pass->password) == $password) {
 
            			Account::where('email',$email)->update([
                      'updated_at'=>Carbon::now(),

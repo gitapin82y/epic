@@ -34,6 +34,11 @@
             >Permohonan Saya</a
           >
         </li>
+        <li class="nav-item {{Request::is('arsip') ? 'active' : ''}}">
+          <a class="nav-link" href="{{url('arsip')}}"
+            >Arsip Perizinan</a
+          >
+        </li>
         @endif
         <li class="nav-item {{Request::is('lacak-perizinan') || Request::is('detail-perizinan') ? 'active' : ''}}">
           <a class="nav-link" href="{{route('lacak-perizinan')}}"
@@ -52,8 +57,6 @@
           <i class="fa-solid fa-chevron-down ms-1 ml-1"></i>
           <div class="dropdown-content">
             <a href="{{ url('profil-pengguna') }}">Profil Pengguna</a>
-            <a href="{{ url('arsip') }}">Arsip Perizinan</a>
-            {{-- <a href="#">Ulasan</a> --}}
             <a href="{{ url('logout') }}">Logout</a>
           </div>
         </div>

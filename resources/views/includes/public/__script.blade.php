@@ -31,4 +31,24 @@ crossorigin="anonymous"
   position:'topRight'
   });
 
+  $('#videoPanduan .owl-carousel').owlCarousel({
+    loop:true,
+    nav:true,
+  smartSpeed: 2e3,
+  autoplay: !0,
+  autoplayTimeout: 3e3,
+  animateOut: "fadeOut",
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:3
+        }
+    }
+})
+
 </script>

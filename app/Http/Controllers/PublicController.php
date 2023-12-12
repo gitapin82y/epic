@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Crypt;
 class PublicController extends Controller
 {
     public function index (){
-        return view('public.index');
+        $videos = DB::table('video_panduan')->get();
+        return view('public.index',compact('videos'));
     }
 
     public function buatPermohonan (){

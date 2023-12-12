@@ -36,11 +36,13 @@
             @endif
 
         
-
+            @if(Auth::user()->role_id != 9)
             <li class="menu-header text-black">Perizinan</li>
             <li class=""><a class="nav-link" href="{{ url('surat') }}"><i class="fas fa-file-alt"></i><span>Daftar Perizinan</span></a></li>
 
-            <li class=""><a class="nav-link" href=""><i class="fas fa-folder-open"></i><span>Arsip Perizinan</span></a></li>
+            <li class=""><a class="nav-link" href="{{ url('arsip') }}"><i class="fas fa-folder-open"></i><span>Arsip Perizinan</span></a></li>
+            @endif
+
             @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 6)
 
             <li class="menu-header text-black">Survey</li>

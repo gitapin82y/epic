@@ -19,6 +19,11 @@
         >Permohonan Saya</a
       >
     </li>
+    <li class="nav-item mt-1 {{Request::is('arsip') ? 'active' : ''}}">
+      <a class="nav-link" href="{{url('arsip')}}"
+        >Arsip Perizinan</a
+      >
+    </li>
     <li class="nav-item mt-1 {{Request::is('lacak-perizinan') || Request::is('detail-perizinan') ? 'active' : ''}}">
       <a class="nav-link" href="{{route('lacak-perizinan')}}"
         >Lacak Perizinan</a

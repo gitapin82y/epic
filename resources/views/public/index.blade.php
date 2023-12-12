@@ -1,6 +1,88 @@
 @extends('layouts.public')
 @section('title','Layanan Digital Perizinan')
+@push('extra_style')
+  <style>
+       /* Container untuk gambar */
+       .image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
 
+        /* Gambar */
+        .image-container img {
+          border-radius: 8px;
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Teks yang muncul di tengah gambar saat dihover */
+        .image-container .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            opacity: 0;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 2px;
+            padding: 20px;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        /* Efek muncul saat hover */
+        .image-container:hover img {
+          border-radius: 8px;
+            transform: scale(1.03);
+        }
+
+        .image-container:hover .overlay-text {
+            opacity: 1;
+        }
+        #videoPanduan a{
+          color: #499db1 ;
+          text-decoration: none;
+        }
+        #videoPanduan .card{
+          min-height: 300px;
+          height: auto;
+          margin-top: 20px;
+        }
+        #videoPanduan .card h4{
+          margin-top: 10px;
+        }
+        #videoPanduan .owl-next,
+        #videoPanduan .owl-prev{
+          background-color: rgba(73, 156, 177, 0.116);
+          height: 50px;
+          width: 50px;
+          border-radius: 10px;
+          padding-bottom: 30px;
+          position: relative;
+        }
+        #videoPanduan .owl-nav {
+          position: absolute !important;
+          right: 0 !important;
+          top: 0;
+          margin-top: -60px;
+          width: auto;
+        }
+        #videoPanduan .owl-prev {
+  margin-right: 20px;
+}
+#videoPanduan .owl-next span,
+#videoPanduan .owl-prev span {
+  color: var(--main-collor);
+  font-size: 54px;
+  position: absolute;
+  height: 0;
+  top: -20px;
+  left: 16px;
+}
+
+  </style>
+@endpush
 @section('content')
 <section id="header">
   <div class="container">
@@ -141,6 +223,33 @@
   </div>
 </section>
 <!-- end total -->
+
+<section id="videoPanduan">
+  <div class="container">
+    <div class="row">
+      <div class="text-left text-md-start">
+        <h2 class="mt-1 fw-bold">Video Panduan</h2>
+      </div>
+    </div>
+      <div class="row owl-carousel owl-theme">
+        @foreach ($videos as $video)
+          <a href="{{$video->url}}" class="item w-100 p-2 mx-2" target="_blank">
+            <div class="card p-2 text-center w-100">
+              @php
+              $segments = explode('/', trim(parse_url($video->url, PHP_URL_PATH), '/'));
+            @endphp
+            <div class="image-container">
+            <img src="https://img.youtube.com/vi/{{isset($segments[0]) ? $segments[0] : null}}/maxresdefault.jpg" class="w-100 mb-2" alt="Video Cover">
+            <div class="overlay-text">Lihat Video</div>
+            </div>
+            <h4>{{$video->nama}}</h4>
+            </div>
+          </a>
+        @endforeach
+      </div>
+  </div>
+</section>
+
 
 <section id="testimoni">
   <div class="container bg-color">

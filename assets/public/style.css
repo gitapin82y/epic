@@ -55,6 +55,7 @@ nav.fixed {
   opacity: 0;
   transition-duration: 0.5s;
 }
+
 .border-main {
   border: 1px solid var(--main-collor) !important;
   border-radius: 20px !important;
@@ -437,7 +438,7 @@ footer a {
   position: absolute !important;
   right: 0 !important;
   top: 0;
-  margin-top: -120px;
+  margin-top: -100px;
   width: auto;
 }
 .bg-color {
