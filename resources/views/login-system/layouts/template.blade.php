@@ -7,7 +7,7 @@
     <title>@yield('title') | EPIC</title>
 
     @include('includes.style')
-
+    @stack('before_style')
 </head>
 
 <body>

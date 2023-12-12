@@ -1,6 +1,13 @@
 @extends('login-system.layouts.template')
 @section('title','Register')
-
+@push('before_style')
+  <style>
+    body{
+      background: url('assets/img/bg-login.png');
+      background-size: cover;
+    }
+  </style>
+@endpush
 @section('content')
 
 <div class="row">
@@ -161,13 +168,10 @@
                         </button>
                     </div>
                     <div class="mt-2 text-muted text-center">
-                        Sudah Punya Akun? <a href="/login">Masuk</a>
+                        Sudah Punya Akun? <a href="loginpemohon">Masuk</a>
                     </div>
                 </form>
             </div>
-        </div>
-        <div class="simple-footer">
-            Copyright &copy; EPIC 2023
         </div>
     </div>
 </div>
