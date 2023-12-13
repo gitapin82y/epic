@@ -34,7 +34,7 @@ class PushNotifController extends Controller
         );
     
         $fields = array(
-            'app_id' => "78f36c43-942f-46e4-a155-aab7ecfdf1cc",
+            'app_id' => "4f854fe7-e518-403d-b827-737af885d0ea",
             'included_segments' => array('All'),
             'data' => array("userid" => $userid),
             'contents' => $content,
