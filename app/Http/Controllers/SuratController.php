@@ -977,4 +977,50 @@ else {
 
   }
 
+  public function getListHasilSurvey(){
+    return view('hasil-survey.index');
+  }
+
+  public function datatableHasilSurvey() {
+    // $data = DB::table('surat')->get();
+    $data = DB::table('surat')->where('status', 'Verifikasi Hasil Survey')->get();
+
+
+
+      // return $data;
+      // $xyzab = collect($data);
+      // return $xyzab;
+      // return $xyzab->i_price;
+      return Datatables::of($data)
+      ->addColumn("surat_jenis", function($data) {
+        $surat_jenis = DB::table('surat_jenis')->where('id', $data->surat_jenis_id)->first();
+        return $surat_jenis->nama;
+      })
+      ->addColumn('jadwal_survey', function ($data) {
+        if($data->jadwal_survey !== null){
+          return Carbon::parse($data->jadwal_survey)->format('d F Y');
+
+        }else{
+          return '<div><i>Belum Tersedia</i></div>';
+        }
+      })
+      ->addColumn('nama_surveyor', function ($data) {
+        $survey = DB::table('survey')->join('user', 'user.id' ,'=' ,'survey.user_id')->select('user.nama_lengkap as nama_surveyor')->where('survey.surat_id', $data->id)->first();
+
+        return $survey ? $survey->nama_surveyor : '';
+    })
+    
+        ->addColumn('aksi', function ($data) {
+          return  '<div class="btn-group">'.
+                   '<button type="button" onclick="edit('.$data->id.')" class="btn btn-success btn-lg pt-2" title="edit">'.
+                   '<label class="fa fa-eye w-100"></label></button>'.
+                '</div>';
+        })
+        ->rawColumns(['aksi','jadwal_survey','status', 'tanggal_pengajuan','nama_surveyor'])
+        ->addIndexColumn()
+        // ->setTotalRecords(2)
+        ->make(true);
+  }
+
+
 }

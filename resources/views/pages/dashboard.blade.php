@@ -24,7 +24,9 @@
                     <h4>Semua Perizinan</h4>
                   </div>
                   <div class="card-body">
-                    12312
+                    @php
+            echo DB::table('surat')->where('status', 'not like', 'Pengisian Dokumen')->count();
+          @endphp
                   </div>
                 </div>
               </div>
@@ -39,7 +41,9 @@
                     <h4>Perizinan Masuk</h4>
                   </div>
                   <div class="card-body">
-                    12312
+                    @php
+                    echo DB::table('surat')->whereNotIn('status', ['Selesai', 'Ditolak', 'Pengisian Dokumen'])->count();
+                  @endphp
                   </div>
                 </div>
               </div>
@@ -55,7 +59,9 @@
                   </div>
                   {{-- data laporan ada di dashboard controller method index --}}
                   <div class="card-body">
-                    12312
+                    @php
+                    echo DB::table('surat')->where('is_terlambat','Y')->count();
+                  @endphp
                   </div>
                 </div>
               </div>
@@ -70,7 +76,9 @@
                     <h4>Perizinan Dikembalikan</h4>
                   </div>
                   <div class="card-body">
-                    12312
+                    @php
+                    echo DB::table('surat')->where('status','Ditolak')->count();
+                  @endphp
                   </div>
                 </div>
               </div>
@@ -85,7 +93,9 @@
                     <h4>Perizinan Diterbitkan</h4>
                   </div>
                   <div class="card-body">
-                    12312
+                    @php
+                    echo DB::table('surat')->where('status','Selesai')->count();
+                  @endphp
                   </div>
                 </div>
               </div>

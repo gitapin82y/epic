@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PenugasanSurveyController;
+use App\Http\Controllers\SurveyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -163,6 +164,8 @@ Route::get('editsurveypenugasan', 'PenugasanSurveyController@edit');
 Route::get('survey/penugasan/laporan/{id}',  [PenugasanSurveyController::class, 'laporan']);
 Route::post('kirim-laporan', 'SurveyController@submitFormLaporanPertama');
 
+Route::get('survey/hasil-survey', 'SuratController@getListHasilSurvey');
+Route::get('hasilsurveytable', 'SuratController@datatableHasilSurvey');
 
 
 // End Route Groub middleware auth

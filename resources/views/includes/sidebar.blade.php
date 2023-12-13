@@ -36,7 +36,10 @@
         
             @if(Auth::user()->role_id != 9)
             <li class="menu-header text-black">Perizinan</li>
+            @if (Auth::user()->role_id != 7)
+                
             <li class=""><a class="nav-link" href="{{ url('surat') }}"><i class="fas fa-file-alt"></i><span>Daftar Perizinan</span></a></li>
+            @endif
 
             <li class=""><a class="nav-link" href="{{ url('arsip') }}"><i class="fas fa-folder-open"></i><span>Arsip Perizinan</span></a></li>
             @endif
@@ -55,8 +58,9 @@
 
                     <li class=""><a class="nav-link" href="{{url('survey/penugasan-survey')}}">Penugasan Survey</a></li>
 
-                    <li class=""><a class="nav-link" href="{{ url('surat/hasil-survey') }}">Hasil Survey</a></li>
+                   
                     @endif
+                    <li class=""><a class="nav-link" href="{{ url('survey/hasil-survey') }}">Hasil Survey</a></li>
                 </ul>
             </li>
             @endif
