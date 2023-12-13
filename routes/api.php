@@ -70,6 +70,11 @@ Route::middleware('api')->group(function () {
     Route::get('list-perizinan-terlambat', 'SuratController@listPerizinanTerlambat');
 
     
+    // terbitkan dan tolak surat kepala dinas
+    Route::post('surat/terbitkan', 'SuratController@terbitkanSurat');
+    Route::post('surat/tolak', 'SuratController@tolakSuratKepalaDinas');
+    
+    
     // notification
     Route::get('/notifikasi', 'NotifikasiController@getData');
     Route::get('/detail-notifikasi', 'NotifikasiController@geDetailData');

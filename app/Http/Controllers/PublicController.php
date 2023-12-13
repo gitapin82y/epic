@@ -127,10 +127,7 @@ class PublicController extends Controller
     }
 
     public function profilPengguna(Request $req){
-        $user = DB::table('user')
-        ->join('role','role.id','=','user.role_id')
-        ->select('user.*','role.nama as role_user')
-        ->where('user.id',Auth::user()->id)->first();
+        $user = DB::table('user')->where('id',Auth::user()->id)->first();
         return view('profil-pengguna',compact('user'));
     }
 
@@ -153,9 +150,9 @@ class PublicController extends Controller
             $imgPath = Auth::user()->avatar; //old
         }
 
-        if(Auth::user()->role_id==9){
-        //pemohon
-        DB::table('user')->where('id',$id)->update([
+
+
+        $data = DB::table('user')->where('id',$id)->update([
             'nama_lengkap' => $req->input('nama_lengkap'),
             'email' => $req->input('email'),
             'no_telp' => $req->input('no_telp'),
@@ -173,37 +170,25 @@ class PublicController extends Controller
             'avatar' => $imgPath
             // ... tambahkan kolom lainnya
         ]);
-        }else{
-            DB::table('user')->where('id',$id)->update([
-                'avatar' => $imgPath
-                // ... tambahkan kolom lainnya
-            ]);
-        }
+
 
         return redirect()->back()->with('success', 'Perubahan berhasil disimpan');
     }
 
     
     public function updatePassword(Request $req){
-        $req->validate([
-            'password' => 'required|min:8',
-            'password_confirmation' => 'required||same:password',
-        ], [
-            'password.required' => 'Kata sandi harus diisi.',
-            'password_confirmation.required' => 'Konfirmasi kata sandi harus diisi.',
-            'password.min' => 'Kata sandi minimal harus :min karakter.',
-            'password_confirmation.same' => 'Konfirmasi kata sandi tidak sesuai dengan kata sandi baru',
-        ]);
-
-        $passwordUpdate = Crypt::encryptString($req->password);
+        $passwordUpdate = Crypt::encrypt($req->password);
+        // $passwordUpdate = $req->password;
         
-        $user = auth()->user(); 
+        $user = auth()->user(); // Mendapatkan pengguna yang sedang login
         
+        // Update password di dalam tabel users
         DB::table('user')
         ->where('id', $user->id)
         ->update(['password' => $passwordUpdate]);
         return back()->with('passwordUpadate', 'Password Berhasil Diubah');
     }
+    
     public function getDetailPerizinan($id){
         $data = DB::table('surat')
     ->join('surat_jenis', 'surat_jenis.id', '=', 'surat.surat_jenis_id')

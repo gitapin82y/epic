@@ -342,7 +342,7 @@ class SurveyController extends Controller
         //   }else{
         DB::table('survey')->where('id', $request->id)->update([
           'jadwal_survey' => $request->jadwal_survey,
-          'status' => 'Belum Disurvey',
+          'status' => 'Sudah Disurvey',
           "foto_survey"=>$imgPath,
           "alamat_survey"=>$request->alamat_survey,
           "longitude"=>$request->longitude,
@@ -350,10 +350,15 @@ class SurveyController extends Controller
           "dokumen_survey"=>$request->dokumen_survey,
           "alasan_ditolak"=> null,
           "updated_at" => $tgl
-         
       ]);
+      $getIdSurat = DB::table('survey')->where('id', $request->id)->first();
+
+        DB::table('surat')->where('id', $getIdSurat->surat_id)->update([
+          'status' => 'Verifikasi Hasil Survey',
+          "updated_at" => Carbon::now("Asia/Jakarta")
+        ]);
     // }
-    $getIdSurat = DB::table('survey')->where('id', $request->id)->first();
+    // $getIdSurat = DB::table('survey')->where('id', $request->id)->first();
 
       DB::commit();
 
@@ -364,80 +369,6 @@ class SurveyController extends Controller
        }
        
     }
-    public function isiSurvey(Request $request)
-    {
-        // Validasi request
-        // $request->validate([
-        //     'survey_id' => 'required|exists:surveys,id',
-        //     'survey_pertanyaan_id.*' => 'required|exists:survey_pertanyaans,id',
-        //     'jawaban.*' => 'required',
-        // ]);
-
-        // Simpan jawaban ke dalam database
-        // foreach ($request->input('survey_pertanyaan_id') as $key => $surveyPertanyaanId) {
-        //     DB::table('survey_hasil')->insert([
-        //         'survey_id' => $request->input('survey_id'),
-        //         'survey_pertanyaan_id' => $surveyPertanyaanId,
-        //         'jawaban' => $request->input('jawaban')[$key],
-        //         "created_at" => Carbon::now("Asia/Jakarta"),
-        //         "updated_at" => Carbon::now("Asia/Jakarta")
-        //     ]);
-        // }
-        // return response()->json(['data' => $request->input('survey_pertanyaan_id')]);
-        DB::beginTransaction();
-        // DB::table('survey')->where('surat_id', $request->surat_id)->update([
-        //   'jadwal_survey' => $request->input('jadwal_survey'),
-        //   'status' => 'Sudah Disurvey',
-        //   'foto_survey' => $request
-        // ]);
-
-        foreach ($request->input('survey_pertanyaan_id') as $key => $surveyPertanyaanId) {
-          $surveyId = $request->input('survey_id');
-          $jawaban = $request->input('jawaban')[$key];
-
-          // Check if data already exists for the given survey_id and survey_pertanyaan_id
-          $existingData = DB::table('survey_hasil')
-              ->where('survey_id', $surveyId)
-              ->where('survey_pertanyaan_id', $surveyPertanyaanId)
-              ->first();
-
-          if ($existingData) {
-              // If data already exists, update the existing record
-              DB::table('survey_hasil')
-                  ->where('id', $existingData->id)
-                  ->update([
-                      'jawaban' => $jawaban,
-                      'updated_at' => Carbon::now("Asia/Jakarta")
-                  ]);
-          } else {
-              // If data doesn't exist, insert a new record
-              DB::table('survey_hasil')->insert([
-                  'survey_id' => $surveyId,
-                  'survey_pertanyaan_id' => $surveyPertanyaanId,
-                  'jawaban' => $jawaban,
-                  'created_at' => Carbon::now("Asia/Jakarta"),
-                  'updated_at' => Carbon::now("Asia/Jakarta")
-              ]);
-          }
-      }
-      DB::table('survey')->where('id', $request->input('survey_id'))->update([
-          'status' => 'Sudah Disurvey',
-          "updated_at" => Carbon::now("Asia/Jakarta")
-        ]);
-
-      DB::commit();
-
-        return response()->json(["status" => 1,'message' => 'Jawaban survei berhasil disimpan']);
-    }
+   
     
-    public function getDataPertanyaanSurvey(Request $req){
-      try{
-        $data = DB::table('survey_pertanyaan')->where('surat_jenis_id', $req->surat_jenis_id)->get();
-  
-        return response()->json(["status" => 1, "data" => $data]);
-      }catch(\Exception $e){
-        return response()->json(["status" => 2, "message" => $e->getMessage()]);
-      }
-    }
-
 }
