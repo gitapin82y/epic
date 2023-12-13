@@ -25,7 +25,7 @@
               <div class="card">
                   <div class="card-header p-0 col-12 justify-content-between px-4">
                       <div class="col-md-6 col-lg-6 text-left col-12">
-                          <h5 class="text-blue">Petugas</h5>
+                          <h5 class="text-blue">Video Panduan</h5>
                       </div>
                       @if (Auth::user()->role_id ===1)
                       <div class="col-md-6 col-lg-6 d-flex col-12 justify-content-end">

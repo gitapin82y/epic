@@ -608,4 +608,73 @@ else if(Auth::user()->role_id == 6){
       return response()->json(["status" => 2, "message" => $e->getMessage()]);
     }
   }
+
+  public function listSemuaPerizinan() {
+    try{
+
+    $surat = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*','surat.id as id_surat', 'surat_jenis.nama as surat_jenis_nama')->whereNotIn('surat.status', ['Selesai', 'Ditolak'])->get();
+
+    $data = [];
+
+    foreach ($surat as $item) {
+        $data[] = [
+            'id'               => $item->id_surat,
+            'jenis_perizinan' => $item->surat_jenis_nama,
+            'nomor_surat'      => $item->id_surat,
+            'tanggal'          => $item->created_at,
+            'perizinan'        => $item->is_terlambat == 'Y' ? 'Terlambat' : 'Masuk',
+        ];
+    }
+
+    return response()->json(['status' => 1, 'data' => $data]);
+  }catch(\Exception $e){
+    return response()->json(["status" => 2, "message" => $e->getMessage()]);
+  }
+  }
+
+  public function listPerizinanMasuk() {
+    try{
+
+    $surat = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*','surat.id as id_surat', 'surat_jenis.nama as surat_jenis_nama')->where('surat.is_terlambat','N')->whereNotIn('surat.status', ['Selesai', 'Ditolak'])->get();
+
+    $data = [];
+
+    foreach ($surat as $item) {
+        $data[] = [
+            'id'               => $item->id_surat,
+            'jenis_perizinan' => $item->surat_jenis_nama,
+            'nomor_surat'      => $item->id_surat,
+            'tanggal'          => $item->created_at,
+            'perizinan'        => 'Masuk',
+        ];
+    }
+
+    return response()->json(['status' => 1, 'data' => $data]);
+  }catch(\Exception $e){
+    return response()->json(["status" => 2, "message" => $e->getMessage()]);
+  }
+  }
+  
+  public function listPerizinanTerlambat() {
+    try{
+
+    $surat = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*','surat.id as id_surat', 'surat_jenis.nama as surat_jenis_nama')->where('surat.is_terlambat','Y')->whereNotIn('surat.status', ['Selesai', 'Ditolak'])->get();
+
+    $data = [];
+
+    foreach ($surat as $item) {
+        $data[] = [
+            'id'               => $item->id_surat,
+            'jenis_perizinan' => $item->surat_jenis_nama,
+            'nomor_surat'      => $item->id_surat,
+            'tanggal'          => $item->created_at,
+            'perizinan'        => 'Terlambat',
+        ];
+    }
+
+    return response()->json(['status' => 1, 'data' => $data]);
+  }catch(\Exception $e){
+    return response()->json(["status" => 2, "message" => $e->getMessage()]);
+  }
+  }
 }

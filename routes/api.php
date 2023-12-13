@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SuratController;
+use App\Http\Controllers\SurveyController;
 use Illuminate\Http\Request;
 
 /*
@@ -39,11 +40,40 @@ Route::middleware('api')->group(function () {
     Route::post('surat/kembalikan', 'SuratController@kembalikan');
     Route::get('generate-pdf', 'PublicController@cetakRegisPdf');
 
+    // Verifikasi Hasil Survey
+    Route::post('surat/verifikasi-survey', 'SuratController@approveHasilSurvey');
+    Route::post('surat/tolak-survey', 'SuratController@tolakHasilSurvey');
+
     // Surat Jenis
     Route::get('surat-jenis/', 'SuratJenisController@getData');
 
     // Surat Syarat
     Route::get('surat-syarat/', 'SuratSyaratController@getData');
+
+    // Survey
+    Route::get('list-survey', [SurveyController::class, 'getData']);
+    Route::get('jadwal-penugasan/{id}', 'SurveyController@getDataBySurveyorId');
+    Route::get('detail-form-laporan-survey/{id}', 'SurveyController@getDetailLaporanSurvey');
+    // Route::get('list-pertanyaan-survey', [SurveyController::class, 'getDataPertanyaanSurvey']);
+    Route::post('kirim-laporan', 'SurveyController@submitFormLaporanPertama');
+    // Route::post('isi-survey', [SurveyController::class, 'isiSurvey']);
+
+    // Riwayat Survey
+    Route::get('riwayat-penugasan/{id}', 'RiwayatSurveyController@getDataBySurveyorId');
+    Route::get('detail-riwayat-penugasan/{id}', 'RiwayatSurveyController@getDetailData');
+    // Route::get('list-jawaban-survey/{id}', [RiwayatSurveyController::class, 'getDataJawabanSurvey']);
+    Route::get('detail-hasil-survey/{id}', 'RiwayatSurveyController@getDetailDataHasilSurvey');
+
+    // monitoring
+    Route::get('list-semua-perizinan', 'SuratController@listSemuaPerizinan');
+    Route::get('list-perizinan-masuk', 'SuratController@listPerizinanMasuk');
+    Route::get('list-perizinan-terlambat', 'SuratController@listPerizinanTerlambat');
+
+    
+    // notification
+    Route::get('/notifikasi', 'NotifikasiController@getData');
+    Route::get('/detail-notifikasi', 'NotifikasiController@geDetailData');
+    Route::get('/total-notifikasi', 'NotifikasiController@count_notifikasi');
 
     Route::any('/listroom', 'ChatController@apilistroom');
     Route::any('/listchat', 'ChatController@apilistchat');

@@ -49,12 +49,19 @@ class LoginPemohonController extends Controller
         $findUser = Account::where("email", $req->email)->first();
 
         if ($findUser != null) {
+            $role = DB::table('role')->where('id', $findUser->role_id)->first();
+
             return response()->json([
-                'success' => 'succes',
-                'data' => $findUser
+                'status' => 1,
+                'message' => 'success login',
+                'data' => [
+                    'user' => $findUser,
+                    'role' => $role
+                ]
             ]);
         } else {
             return response()->json([
+                'status' => 2,
                 'success' => 'belum register',
             ]);
         }
@@ -65,7 +72,7 @@ class LoginPemohonController extends Controller
         $password = $req->password;
         $user = Account::where("email", $email)->where("role_id", "9")->first();
         // if ($user && Crypt::decryptString($user->password) ===  $req->password) {
-        if ($user && Crypt::decryptString($user->password) ===  $req->email) {
+        if ($user && $user->password ===  $req->email) {
 
 
             return response()->json([
