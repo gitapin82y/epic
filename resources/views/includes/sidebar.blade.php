@@ -48,9 +48,15 @@
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown "><i class="fas fa-window-restore"></i><span>Survey</span></a>
                 <ul class="dropdown-menu">
+                  @if (Auth::user()->role_id != 7)
+
+                    <li class=""><a class="nav-link" href="{{url('survey/jadwal')}}">Jadwal Survey</a></li>
+                    @else
+
                     <li class=""><a class="nav-link" href="{{url('penugasan-survey')}}">Penugasan Survey</a></li>
 
                     <li class=""><a class="nav-link" href="{{ url('hasil-survey') }}">Hasil Survey</a></li>
+                    @endif
                 </ul>
             </li>
             @endif

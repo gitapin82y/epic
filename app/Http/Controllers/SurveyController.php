@@ -66,16 +66,10 @@ class SurveyController extends Controller
         ->addColumn('status', function ($data) {
           $color = '<div><strong class="text-success">Acc Jadwal Survey</strong></div>';
       
-          if ($data->is_acc_penjadwalan == "N" && $data->is_reschedule == "N" && $data->jadwal_survey == NULL) {
+          if ( $data->jadwal_survey == NULL) {
               // Tombol "Approve" hanya muncul jika is_active == 1
               $color =  '<div><strong class="text-warning"> Menunggu Jadwal</strong></div>';
-          }else if ($data->is_acc_penjadwalan == "N" && $data->is_reschedule == "N" && $data->jadwal_survey != NULL) {
-            // Tombol "Approve" hanya muncul jika is_active == 1
-            $color =  '<div><strong class="text-warning"> Menunggu Konfirmasi Pemohon</strong></div>';
-        }  
-          else if ($data->is_acc_penjadwalan == "N" && $data->is_reschedule == "Y" && $data->jadwal_survey != NULL){
-            $color = '<div><strong class="text-danger">Penjadwalan Ulang</strong></div>';
-          }else if ($data->is_acc_penjadwalan == "Y" && $data->is_reschedule == "N" && $data->jadwal_survey != NULL){
+          }else if ($data->jadwal_survey != NULL){
             $color;
           }
           return $color;
@@ -89,18 +83,12 @@ class SurveyController extends Controller
             '<button type="button" onclick="detail('.$data->id.')" class="btn btn-warning btn-lg pt-2" title="penjadwalan survey">'.
             '<label class="fa fa-calendar-check-o w-100" style="padding:0 2px"></label></button>'.
          '</div>';
-         if ($data->is_acc_penjadwalan == "N" && $data->is_reschedule == "N" && $data->jadwal_survey == NULL) {
+         if ($data->jadwal_survey == NULL) {
           $aksi = '<div class="btn-group">'.
           '<button type="button" onclick="edit('.$data->id.')" class="btn btn-success btn-lg pt-2" title="penjadwalan survey">'.
-          '<label class="fa fa-calendar-plus-o w-100" style="padding:0 2px"></label></button>'.
+          '<label class="far fa-calendar w-100" style="padding:0 2px"></label></button>'.
        '</div>';
-                 } else if ($data->is_acc_penjadwalan == "N" && $data->is_reschedule == "Y" && $data->jadwal_survey != NULL){
-
-                  $aksi = '<div class="btn-group">'.
-          '<button type="button" onclick="edit('.$data->id.')" class="btn btn-success btn-lg pt-2" title="penjadwalan survey">'.
-          '<label class="fa fa-calendar-plus-o w-100" style="padding:0 2px"></label></button>'.
-       '</div>';
-                 } else if ($data->is_acc_penjadwalan == "Y" && $data->is_reschedule == "N" && $data->jadwal_survey != NULL) {
+                 } else if ($data->jadwal_survey != NULL) {
           $aksi = '<div class="btn-group">'.
             '<button type="button" onclick="detail('.$data->id.')" class="btn btn-info btn-lg pt-2" title="lihat detail penugasan">'.
             '<label class="fa fa-eye w-100" ></label></button>'.
@@ -117,7 +105,7 @@ class SurveyController extends Controller
     
     public function simpan(Request $req) {
      
-      if ($req->is_acc_penjadwalan == "N" && $req->is_reschedule == "N") {
+      // if ($req->is_acc_penjadwalan == "N" && $req->is_reschedule == "N") {
         DB::beginTransaction();
         try {
 
@@ -132,7 +120,7 @@ class SurveyController extends Controller
         ->insertGetId([
           'surat_id' => $req->id,
           'user_id' => $req->user_id,
-          'status' => NULL,
+          'status' => 'Belum Disurvey',
           "created_at" => Carbon::now("Asia/Jakarta"),
           "updated_at" => Carbon::now("Asia/Jakarta")
         ]);
@@ -143,35 +131,7 @@ class SurveyController extends Controller
           DB::rollback();
           return response()->json(["status" => 2, "message" =>$e->getMessage()]);
         }
-      } 
-      else if ($req->is_acc_penjadwalan == "N" && $req->is_reschedule == "Y") {
-        DB::beginTransaction();
-        try {
-
-        DB::table("surat")
-        ->where("id", $req->id)
-              ->update([
-              "jadwal_survey" => $req->jadwal_survey,
-              "updated_at" => Carbon::now("Asia/Jakarta"),
-              "is_acc_penjadwalan" => "Y",
-              "is_reschedule" => "N",
-              "updated_at" => Carbon::now("Asia/Jakarta")
-            ]);
-
-        DB::table("survey")
-        ->where("surat_id", $req->id)
-        ->update([
-          'user_id' => $req->user_id,
-          'status' => 'Belum Disurvey',
-          "updated_at" => Carbon::now("Asia/Jakarta")
-        ]);
-
-          DB::commit();
-          return response()->json(["status" => 1]);
-        } catch (\Exception $e) {
-          DB::rollback();
-          return response()->json(["status" => 2, "message" =>$e->getMessage()]);
-        }
+      
       }
 
       //  else {
@@ -197,7 +157,6 @@ class SurveyController extends Controller
       //   }
       // }
 
-    }
 
     public function hapus(Request $req) {
       DB::beginTransaction();

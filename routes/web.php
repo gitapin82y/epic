@@ -82,33 +82,6 @@ Route::post('/update-password-pemohon', 'PublicController@updatePassword');
 Route::get('/home', 'HomeController@index')->name('index');
 Route::get('logout', 'HomeController@logout')->name('logout');
 
-Route::get('mastertagihan', 'MastertagihanController@index');
-Route::get('mastertagihantable', 'MastertagihanController@datatable');
-Route::get('simpanmastertagihan', 'MastertagihanController@simpan');
-Route::get('hapusmastertagihan', 'MastertagihanController@hapus');
-Route::get('editmastertagihan', 'MastertagihanController@edit');
-
-Route::get('tagihan', 'TagihanController@index');
-Route::get('tagihantable', 'TagihanController@datatable');
-Route::get('bayartagihan', 'TagihanController@bayar');
-
-Route::get('uangmasuk', 'UangmasukController@index');
-Route::get('uangmasuktable', 'UangmasukController@datatable');
-Route::get('simpanuangmasuk', 'UangmasukController@simpan');
-Route::get('hapusuangmasuk', 'UangmasukController@hapus');
-Route::get('edituangmasuk', 'UangmasukController@edit');
-
-Route::get('uangkeluar', 'UangkeluarController@index');
-Route::get('uangkeluartable', 'UangkeluarController@datatable');
-Route::get('simpanuangkeluar', 'UangkeluarController@simpan');
-Route::get('hapusuangkeluar', 'UangkeluarController@hapus');
-Route::get('edituangkeluar', 'UangkeluarController@edit');
-
-// Route::get("mutasi", "MutasiController@index");
-
-Route::get("statistik", "StatistikController@index");
-Route::get("getstatistik", "StatistikController@get");
-
 Route::get('petugas', 'PetugasController@index');
 Route::get('petugastable', 'PetugasController@datatable');
 Route::get('editpetugas', 'PetugasController@edit');
@@ -173,7 +146,14 @@ Route::get('editpertanyaansurveykepuasan', 'PertanyaanSurveyKepuasanController@e
 Route::get('simpanpertanyaansurveykepuasan', 'PertanyaanSurveyKepuasanController@simpan');
 Route::get('hapuspertanyaansurveykepuasan', 'PertanyaanSurveyKepuasanController@hapus');
 
-}); // End Route Groub middleware auth
+}); 
+
+// Survey
+Route::get('survey/jadwal', 'SurveyController@index');
+Route::get('surveyjadwaltable', 'SurveyController@datatable');
+Route::get('simpansurveyjadwal', 'SurveyController@simpan');
+Route::get('editsurveyjadwal', 'SurveyController@edit');
+// End Route Groub middleware auth
 // Route::get('petugas', 'PetugasController@index');
 // Route::get('petugastable', 'PetugasController@datatable');
 // Route::get('editpetugas', 'PetugasController@edit');
