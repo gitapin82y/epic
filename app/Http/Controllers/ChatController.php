@@ -389,7 +389,7 @@ class ChatController extends Controller
        // foreach ($chat as $key => $value) {
        $account = explode("-",$room->account);
 
-       if ($account[0] == Auth::user()->id_account) {
+       if ($account[0] == Auth::user()->id) {
 
          DB::table('roomchat')
               ->where("id", $req->id)
@@ -430,7 +430,7 @@ class ChatController extends Controller
        // foreach ($chat as $key => $value) {
        $account = explode("-",$room->account);
 
-       if ($account[0] == $req->id_account) {
+       if ($account[0] == $req->id) {
 
          DB::table('roomchat')
               ->where("id", $req->id)
