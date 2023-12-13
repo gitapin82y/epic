@@ -33,7 +33,6 @@
 @include('surat.detail')
 
 @include('survey-penugasan.detail')
-@include('survey-penugasan.laporan-pertama')
 @php
  $jenis = DB::table("surat_jenis")->get();
 @endphp
@@ -46,16 +45,9 @@
               <div class="card">
                   <div class="card-header p-0 col-12 justify-content-between px-4">
                       <div class="col-md-6 col-lg-6 text-left col-12">
-                          <h5 class="text-blue">Video Panduan</h5>
+                          <h5 class="text-blue">List Penugasan Survey</h5>
                       </div>
-                      @if (Auth::user()->role_id ===1)
-                      <div class="col-md-6 col-lg-6 d-flex col-12 justify-content-end">
-                          <div class="card-header-action mx-1">
-                              <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#tambah">Tambah
-                                  Data <i class="fas fa-plus"></i></a>
-                          </div>
-                      </div>
-                      @endif
+                     
                   </div>
 
                   <div class="card-body  pb-5 pt-2">

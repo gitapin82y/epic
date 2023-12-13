@@ -28,7 +28,13 @@ body {
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
+                    <div class="card-header text-blue">
+                        <h5>
+                            Laporan Survey (No Surat : {{ $data->id }})
+                        </h5>
+                    </div>
                 <div class="card-body">
+                  
                     <form id="form1" enctype="multipart/form-data">
                         @csrf
                         @method('post')
@@ -153,7 +159,7 @@ $('#simpan').click(function(){
                 //     message: 'Data Berhasil Disimpan!',
                 // });
                 let id = data.id;
-                window.location.href = id+'/form-pertanyaan-survey';
+                window.location.href = baseUrl + '/survey/penugasan-survey';
 
                 // reloadall();
             } else if(data.status == 2){
