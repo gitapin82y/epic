@@ -526,7 +526,7 @@ class ChatController extends Controller
               'created_at' => Carbon::now('Asia/Jakarta'),
             ]);
 
-          $this->aksesBot($req->id, Auth::user()->id, $req->penerima);
+          $this->aksesBot($req->id, $req->id, $req->penerima);
 
           $botchat = DB::table("chatbot")->where("id", 1)->first();
           if ($botchat->is_active == "Y") {
