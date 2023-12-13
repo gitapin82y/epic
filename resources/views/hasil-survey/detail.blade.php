@@ -1,71 +1,215 @@
-<!-- Modal -->
-<div id="detail" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-xs">
+@extends('layouts.app')
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header bg-warning" style="background-color: #499DB1 !important">
-        <h4 class="modal-title">Detail Surat Perizinan</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body bg-light">
-        <div class="row table_modal">
-         <div class="col-12">
-          <strong>Jenis Perizinan</strong>
-          <p id="jenis_perizinan" class="mt-1"></p>
-         </div>
-         <div class="col-6">
-          <strong>Nomor Surat</strong>
-          <p id="surat_id" class="mt-1"></p>
-         </div>
-         <div class="col-6">
-          <strong>Status</strong><br>
-          <b id="status_surat" class="mt-1"></b>
-         </div>
-         <div class="col-6">
-          <strong>Nama Pemohon</strong>
-          <p id="nama_pemohon" class="mt-1"></p>
-         </div>
-         <div class="col-6">
-          <strong>Email</strong>
-          <p id="email" class="mt-1"></p>
-         </div>
-         <div class="col-6">
-          <strong>Tanggal</strong>
-          <p id="tanggal_pengajuan" class="mt-1"></p>
-         </div>
-         <div class="col-6">
-          <strong>Jadwal Survey</strong>
-          <p id="jadwal_survey" class="mt-1"></p>
-         </div>
-         <div class="col-12">
-          <strong>Alamat</strong>
-          <p id="alamat_lokasi" class="mt-1"></p>
-         </div>
-         <div class="col-12">
-          <strong>Dokumen Syarat Perizinan</strong>
-         </div>
-         <div class="col-12" id="nama_surat_syarat">
-         </div>
-         @if (Auth::user()->role_id === 5 || Auth::user()->role_id === 6)
-         <div class="col-12">
-          <input type="hidden" class="form-control form-control-sm id" name="id" id="id">
-          <button class="btn btn-warning btn-md w-100 mb-3 border-0 shadown-none" id="validasi" type="button"  style="background-color: #499DB1 !important">
-         @if (Auth::user()->role_id === 5)
-           
-            Validasi
-            @else 
-            Verifikasi
-            @endif
-          </button>
-          <button class="btn btn-light btn-md w-100 text-warning " id="showModalTolak" type="button"  style="color: #499DB1 !important">
-            Tolak
-          </button>
-        </div>
-         @endif
-        </div>
-      </div>
-      </div>
+@section('title','Petugas')
 
-  </div>
-</div>
+@section('soloStyle')
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<style>
+body {
+    background-color: #f3f8fb;
+}
+#map {
+    height: 35vh;
+    width: 100%;
+    z-index: 1;
+}
+</style>
+<script src="{{asset('assets\js\sweetalert2.all.min.js')}}"></script>
+
+{{-- data table + ui design --}}
+<link rel="stylesheet" href="{{asset('assets\DataTables-1.10.21\css\dataTables.bootstrap4.min.css')}}">
+<link rel="stylesheet" href="{{asset('assets\DataTables-1.10.21\css\jquery.dataTables.min.css')}}">
+{{-- end data table --}}
+@endsection
+
+@section('content')
+<div class="main-content">
+    <section class="section mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header text-blue">
+                        <h5>
+                            Laporan Survey (No Surat : {{ $data->id }})
+                        </h5>
+                    </div>
+                <div class="card-body">
+                  
+                    <form id="form1" enctype="multipart/form-data">
+                        @csrf
+                        @method('post')
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label for="foto_survey">Foto Survey</label>
+                                <br>
+                                <input type="hidden" class="form-control" id="id" name="id" value="{{ $data->id }}">
+                                <input type="hidden" class="form-control" id="jadwal_survey" name="jadwal_survey" value="@php
+                            use Carbon\Carbon;
+                                
+                                echo Carbon::now('Asia/Jakarta'); @endphp">
+
+                                <img src="{{ asset($data->foto_survey) }}" alt="" class="w-100">
+                            </div>
+                            <div class="form-group col-6">
+                                <label for="map">Alamat pada Peta</label>
+                                <div id="map"></div>
+                                
+                            </div>
+                            <div class="form-group col-6">
+                                <strong for="longitude">longitude</strong>
+                                <p class="" id="longitude">{{ $data->longitude }}</p>
+
+                            </div>
+                            <div class="form-group col-6">
+                                <strong for="latitude">latitude</strong>
+                                <p class="" id="latitude">{{ $data->latitude }}</p>
+
+                            </div>
+                            <div class="form-group col-6">
+                                <strong>Nama Surveyor</strong>
+                                <p class="" >{{ $data->nama_surveyor }}</p>
+
+                            </div>
+                            <div class="form-group col-6">
+                                <strong>Email</strong>
+                                <p class="" >{{ $data->email_surveyor }}</p>
+
+                            </div>
+                         
+                            <div class="form-group col-6">
+                                <strong>Tanggal Survey</strong>
+                                <p class="" >{{ $data->jadwal_survey }}</p>
+
+                            </div>
+                            <div class="form-group col-6">
+                                <strong>Status</strong>
+                                <p class="" >{{ $data->surat_status }}</p>
+
+                            </div>
+                            {{-- <div class="form-group col-6">
+                                <label for="dokumen_survey">Upload Dokumen Hasil Survey</label>
+                              
+
+                                <input type="file" class="form-control" id="dokumen_survey" name="dokumen_survey">
+                            </div> --}}
+                            <div class="form-group col-12">
+                                <strong for="alamat_survey">Alamat</strong>
+                                <p class="" >{{ $data->alamat_survey }}</p>
+                            </div>
+                           
+                            
+                        </div>
+                        <div class="row btn-update-profile mt-4 col-12">
+                            <button type="button" class="btn btn-main text-light col-12" id="simpan">Verifikasi Survey</button>
+                            <button type="button" class="btn btn-main col-12 mt-4" id="simpan" style="background-color: white !important; color:#499DB1 !important; border: 1px solid #499DB1">Tolak Survey</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    </div>
+@endsection
+
+@section('soloScript')
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+
+<script>
+var latitude = document.getElementById("latitude").textContent; // Default latitude
+var longitude = document.getElementById("longitude").textContent; // Default longitude
+
+// function askForLocation() {
+//     if (navigator.geolocation) {
+//         navigator.geolocation.getCurrentPosition(showPosition, handleError);
+//     } else {
+//         alert("Geolocation is not supported by this browser.");
+//     }
+// }
+
+// function showPosition(position) {
+//     latitude = position.coords.latitude;
+//     longitude = position.coords.longitude;
+//     document.getElementById("longitude").value = longitude;
+//     document.getElementById("latitude").value = latitude;
+
+//     initializeMap();
+// }
+initializeMap();
+
+function initializeMap() {
+    var map = L.map('map').setView([latitude, longitude], 17);
+    var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var marker = L.marker([latitude, longitude]).addTo(map);
+
+    
+}
+
+// function handleError(error) {
+//     switch (error.code) {
+//         case error.PERMISSION_DENIED:
+//             alert("User denied the request for Geolocation.");
+//             break;
+//         case error.POSITION_UNAVAILABLE:
+//             alert("Location information is unavailable.");
+//             break;
+//         case error.TIMEOUT:
+//             alert("The request to get user location timed out.");
+//             break;
+//         case error.UNKNOWN_ERROR:
+//             alert("An unknown error occurred.");
+//             break;
+//     }
+// }
+
+// askForLocation();
+
+$('#simpan').click(function(){
+    var formData = new FormData($('#form1')[0]);
+    console.log('form1',  JSON.stringify(formData));
+    
+    $.ajax({
+        url: baseUrl + '/kirim-laporan',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success:function(data){
+            if (data.status == 1) {
+                // iziToast.success({
+                //     icon: 'fa fa-save',
+                //     message: 'Data Berhasil Disimpan!',
+                // });
+                let id = data.id;
+                window.location.href = baseUrl + '/survey/penugasan-survey';
+
+                // reloadall();
+            } else if(data.status == 2){
+                iziToast.warning({
+                    icon: 'fa fa-info',
+                    message: data.message,
+                });
+            } else if (data.status == 3){
+                iziToast.success({
+                    icon: 'fa fa-save',
+                    message: 'Data Berhasil Diubah!',
+                });
+                reloadall();
+            } else if (data.status == 4){
+                iziToast.warning({
+                    icon: 'fa fa-info',
+                    message: 'Data Gagal Diubah!',
+                });
+            }
+        }
+    });
+});
+
+</script>
+@endsection

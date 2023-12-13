@@ -1012,8 +1012,8 @@ else {
     
         ->addColumn('aksi', function ($data) {
           return  '<div class="btn-group">'.
-                   '<button type="button" onclick="edit('.$data->id.')" class="btn btn-success btn-lg pt-2" title="edit">'.
-                   '<label class="fa fa-eye w-100"></label></button>'.
+                   '<a  href="penugasan/laporan/'.$data->id.'" class="btn btn-success btn-lg pt-2" title="edit">'.
+                   '<label class="fa fa-eye w-100"></label></a>'.
                 '</div>';
         })
         ->rawColumns(['aksi','jadwal_survey','status', 'tanggal_pengajuan','nama_surveyor'])
