@@ -41,7 +41,7 @@
             <li class=""><a class="nav-link" href="{{ url('arsip') }}"><i class="fas fa-folder-open"></i><span>Arsip Perizinan</span></a></li>
             @endif
 
-            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 6)
+            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 6  || Auth::user()->role_id == 7)
 
             <li class="menu-header text-black">Survey</li>
 
@@ -53,9 +53,9 @@
                     <li class=""><a class="nav-link" href="{{url('survey/jadwal')}}">Jadwal Survey</a></li>
                     @else
 
-                    <li class=""><a class="nav-link" href="{{url('penugasan-survey')}}">Penugasan Survey</a></li>
+                    <li class=""><a class="nav-link" href="{{url('survey/penugasan-survey')}}">Penugasan Survey</a></li>
 
-                    <li class=""><a class="nav-link" href="{{ url('hasil-survey') }}">Hasil Survey</a></li>
+                    <li class=""><a class="nav-link" href="{{ url('surat/hasil-survey') }}">Hasil Survey</a></li>
                     @endif
                 </ul>
             </li>

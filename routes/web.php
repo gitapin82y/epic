@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PenugasanSurveyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -153,6 +154,17 @@ Route::get('survey/jadwal', 'SurveyController@index');
 Route::get('surveyjadwaltable', 'SurveyController@datatable');
 Route::get('simpansurveyjadwal', 'SurveyController@simpan');
 Route::get('editsurveyjadwal', 'SurveyController@edit');
+
+
+Route::get('survey/penugasan-survey', 'PenugasanSurveyController@index');
+Route::get('surveypenugasantable', 'PenugasanSurveyController@datatable');
+Route::get('simpansurveypenugasan', 'PenugasanSurveyController@simpan');
+Route::get('editsurveypenugasan', 'PenugasanSurveyController@edit');
+Route::get('survey/penugasan/laporan/{id}',  [PenugasanSurveyController::class, 'laporan']);
+Route::post('kirim-laporan', 'SurveyController@submitFormLaporanPertama');
+
+
+
 // End Route Groub middleware auth
 // Route::get('petugas', 'PetugasController@index');
 // Route::get('petugastable', 'PetugasController@datatable');
