@@ -912,66 +912,68 @@ else {
     DB::beginTransaction();
     // if(Auth::user()->role_id ===5){
       $cekDataUser = DB::table("surat")->join('user', 'user.id', '=', 'surat.user_id')
-   ->where('surat.id', $req->input('id'))->first();
+   ->where('surat.id', $req->id)->first();
    $generateSuratPenerbitan = DB::table("surat")->join('surat_jenis', 'surat_jenis.id', '=', 'surat.surat_jenis_id')
-   ->where('surat.id', $req->input('id'))->select('surat.*')->first();
+   ->where('surat.id', $req->id)->select('surat.*')->first();
    $verifikator = DB::table('user')->where('role_id', '6')->first(); 
    $admin_dinas = DB::table('user')->where('role_id', '2')->first(); 
 
-   if($cekDataUser){
-    // return $cekDataUser->nama_lengkap;
-    return response()->json(["data" => $cekDataUser->nama_lengkap]);
-    // return response()->json([ "nomor_penerbitan" => $generateSuratPenerbitan->id.'/0'.$generateSuratPenerbitan->surat_jenis_id.'/'.Carbon::parse($generateSuratPenerbitan->created_at)->format('Y')]);
-   }
-//   if (Auth::check()) {
-//   if( Auth::user()->role_id == 3 ){
-//     try {
+  //  return response()->json(["data" => $req->id]);
 
-//       DB::table("surat")
-//           ->where("id", $req->id)
-//           ->update([
-//             "status" => 'Ditolak',
-//             "is_ditolak" => "Y",
-//             "alasan_ditolak" => $req->alasan_ditolak, 
-//             "updated_at" => Carbon::now("Asia/Jakarta")
-//           ]);
+  //  if($cekDataUser){
+  //   // return $cekDataUser->nama_lengkap;
+  //   return response()->json(["data" => $cekDataUser->nama_lengkap]);
+  //   // return response()->json([ "nomor_penerbitan" => $generateSuratPenerbitan->id.'/0'.$generateSuratPenerbitan->surat_jenis_id.'/'.Carbon::parse($generateSuratPenerbitan->created_at)->format('Y')]);
+  //  }
+  if (Auth::check()) {
+  if( Auth::user()->role_id == 3 ){
+    try {
 
-//       DB::commit();
-//       SendemailController::Send($cekDataUser->nama_lengkap, "Sayangnya, surat pengajuan anda dengan nomor No. ".$req->id." ditolak oleh kepala dinas.<br><br> Dengan ini surat anda tidak dapat diproses lagi dan tersimpan di Arsip surat anda","Permohonan Anda Ditolak Kepala Dinas", $cekDataUser->email);
-//       PushNotifController::sendMessage($cekDataUser->user_id,'Permohonan Anda Ditolak Kepala Dinas','Sayangnya, surat pengajuan anda dengan nomor No. '.$req->id.'  ditolak oleh Kepala Dinas. Dengan ini surat anda tidak dapat diproses lagi dan tersimpan di Arsip surat anda' );
+      DB::table("surat")
+          ->where("id", $req->id)
+          ->update([
+            "status" => 'Ditolak',
+            "is_ditolak" => "Y",
+            "alasan_ditolak" => $req->alasan_ditolak, 
+            "updated_at" => Carbon::now("Asia/Jakarta")
+          ]);
 
-//       return response()->json(["status" => 1, "message" => "Permohonan Perizinan Berhasil Ditolak"]);
-//     } catch (\Exception $e) {
-//       DB::rollback();
-//       return response()->json(["status" => 2, "message" => $e->getMessage()]);
-//     }
-//   }
-// }
-// // response api
-// else {
-//   if( $req->role_id == 3  ){
-//     try {
+      DB::commit();
+      SendemailController::Send($cekDataUser->nama_lengkap, "Sayangnya, surat pengajuan anda dengan nomor No. ".$req->id." ditolak oleh kepala dinas.<br><br> Dengan ini surat anda tidak dapat diproses lagi dan tersimpan di Arsip surat anda","Permohonan Anda Ditolak Kepala Dinas", $cekDataUser->email);
+      PushNotifController::sendMessage($cekDataUser->user_id,'Permohonan Anda Ditolak Kepala Dinas','Sayangnya, surat pengajuan anda dengan nomor No. '.$req->id.'  ditolak oleh Kepala Dinas. Dengan ini surat anda tidak dapat diproses lagi dan tersimpan di Arsip surat anda' );
 
-//       DB::table("surat")
-//           ->where("id", $req->id)
-//           ->update([
-//             "status" => 'Ditolak',
-//             "is_ditolak" => "Y",
-//             "alasan_ditolak" => $req->alasan_ditolak, 
-//             "updated_at" => Carbon::now("Asia/Jakarta")
-//           ]);
+      return response()->json(["status" => 1, "message" => "Permohonan Perizinan Berhasil Ditolak"]);
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+}
+// response api
+else {
+  if( $req->role_id == 3  ){
+    try {
 
-//       DB::commit();
-//       SendemailController::Send($cekDataUser->nama_lengkap, "Sayangnya, surat pengajuan anda dengan nomor No. ".$req->id." ditolak oleh kepala dinas.<br><br> Dengan ini surat anda tidak dapat diproses lagi dan tersimpan di Arsip surat anda","Permohonan Anda Ditolak Kepala Dinas", $cekDataUser->email);
-//       PushNotifController::sendMessage($cekDataUser->user_id,'Permohonan Anda Ditolak Kepala Dinas','Sayangnya, surat pengajuan anda dengan nomor No. '.$req->id.'  ditolak oleh Kepala Dinas. Dengan ini surat anda tidak dapat diproses lagi dan tersimpan di Arsip surat anda' );
+      DB::table("surat")
+          ->where("id", $req->id)
+          ->update([
+            "status" => 'Ditolak',
+            "is_ditolak" => "Y",
+            "alasan_ditolak" => $req->alasan_ditolak, 
+            "updated_at" => Carbon::now("Asia/Jakarta")
+          ]);
 
-//       return response()->json(["status" => 1, "message" => "Permohonan Perizinan Berhasil Ditolak"]);
-//     } catch (\Exception $e) {
-//       DB::rollback();
-//       return response()->json(["status" => 2, "message" => $e->getMessage()]);
-//     }
-//   }
-// }
+      DB::commit();
+      SendemailController::Send($cekDataUser->nama_lengkap, "Sayangnya, surat pengajuan anda dengan nomor No. ".$req->id." ditolak oleh kepala dinas.<br><br> Dengan ini surat anda tidak dapat diproses lagi dan tersimpan di Arsip surat anda","Permohonan Anda Ditolak Kepala Dinas", $cekDataUser->email);
+      PushNotifController::sendMessage($cekDataUser->user_id,'Permohonan Anda Ditolak Kepala Dinas','Sayangnya, surat pengajuan anda dengan nomor No. '.$req->id.'  ditolak oleh Kepala Dinas. Dengan ini surat anda tidak dapat diproses lagi dan tersimpan di Arsip surat anda' );
+
+      return response()->json(["status" => 1, "message" => "Permohonan Perizinan Berhasil Ditolak"]);
+    } catch (\Exception $e) {
+      DB::rollback();
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
+    }
+  }
+}
 
   }
 
