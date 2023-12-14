@@ -88,7 +88,6 @@ class LoginPemohonController extends Controller
     
 
     public function authenticate(Request $req) {
-
         $rules = array(
             'email' => 'required|min:3', // make sure the email is an actual email
             'password' => 'required|min:2' // password can only be alphanumeric and has to be greater than 3 characters

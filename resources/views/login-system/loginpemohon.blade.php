@@ -37,10 +37,13 @@
                     
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input id="email"class="form-control" type="email" name="email" id="email" placeholder="email" autofocus="">
+                        <input id="email"class="form-control" type="email" name="email" id="email" placeholder="email" required autofocus="">
                         @if (session('email'))
                         <div class="red"  style="color: red"><b>Email Tidak Ada</b></div>
                       @endif
+                      <div class="invalid-feedback">
+                        Email belum di isi
+                      </div>
     
                     </div>
 
@@ -49,7 +52,10 @@
                             <label for="password" class="control-label">Password</label>
                         </div>
                         <input id="password" type="password"
-                            class="form-control" value="" type="password" name="password" id="password" placeholder="Password">
+                            class="form-control" value="" type="password" name="password" id="password" required placeholder="Password">
+                            <div class="invalid-feedback">
+                                Password harus di isi
+                              </div>
                             @if (session('password'))
                             <div class="red"  style="color: red"><b>Password Yang Anda Masukan Salah</b></div>
                             @endif
@@ -85,6 +91,27 @@
   
   @include('sweetalert::alert')
   <script src="https://accounts.google.com/gsi/client" async defer ></script>
+    <script>
+        (function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+    </script>
 
 </body>
 

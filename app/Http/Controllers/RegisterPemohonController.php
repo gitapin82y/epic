@@ -151,7 +151,7 @@ class RegisterPemohonController extends Controller
             ]);
             
           DB::commit();
-          return response()->json(["status" => 1, ,'message' => 'Berhasil Registrasi , Selamat Datang di Epic' ]);
+          return response()->json(["status" => 1, 'message' => 'Berhasil Registrasi , Selamat Datang di Epic' ]);
         }
 
       } catch (\Exception $e) {
