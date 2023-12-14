@@ -27,12 +27,12 @@
                       <div class="col-md-6 col-lg-6 text-left col-12">
                           <h5 class="text-blue">Pertanyaan Survey Kepuasan</h5>
                       </div>
-                      {{-- <div class="col-md-6 col-lg-6 d-flex col-12 justify-content-end">
+                      <div class="col-md-6 col-lg-6 d-flex col-12 justify-content-end">
                           <div class="card-header-action mx-1">
                               <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#tambah">Tambah
                                   Data <i class="fas fa-plus"></i></a>
                           </div>
-                      </div> --}}
+                      </div>
                   </div>
 
                   <div class="card-body  pb-5 pt-2">
