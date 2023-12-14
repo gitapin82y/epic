@@ -136,7 +136,7 @@ class PertanyaanSurveyKepuasanController extends Controller
 
     public function sendSurveyKepuasan(Request $req) {
       $questions = $req->except(['_token']);
-      $totalPertanyaan = DB::table('ulasan_pertanyaan')->get();
+      $totalPertanyaan = DB::table('ulasan_pertanyaan')->where('is_active','Y')->get();
 
       foreach ($totalPertanyaan as $key => $answer) {
         $question_id = intval($key);

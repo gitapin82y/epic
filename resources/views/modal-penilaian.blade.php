@@ -13,7 +13,7 @@
             @csrf
 
             @php
-                $questions = DB::table('ulasan_pertanyaan')->get(); 
+                $questions = DB::table('ulasan_pertanyaan')->where('is_active','Y')->get(); 
              @endphp
 
             @foreach($questions as $key => $question)
