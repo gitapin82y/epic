@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cetak SK Perizinan</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css">
+
     
   
     <style>
@@ -24,9 +24,9 @@
     </style>
 </head>
 <body>
-    <h5 class="text-center">Surat</h5>
+    <h5 class="text-center">Surat Perizinan</h5>
 
-    <div class="text-left row mt-4 mb-5">
+    <div class="text-left row mt-4 mb-4">
         No &nbsp;&nbsp;&nbsp;:&nbsp;&nbsp; {{$data->nomor_penerbitan}}
         <br>
         Hal &nbsp;&nbsp;:&nbsp;&nbsp; {{$data->namaPerizinan}}
@@ -34,44 +34,136 @@
     @php
         use Carbon\Carbon;
     @endphp
-    <div class="text-left row my-5">
+    <div class="text-left row my-4">
         Yang Terhormat,<br>
         {{$data->nama_lengkap}}
     </div>
 
     <div class="row my-4">
-        Sehubungan dengan permohonan anda, dengan ini kami beritahukan bahwa:
+        Berkaitan dengan pengajuan Anda, dengan ini kami sampaikan bahwa:
     </div>
     <div class="row my-4 pl-3">
-        Nama &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{$data->nama_lengkap}} <br>
-        Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{$data->email}} <br>
-        Kategori &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{$data->kategori}} <br>
-        Nama Instansi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{$data->nama}} <br>
-        Alamat Lokasi &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; {{$data->alamat_lokasi}} <br>
-        Tanggal Pengajuan &nbsp;&nbsp;&nbsp;&nbsp;: &nbsp;&nbsp;&nbsp;{{Carbon::parse($data->created_at)->format('d F Y')}} <br>
+        <table>
+            <tr>
+                <td style="width: 148px">
+                    Nama
+                </td>
+                <td>:</td>
+                <td style="padding-left: 24px">
+                    {{$data->nama_lengkap}} 
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 148px">
+                    Email
+                </td>
+                <td>:</td>
+                <td style="padding-left: 24px">
+                    {{$data->email}} 
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 148px">
+                    Jenis Perizinan
+                </td>
+                <td>:</td>
+                <td style="padding-left: 24px">
+                    {{$data->namaPerizinan}}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 148px">
+                    Kategori
+                </td>
+                <td>:</td>
+                <td style="padding-left: 24px">
+                    {{$data->kategori}}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 148px">
+                    Nama Surat
+                </td>
+                <td>:</td>
+                <td style="padding-left: 24px">
+                    {{$data->nama}}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 148px">
+                    Alamat
+                </td>
+                <td>:</td>
+                <td style="padding-left: 24px">
+                    {{$data->alamat_lokasi}}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 148px">
+                    Tanggal Pengajuan
+                </td>
+                <td>:</td>
+                <td style="padding-left: 24px">
+                    {{Carbon::parse($data->created_at)->format('d F Y')}}
+                </td>
+            </tr>
+        </table>
     </div>
+
+    <div class="row my-4">
+        Dengan ini hasil kami sertakan hasil dari survey sebagai berikut:
+    </div>
+    <div class="row my-4 pl-3">
+        <table>
+            <tr>
+                <td style="width: 148px">
+                    Nama Surveyor
+                </td>
+                <td>:</td>
+                <td style="padding-left: 24px">
+                    {{$survey->nama_lengkap}} 
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 148px">
+                    Tanggal Survey
+                </td>
+                <td>:</td>
+                <td style="padding-left: 24px">
+                    {{Carbon::parse($survey->jadwal_survey)->format('d F Y')}} 
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 148px">
+                    Hasil Survey
+                </td>
+                <td>:</td>
+                <td style="padding-left: 24px">
+                    Sudah Sesuai
+                </td>
+            </tr>
+        </table>
+    </div>
+
 
 
     <div class="row description">
-        Kami mengucapkan terima kasih atas kepercayaan yang telah Saudara/i berikan. Penerbitan surat permohonan ini menjadi bukti komitmen kami dalam memberikan pelayanan terbaik kepada setiap pemohon. Semoga surat ini dapat memberikan manfaat dan memenuhi harapan Saudara/i.
-        <br>
-Kami juga ingin menyampaikan apresiasi kami atas kerjasama yang baik dari pihak Saudara/i selama proses pengajuan surat permohonan. Semua dokumen yang Saudara/i serahkan telah kami periksa dengan seksama, dan kami berharap bahwa penerbitan ini dapat membantu mencapai tujuan yang diinginkan.
+        Surat perizinan ini mencerminkan komitmen kami untuk menyediakan layanan terbaik kepada setiap pemohon. Semoga surat ini bermanfaat dan memenuhi harapan anda. Kami berharap penerbitan ini dapat membantu mencapai tujuan yang diinginkan.
     </div>
 
     <div class="row text-right my-4">
         {{Carbon::parse($data->updated_at)->format('d F Y')}} <br>
-        Hormat Kami,
-        <br><br><br><br>
-        Admin Kepala Dinas
+        <p>Hormat Kami</p>
+        <p class="mt-5 pt-2">Kepala Dinas</p>
     </div>
 
 
-    <table class="table table-striped">
+    <table class="table">
         <thead>
-          <tr>
+          <tr class="bg-info text-white">
             <th scope="col">No</th>
             <th scope="col">Nama Kelengkapan</th>
-            <th scope="col">Kelengkapan</th>
+            <th scope="col" class="text-center">Kelengkapan</th>
           </tr>
         </thead>
         <tbody>
@@ -79,7 +171,7 @@ Kami juga ingin menyampaikan apresiasi kami atas kerjasama yang baik dari pihak 
             <tr>
                 <td>{{$key+1}}</td>
                 <td>{{$syarat->nama}}</td>
-                <td><img src="{{ asset('assets/icon/checklist.png') }}" alt="checklist"></td>
+                <td class="text-center pt-4"><img src="{{ asset('assets/icon/check.png') }}" alt="checklist"></td>
             </tr>   
             @endforeach
         </tbody>
