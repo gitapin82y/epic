@@ -86,10 +86,21 @@ class ArsipController extends Controller
 
       })
           ->addColumn('aksi', function ($data) {
-            return  '<div class="btn-group">'.
-                     '<button type="button" onclick="edit('.$data->id.')" class="btn btn-success btn-lg pt-2" title="edit">'.
-                     '<label class="fa fa-eye w-100"></label></button>'.
-                  '</div>';
+            if($data->status == "Selesai"){
+              return '<div class="btn-group">'.
+              '<button type="button" onclick="edit('.$data->id.')" class="btn btn-success btn-lg pt-2" title="edit">'.
+              '<label class="fa fa-eye w-100"></label></button>'.
+            '</div>'.
+           '<a href="cetak-perizinan?dataId='.$data->id.'" class="btn btn-primary ml-2 btn-lg pt-2" target="_blank" title="cetak perizinan">'.
+              '<label class="fa fa-print w-100"></label></a>';
+            }else{
+              return  '<div class="btn-group">'.
+              '<button type="button" onclick="edit('.$data->id.')" class="btn btn-success btn-lg pt-2" title="edit">'.
+              '<label class="fa fa-eye w-100"></label></button>'.
+           '</div>';
+              
+            }
+        
           })
           ->rawColumns(['aksi','jadwal_survey','user', 'tanggal_pengajuan','status'])
           ->addIndexColumn()
