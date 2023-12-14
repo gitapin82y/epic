@@ -48,11 +48,11 @@
                             <label for="pekerjaan">Pekerjaan</label>
 
                             <input id="pekerjaan" type="text"
-                                class="form-control @error('pekerjaan') is-invalid @enderror" name="pekerjaan"
+                                class="form-control" name="pekerjaan"
                                 value="{{ old('pekerjaan') }}">
-                            @error('pekerjaan')
-                            <i class="text-danger">{{ $message }}</i>
-                            @enderror
+                            @if (session('pekerjaan'))
+                            <small class="text-danger"><b>Pekerjaan kosong</b></small>
+                            @endif
 
                         </div>
                        
@@ -71,23 +71,22 @@
                             <label for="alamat">Alamat</label>
 
                             <textarea id="alamat" rows="20"
-                                class="form-control @error('alamat') is-invalid @enderror" name="alamat"
+                                class="form-control" name="alamat"
                                 value="{{ old('alamat') }}">
                             </textarea>
-                            @error('alamat')
-                            <i class="text-danger">{{ $message }}</i>
-                            @enderror
-
+                            @if (session('alamat'))
+                            <small class="text-danger"><b>Alamat kosong</b></small>
+                            @endif
                         </div>
                         <div class="form-group col-6">
                             <label for="no_telp">Nomor Telepon</label>
 
                             <input id="no_telp" type="text"
-                                class="form-control @error('no_telp') is-invalid @enderror" name="no_telp"
+                                class="form-control" name="no_telp"
                                 value="{{ old('no_telp') }}">
-                            @error('no_telp')
-                            <i class="text-danger">{{ $message }}</i>
-                            @enderror
+                                @if (session('no_telp'))
+                                <small class="text-danger"><b>Nomor telepon kosong</b></small>
+                                @endif
 
                         </div>
                         <div class="col-md-6 mb-3">
@@ -100,6 +99,9 @@
                           <div class="col-md-6 mb-3">
                             <label for="tempat_lahir" class="mb-2">Tempat Lahir</label>
                             <input type="text" class="form-control form-control-sm inputtext tempat_lahir" name="tempat_lahir">
+                            @if (session('tempat_lahir'))
+                            <small class="text-danger"><b>Tanggal Lahir kosong</b></small>
+                            @endif
                           </div>
                           <div class="col-md-6 mb-3">
                             <label for="kabupaten_kota" class="mb-2">Kabupaten / Kota</label>
@@ -112,7 +114,7 @@
                             <label for="tanggal_lahir" class="mb-2">Tanggal Lahir</label>
                             <input type="date" class="form-control form-control-sm inputtext tanggal_lahir" name="tanggal_lahir">
                             @if (session('tanggal_lahir'))
-                            <div class="red"  style="color: red"><b>Tanggal Lahir kosong</b></div>
+                            <small class="text-danger"><b>Tanggal Lahir kosong</b></small>
                             @endif
                           </div>
                           <div class="col-md-6 mb-3">
@@ -129,6 +131,9 @@
                               <option value="Laki-Laki">Laki - Laki</option>
                               <option value="Perempuan">Perempuan</option>
                             </select>
+                            @if (session('jenis_kelamin'))
+                            <small class="text-danger"><b>Jenis kelamin kosong</b></small>
+                            @endif
                           </div>
                           <div class="col-md-6 mb-3">
                             <label for="kelurahan" class="mb-2">Kelurahan</label>
@@ -144,6 +149,9 @@
                               <option value="KTP">KTP</option>
                               <option value="Paspor">Paspor</option>
                             </select>
+                            @if (session('jenis_identitas'))
+                            <small class="text-danger"><b>Jenis identitas kosong</b></small>
+                            @endif
                           </div>
                           <div class="col-md-6 mb-3">
                             <label for="password" class="mb-2">Password</label>
@@ -152,6 +160,9 @@
                           <div class="col-md-6 mb-3">
                             <label for="nomor_identitas" class="mb-2">Nomor Identitas</label>
                             <input type="text" class="form-control form-control-sm inputtext nomor_identitas" name="nomor_identitas">
+                          @if (session('nomor_identitas'))
+                          <small class="text-danger"><b>Nomor Identitas kosong</b></small>
+                          @endif
                           </div>
                           <div class="col-md-6 mb-3">
                             <label for="konfirmasi_password" class="mb-2">Konfirmasi Password</label>

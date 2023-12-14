@@ -30,23 +30,42 @@ class loginController extends Controller
         try{
         $user = Account::where("email", $email)->first();
 
-            if ($user) {
+        if ($user) {
+            if($user->role_id == 9){
+                if($user->password === md5($req->password)){
+                    $role = DB::table('role')->where('id', $user->role_id)->first();
+                    return response()->json([
+                            'status' => 1,
+                            'message' => 'success login',
+                            'data' => [
+                                'user' => $user,
+                                'role' => $role
+                            ]
+                        ]);
+                }else{
+                    return response()->json([
+                        'status' => 2,
+                        'message' => 'password yang anda masukkan salah'
+                    ]);
+                }
+            }else{
                 if($user->password ===  $req->password){
-                $role = DB::table('role')->where('id', $user->role_id)->first();
-            return response()->json([
-                        'status' => 1,
-                        'message' => 'success login',
-                        'data' => [
-                            'user' => $user,
-                            'role' => $role
-                        ]
-            ]);
-        }else{
-            return response()->json([
-                'status' => 2,
-                'message' => 'password yang anda masukkan salah'
-    ]);
-        }
+                    $role = DB::table('role')->where('id', $user->role_id)->first();
+                    return response()->json([
+                            'status' => 1,
+                            'message' => 'success login',
+                            'data' => [
+                                'user' => $user,
+                                'role' => $role
+                            ]
+                        ]);
+                }else{
+                    return response()->json([
+                        'status' => 2,
+                        'message' => 'password yang anda masukkan salah'
+                    ]);
+                }
+            }
         } else {
             return response()->json([
                         'status' => 2,

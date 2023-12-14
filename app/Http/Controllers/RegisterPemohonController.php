@@ -58,8 +58,44 @@ class RegisterPemohonController extends Controller
           $valid = false;
         }
 
+        if ($req->no_telp == null) {
+          Session::flash('no_telp','Nomor telepon kosong!');
+          $valid = false;
+        }
+
+        if ($req->alamat == null) {
+          Session::flash('alamat','Aalamat kosong!');
+          $valid = false;
+        }
+
+        if ($req->tempat_lahir == null) {
+          Session::flash('tempat_lahir','Tempat lahir kosong!');
+          $valid = false;
+        }
+
+
+        if ($req->jenis_kelamin == null) {
+          Session::flash('jenis_kelamin','Jenis kelamin kosong!');
+          $valid = false;
+        }
+
+        if ($req->nomor_identitas == null) {
+          Session::flash('nomor_identitas','Nomor identitas kosong!');
+          $valid = false;
+        }
+
+        if ($req->pekerjaan == null) {
+          Session::flash('pekerjaan','Pekerjaan kosong!');
+          $valid = false;
+        }
+
+        if ($req->jenis_identitas == null) {
+          Session::flash('jenis_identitas','Nomor identitas kosong!');
+          $valid = false;
+        }
+
         if ($valid == false) {
-          // return back();
+          return back();
         } else {
           DB::table("user")
             ->insert([
@@ -130,7 +166,7 @@ class RegisterPemohonController extends Controller
           DB::table("user")
             ->insert([
               "role_id" => "9",
-              "password" => Crypt::encryptString($req->password),
+              "password" => md5($req->password),
               "email" => $req->email,
               "nama_lengkap" => $req->nama_lengkap,
               "jenis_identitas" => $req->jenis_identitas,
