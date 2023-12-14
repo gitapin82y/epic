@@ -148,6 +148,7 @@ Route::get('pertanyaansurveykepuasantable', 'PertanyaanSurveyKepuasanController@
 Route::get('editpertanyaansurveykepuasan', 'PertanyaanSurveyKepuasanController@edit');
 Route::get('simpanpertanyaansurveykepuasan', 'PertanyaanSurveyKepuasanController@simpan');
 Route::get('hapuspertanyaansurveykepuasan', 'PertanyaanSurveyKepuasanController@hapus');
+Route::get('survey-kepuasan/ubahstatus', 'PertanyaanSurveyKepuasanController@updateStatus');
 
 }); 
 

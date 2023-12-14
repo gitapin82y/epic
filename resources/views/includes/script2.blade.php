@@ -361,6 +361,13 @@
       message: 'Survey Berhasil Dikirim',
   });
   @endif
+
+  @if (session('updateStatusPertanyaan'))
+  iziToast.success({
+      icon: 'fa fa-save',
+      message: 'Status pertanyaan berhasil diupdate',
+  });
+  @endif
 </script>
 
 <script type="text/javascript">

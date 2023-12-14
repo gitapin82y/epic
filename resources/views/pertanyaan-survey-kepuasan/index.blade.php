@@ -43,6 +43,7 @@
                               <tr>
                                 <th>No</th>
                                 <th>Judul</th>
+                                <th>Status</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -100,6 +101,10 @@ var table = $('#table-data').DataTable({
               },
               {
                  targets: 2,
+                 className: 'nominal center'
+              },
+              {
+                 targets: 3,
                  className: 'type center'
               },
              
@@ -107,6 +112,11 @@ var table = $('#table-data').DataTable({
         "columns": [
           {data: 'DT_RowIndex', name: 'DT_RowIndex'},
           {data: 'nama', name: 'nama'},
+          {data: 'is_active', name: 'is_active',
+              render: function(data){
+                return (data == 'Y') ? 'Aktif' : 'Non-Aktif';
+              }
+        },
           {data: 'aksi', name: 'aksi'},
 
         ],

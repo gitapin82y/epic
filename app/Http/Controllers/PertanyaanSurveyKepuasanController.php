@@ -21,7 +21,6 @@ use Yajra\Datatables\Datatables;
 class PertanyaanSurveyKepuasanController extends Controller
 {
     public function index() {
-
       return view('pertanyaan-survey-kepuasan.index');
     }
 
@@ -32,21 +31,27 @@ class PertanyaanSurveyKepuasanController extends Controller
 
         
         return Datatables::of($data)
-        
-         
-        //   ->addColumn("url", function($data) {
-        //    return '<div class="btn-group">'.
-        //     '<a href='.$data->url.' class="btn btn-success btn-lg px-4 py-2" title="Lihat Video" target="_blank">'.
-        //     'Lihat Video</a>
-        //  </div>';
-        //   })
+        // ubahstatus
+
           ->addColumn('aksi', function ($data) {
-            return  '<div class="btn-group">'.
-                     '<button type="button" onclick="edit('.$data->id.')" class="btn btn-info btn-lg" title="edit">'.
-                     '<label class="fa fa-pencil-alt"></label></button>'.
-                     '<button type="button" onclick="hapus('.$data->id.')" class="btn btn-danger btn-lg" title="hapus">'.
-                     '<label class="fa fa-trash"></label></button>'.
-                  '</div>';
+            $aksi = '<div class="btn-group">';
+            if ($data->is_active == 'Y'){
+              $aksi .= '<a href="ubahstatus?is_active=N&id='.$data->id.'" class="btn btn-warning btn-lg" title="check">'.
+              '<label class="fas fa-times"></label></a>';
+            }else{
+              $aksi .= '<a href="ubahstatus?is_active=Y&id='.$data->id.'" class="btn btn-success btn-lg" title="uncheck">'.
+              '<label class="fas fa-check"></label></a>';
+            }
+            $aksi .= '<button type="button" onclick="hapus('.$data->id.')" class="btn btn-danger btn-lg" title="hapus">'.
+            '<label class="fa fa-trash"></label></button>'.
+            '</div>';
+            return $aksi;
+            // return  '<div class="btn-group">'.
+            //          '<button type="button" onclick="edit('.$data->id.')" class="btn btn-info btn-lg" title="edit">'.
+            //          '<label class="fa fa-pencil-alt"></label></button>'.
+            //          '<button type="button" onclick="hapus('.$data->id.')" class="btn btn-danger btn-lg" title="hapus">'.
+            //          '<label class="fa fa-trash"></label></button>'.
+            //       '</div>';
           })
           ->rawColumns(['aksi'])
           ->addIndexColumn()
@@ -143,6 +148,15 @@ class PertanyaanSurveyKepuasanController extends Controller
         ]);
       }
       Session::flash('sendSurvey', 'sendSurvey');
+
+      return back();
+    }
+
+    public function updateStatus(Request $request){
+      DB::table('ulasan_pertanyaan')->where('id',$request->id)->update($request->all());
+
+
+      Session::flash('updateStatusPertanyaan', 'updateStatusPertanyaan');
 
       return back();
     }
