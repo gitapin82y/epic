@@ -177,7 +177,7 @@ class PublicController extends Controller
 
     
     public function updatePassword(Request $req){
-        $passwordUpdate = Crypt::encrypt($req->password);
+        $passwordUpdate = md5($req->password);
         // $passwordUpdate = $req->password;
         
         $user = auth()->user(); // Mendapatkan pengguna yang sedang login

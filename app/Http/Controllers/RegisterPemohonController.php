@@ -64,7 +64,7 @@ class RegisterPemohonController extends Controller
           DB::table("user")
             ->insert([
               "role_id" => "9",
-              "password" => $req->password,
+              "password" => md5($req->password),
               "email" => $req->email,
               "nama_lengkap" => $req->nama_lengkap,
               "jenis_identitas" => $req->jenis_identitas,
