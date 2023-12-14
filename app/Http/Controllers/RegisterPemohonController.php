@@ -35,7 +35,7 @@ class RegisterPemohonController extends Controller
       try { 
 
         $cekemail = DB::table("user")->where("email", $req->email)->first();
-        $ceknohp = DB::table("user")->where("no_telp", $req->no_telp)->first();
+        // $ceknohp = DB::table("user")->where("no_telp", $req->no_telp)->first();
 
         $valid = true;
         if ($cekemail != null) {
@@ -43,10 +43,10 @@ class RegisterPemohonController extends Controller
           $valid = false;
         }
 
-        if ($ceknohp != null) {
-          Session::flash('nohp','Username sudah terdaftar!');
-          $valid = false;
-        }
+        // if ($ceknohp != null) {
+        //   Session::flash('nohp','Username sudah terdaftar!');
+        //   $valid = false;
+        // }
 
         if ($req->password != $req->konfirmasi_password) {
           Session::flash('password','Password confirm tidak sama!');
@@ -95,13 +95,15 @@ class RegisterPemohonController extends Controller
         }
 
         if ($valid == false) {
+          Session::flash('gagalLogin','gagalLogin');
           return back();
         } else {
-          DB::table("user")
+          $apin = DB::table("user")
             ->insert([
               "role_id" => "9",
               "password" => md5($req->password),
               "email" => $req->email,
+              "username" => explode('@', $req->email)[0],
               "nama_lengkap" => $req->nama_lengkap,
               "jenis_identitas" => $req->jenis_identitas,
               "nomor_identitas" => $req->nomor_identitas,
@@ -121,13 +123,14 @@ class RegisterPemohonController extends Controller
             ]);
             
           DB::commit();
-          Session::flash('sukses','Berhasil');
-          return back();
+          Session::flash('berhasilLogin','berhasilLogin');
+          return redirect('loginpemohon');
         }
 
       } catch (\Exception $e) {
         DB::rollback();
-        Session::flash('gagal','Gagal');
+        return dd($e);
+        Session::flash('gagalLogin','gagalLogin');
         return back();
       }
     }

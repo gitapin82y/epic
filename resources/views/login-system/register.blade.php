@@ -197,6 +197,14 @@
 <script src="{{asset('assets/js/hoverable-collapse.js')}}"></script>
 <script src="{{asset('assets/js/misc.js')}}"></script>
 <script>
+@if (session('gagalLogin'))
+  iziToast.warning({
+      icon: 'fa fa-info',
+      message: 'Terdapat Kesalahan, Periksa kembali!',
+  });
+  @endif
+</script>
+<script>
     $(document).ready(function(){
       provinsi();
     })

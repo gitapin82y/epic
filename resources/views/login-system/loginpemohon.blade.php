@@ -86,6 +86,7 @@
 </div>
 </section>
     </div>
+    
 
   @include('includes.script')
   
@@ -113,6 +114,16 @@
 })()
     </script>
 
+<script>
+
+  @if (session('berhasilLogin'))
+  iziToast.success({
+      icon: 'fa fa-save',
+      message: 'Berhasil Mendaftar, Login Sekarang!',
+  });
+  @endif
+
+</script>
 </body>
 
 </html>
