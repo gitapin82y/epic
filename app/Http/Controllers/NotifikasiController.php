@@ -71,7 +71,7 @@ class NotifikasiController extends Controller
     public function getData(Request $req){
       try{
         if($req->user_id){
-          $data = DB::table('notifikasi')->where("user_id",$req->user_id)->get();
+          $data = DB::table('notifikasi')->where("user_id",$req->user_id)->orderby("id", "desc")->get();
         }else{
           return response()->json(["status" => 2, "message" => "notifikasi tidak valid"]);
 
