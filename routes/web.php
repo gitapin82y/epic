@@ -166,6 +166,12 @@ Route::post('kirim-laporan', 'SurveyController@submitFormLaporanPertama');
 
 Route::get('survey/hasil-survey', 'SuratController@getListHasilSurvey');
 Route::get('hasilsurveytable', 'SuratController@datatableHasilSurvey');
+Route::get('survey/penugasan/laporan/{id}',  [PenugasanSurveyController::class, 'laporan']);
+
+ // Verifikasi Hasil Survey
+ Route::post('surat/verifikasi-survey', 'SuratController@approveHasilSurvey');
+ Route::post('surat/tolak-survey', 'SuratController@tolakHasilSurvey');
+
 
 
 // End Route Groub middleware auth

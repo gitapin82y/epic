@@ -30,19 +30,19 @@ body {
                 <div class="card">
                     <div class="card-header text-blue">
                         <h5>
-                            Laporan Survey (No Surat : {{ $data->id }})
+                            Laporan Survey (No Surat : {{ $data->surat_id }})
                         </h5>
                     </div>
                 <div class="card-body">
                   
-                    <form id="form1" enctype="multipart/form-data">
+                    {{-- <form id="form1" >
                         @csrf
-                        @method('post')
+                        @method('post') --}}
                         <div class="row">
                             <div class="form-group col-6">
                                 <label for="foto_survey">Foto Survey</label>
                                 <br>
-                                <input type="hidden" class="form-control" id="id" name="id" value="{{ $data->id }}">
+                                <input type="hidden" class="form-control" id="id" name="id" value="{{ $data->surat_id }}">
                                 <input type="hidden" class="form-control" id="jadwal_survey" name="jadwal_survey" value="@php
                             use Carbon\Carbon;
                                 
@@ -101,9 +101,9 @@ body {
                         </div>
                         <div class="row btn-update-profile mt-4 col-12">
                             <button type="button" class="btn btn-main text-light col-12" id="simpan">Verifikasi Survey</button>
-                            <button type="button" class="btn btn-main col-12 mt-4" id="simpan" style="background-color: white !important; color:#499DB1 !important; border: 1px solid #499DB1">Tolak Survey</button>
+                            <button type="button" class="btn btn-main col-12 mt-4" id="" style="background-color: white !important; color:#499DB1 !important; border: 1px solid #499DB1">Tolak Survey</button>
                         </div>
-                    </form>
+                    {{-- </form> --}}
                 </div>
             </div>
         </div>
@@ -120,6 +120,9 @@ body {
 <script>
 var latitude = document.getElementById("latitude").textContent; // Default latitude
 var longitude = document.getElementById("longitude").textContent; // Default longitude
+var idSurat = "{{ $data->surat_id }}";
+
+
 
 // function askForLocation() {
 //     if (navigator.geolocation) {
@@ -171,23 +174,29 @@ function initializeMap() {
 // askForLocation();
 
 $('#simpan').click(function(){
-    var formData = new FormData($('#form1')[0]);
-    console.log('form1',  JSON.stringify(formData));
+   
+    var formData = {
+        'id' : idSurat
+    }
+    console.log({formData})
     
     $.ajax({
-        url: baseUrl + '/kirim-laporan',
+        url: baseUrl + '/surat/verifikasi-survey',
         type: 'POST',
-        data: formData,
-        contentType: false,
-        processData: false,
+        data: JSON.stringify(formData),
+        contentType: 'application/json',
+        // processData: false,
+        headers: {
+        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    },
         success:function(data){
             if (data.status == 1) {
-                // iziToast.success({
-                //     icon: 'fa fa-save',
-                //     message: 'Data Berhasil Disimpan!',
-                // });
+                iziToast.success({
+                    icon: 'fa fa-save',
+                    message: 'Data Berhasil Diverifikasi!',
+                });
                 let id = data.id;
-                window.location.href = baseUrl + '/survey/penugasan-survey';
+                window.location.href = baseUrl + '/survey/hasil-survey';
 
                 // reloadall();
             } else if(data.status == 2){
