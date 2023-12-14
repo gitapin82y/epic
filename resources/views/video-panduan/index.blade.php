@@ -27,7 +27,7 @@
                       <div class="col-md-6 col-lg-6 text-left col-12">
                           <h5 class="text-blue">Video Panduan</h5>
                       </div>
-                      @if (Auth::user()->role_id ===1)
+                      @if (Auth::user()->role_id === 1 || Auth::user()->role_id === 2)
                       <div class="col-md-6 col-lg-6 d-flex col-12 justify-content-end">
                           <div class="card-header-action mx-1">
                               <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#tambah">Tambah
@@ -46,9 +46,8 @@
                                 <th>No</th>
                                 <th>Judul</th>
                                 <th>Link Video</th>
-                                @if (Auth::user()->role_id ===1)
+                                @if (Auth::user()->role_id ===1|| Auth::user()->role_id === 2)
                                 <th>Action</th>
-                                  
                                 @endif
                               </tr>
                             </thead>
@@ -113,7 +112,7 @@ var table = $('#table-data').DataTable({
           {data: 'DT_RowIndex', name: 'DT_RowIndex'},
           {data: 'nama', name: 'nama'},
           {data:'url', name: 'url'},
-          @if (Auth::user()->role_id ===1)
+          @if (Auth::user()->role_id ===1 || Auth::user()->role_id ===2)
 
           {data: 'aksi', name: 'aksi'},
           @endif
