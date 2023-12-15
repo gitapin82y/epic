@@ -205,5 +205,15 @@ class PublicController extends Controller
 
 
     }
+
+
+    public function notifikasi(Request $req){
+        if($req->is_seen){
+            $notifications = DB::table('notifikasi')->where('user_id', auth()->id())->update(['is_seen'=>'Y']);
+            return redirect()->back();
+        }
+        $notifications = DB::table('notifikasi')->where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
+        return view('semua-notifikasi', compact('notifications'));
+    }
     
 }

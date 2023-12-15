@@ -45,7 +45,46 @@
             >Lacak Perizinan</a
           >
         </li>
+        @php
+            use Carbon\Carbon;
+            $notifications = DB::table('notifikasi')->where('user_id', auth()->id())->where('is_seen', 'N')->orderBy('created_at', 'desc')
+            ->limit(3)
+            ->get();
+        @endphp
         @if (Auth::check())
+        <li class="nav-item dropdown notifikasi">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-bell"></i>
+              <small class="badge">{{ DB::table('notifikasi')->where('user_id', auth()->id())->where('is_seen','N')->count() }}</small>
+          </a>
+          <!-- Dropdown Notifikasi -->
+          <ul class="dropdown-menu pt-0">
+              <li class="head-dropdown-notif">
+                <div class="row justify-content-between d-flex">
+                    <strong class="col-4 text-left">Notifikasi</strong>
+                    <a href="semua-notifikasi" class="col-4 text-decoration-none text-main fw-bold justify-content-end">Lihat Semua</a>
+                </div>
+              </li>
+              @forelse($notifications as $notification)
+                  <li>
+                      <strong>{{ $notification->judul }}</strong>
+                      @if(strlen($notification->deskripsi) > 50)
+                      <p class="my-2">
+                    {{ substr($notification->deskripsi, 0, 50) }}...
+                        <small><a href="semua-notifikasi" class="text-main text-decoration-none">Selengkapnya</a></small>
+                      </p>
+                @else
+                   <p class="my-2">{{ $notification->deskripsi }}</p> 
+                @endif
+                      <small class="m-0 p-0 d-block text-muted">{{ Carbon::parse($notification->created_at)->format('d F Y')}}</small>
+                  </li>
+                  @empty
+                  <li>
+                    <p class="mt-4 text-center">Belum ada notifikasi terbaru</p>
+                  </li>
+              @endforelse
+          </ul>
+        </li>
         <li class="nav-item">
         <div class="dropdown">
           @if (Auth::user()->avatar)

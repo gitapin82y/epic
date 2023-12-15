@@ -68,4 +68,64 @@
       background-color: #48C8E5;
     }
 
+
+    
+    /* style notifikasi */
+
+    .head-dropdown-notif{
+      border-bottom: 1px solid #dbdbdb;
+    }
+        /* Tampilkan dropdown content saat menu dihover */
+        .dropdown:hover .dropdown-content {
+          display: block;
+        }
+
+
+
+        /* Styling untuk icon notifikasi */
+.notifikasi .nav-link .fa-bell {
+    font-size: 1.5rem;
+}
+
+/* Styling untuk badge notifikasi */
+.notifikasi .nav-link .badge {
+    background-color: rgb(255, 83, 83);
+    color: #fff;
+    border-radius: 50%;
+    padding: 0.25rem 0.45rem;
+    position: absolute;
+    top: 0;
+    right: 2px;
+}
+
+/* Styling untuk dropdown notifikasi */
+.notifikasi .dropdown-menu {
+    display: none;
+    left:-350px !important;
+    position: absolute;
+    border: none;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    width: 400px !important;
+}
+.notifikasi .dropdown-toggle::after{
+  display: none;
+}
+.notifikasi:hover .dropdown-menu {
+    display: block;
+
+    cursor:default;
+}
+
+/* Styling untuk item notifikasi di dropdown */
+.notifikasi .dropdown-menu li {
+    padding: 10px;
+}
+
+/* Styling untuk notifikasi yang sudah dilihat */
+.notifikasi .dropdown-menu .text-muted {
+    color: #777;
+}
 </style>

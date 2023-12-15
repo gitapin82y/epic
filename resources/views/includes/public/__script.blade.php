@@ -51,4 +51,15 @@ crossorigin="anonymous"
     }
 })
 
+
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.notifikasi .dropdown-toggle').click(function () {
+            // Toggle class 'show' pada dropdown notifikasi
+            $('.dropdown-menu').toggleClass('show');
+        });
+    });
 </script>
