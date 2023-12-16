@@ -235,7 +235,7 @@ class ChatController extends Controller
           $now = Carbon::now('Asia/Jakarta');
           $time = $now->format('H:i');
 
-          if ($time >= $botchat->jam_active && $time <= $botchat->jam_selesai) {
+          if ($time >= $botchat->jam_active || $time <= $botchat->jam_selesai) {
             $peringatan = true;
           }
         }
@@ -361,7 +361,7 @@ class ChatController extends Controller
         $now = Carbon::now('Asia/Jakarta');
         $time = $now->format('H:i');
 
-        if ($time >= $botchat->jam_active && $time <= $botchat->jam_selesai) {
+        if ($time >= $botchat->jam_active || $time <= $botchat->jam_selesai) {
           $peringatan = true;
         }
       }
@@ -533,7 +533,7 @@ class ChatController extends Controller
             $now = Carbon::now('Asia/Jakarta');
             $time = $now->format('H:i');
 
-            if ($time >= $botchat->jam_active && $time <= $botchat->jam_selesai) {
+            if ($time >= $botchat->jam_active || $time <= $botchat->jam_selesai) {
               DB::table("listchat")
                 ->insert([
                   'roomchat_id' => $req->id,
@@ -626,7 +626,7 @@ class ChatController extends Controller
         $now = Carbon::now('Asia/Jakarta');
         $time = $now->format('H:i');
 
-        if ($time >= $botchat->jam_active && $time <= $botchat->jam_selesai) {
+        if ($time >= $botchat->jam_active || $time <= $botchat->jam_selesai) {
           DB::table("listchat")
             ->insert([
               'roomchat_id' => $idRoom,
