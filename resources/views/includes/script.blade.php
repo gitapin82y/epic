@@ -51,4 +51,11 @@
         });
     });
 
+    @if (session('sendSurvey'))
+iziToast.success({
+ icon: 'fa fa-save',
+ message: 'Survey Berhasil Dikirim',
+});
+@endif
+
   </script>

@@ -73,7 +73,11 @@ Route::get('perizinantable/{status}', 'PerizinanPemohonController@datatable');
 Route::get('editperizinan', 'PerizinanPemohonController@edit');
 Route::post('penilaian-app', 'PertanyaanSurveyKepuasanController@sendSurveyKepuasan')->name('penilaian-app');
 
-Route::get('semua-notifikasi','PublicController@notifikasi');
+Route::get('semua-notifikasi','PublicController@notifikasi')->name('semuaNotifikasi');
+Route::get('survey-kepuasan/hasil-kepuasan', 'HasilKepuasanController@index');
+Route::get('hasilkepuasan', 'HasilKepuasanController@datatable');
+Route::get('detailhasilkepuasan', 'HasilKepuasanController@detail');
+
 // Route::get('pemohonaccjadwalperizinan', 'PerizinanPemohonController@pemohonAccJadwalSurvey');
 // Route::get('jadwalulang', 'PerizinanPemohonController@jadwalulang');
 

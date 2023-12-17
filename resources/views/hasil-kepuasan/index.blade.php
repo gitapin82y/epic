@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','Petugas')
+@section('title','Hasil Kepuasan')
 
 @section('soloStyle')
 {{-- sweetalert2 --}} 
@@ -13,7 +13,7 @@
 @endsection
 @section('content')
 
-@include('pertanyaan-survey-kepuasan.tambah')
+@include('hasil-kepuasan.detail')
 <style type="text/css">
 
 </style>
@@ -25,13 +25,7 @@
               <div class="card">
                   <div class="card-header p-0 col-12 justify-content-between px-4">
                       <div class="col-md-6 col-lg-6 text-left col-12">
-                          <h5 class="text-blue">Pertanyaan Survey Kepuasan</h5>
-                      </div>
-                      <div class="col-md-6 col-lg-6 d-flex col-12 justify-content-end">
-                          <div class="card-header-action mx-1">
-                              <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#tambah">Tambah
-                                  Data <i class="fas fa-plus"></i></a>
-                          </div>
+                          <h5 class="text-blue">Hasil Kepuasan</h5>
                       </div>
                   </div>
 
@@ -42,8 +36,8 @@
                                   <thead>
                               <tr>
                                 <th>No</th>
-                                <th>Judul</th>
-                                <th>Status</th>
+                                <th>Nama Pemohon</th>
+                                <th>Tanggal</th>
                                 <th>Action</th>
                               </tr>
                             </thead>
@@ -71,6 +65,8 @@
 {{-- end data table --}}
 <script>
 
+
+
 var table = $('#table-data').DataTable({
         processing: true,
         // responsive:true,
@@ -87,7 +83,7 @@ var table = $('#table-data').DataTable({
             
         ],
         ajax: {
-            url:'{{ url('/pertanyaansurveykepuasantable') }}',
+            url:'{{ url('/hasilkepuasan') }}',
         },
         columnDefs: [
 
@@ -111,12 +107,8 @@ var table = $('#table-data').DataTable({
             ],
         "columns": [
           {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-          {data: 'nama', name: 'nama'},
-          {data: 'is_active', name: 'is_active',
-              render: function(data){
-                return (data == 'Y') ? '<span class="text-success font-weight-bold">Aktif</span>' : '<span class="text-warning font-weight-bold">Non-Aktif</span>';
-              }
-        },
+          {data: 'nama_lengkap', name: 'nama_lengkap'},
+          {data: 'created_at', name: 'created_at'},
           {data: 'aksi', name: 'aksi'},
 
         ],
@@ -138,60 +130,6 @@ var table = $('#table-data').DataTable({
                     }
                 }
   });
-
-
-
-  function edit(id) {
-    // body...
-    $.ajax({
-      url:baseUrl + '/editpertanyaansurveykepuasan',
-      data:{id},
-      dataType:'json',
-      success:function(data){
-        // console.log
-        $('.id').val(data.id);
-        $('.nama').val(data.nama);
-      
-        // $('.datepicker').val(data.created_at)
-        $('#tambah').modal('show');
-      }
-    });
-
-  }
-
-  $('#simpan').click(function(){
-    $.ajax({
-      url: baseUrl + '/simpanpertanyaansurveykepuasan',
-      data:$('.table_modal :input').serialize(),
-      dataType:'json',
-      success:function(data){
-        if (data.status == 1) {
-          iziToast.success({
-              icon: 'fa fa-save',
-              message: 'Data Berhasil Disimpan!',
-          });
-          reloadall();
-        }else if(data.status == 2){
-          iziToast.warning({
-              icon: 'fa fa-info',
-              message: 'Data Gagal disimpan!',
-          });
-        }else if (data.status == 3){
-          iziToast.success({
-              icon: 'fa fa-save',
-              message: 'Data Berhasil Diubah!',
-          });
-          reloadall();
-        }else if (data.status == 4){
-          iziToast.warning({
-              icon: 'fa fa-info',
-              message: 'Data Gagal Diubah!',
-          });
-        }
-
-      }
-    });
-  })
 
 
   function hapus(id) {
@@ -225,15 +163,43 @@ var table = $('#table-data').DataTable({
   	});
   }
 
+
+
   function reloadall() {
     $('.table_modal :input').val("");
     $('#tambah').modal('hide');
-    // $('#table_modal :input').val('');
-   
-    // $(".inputtext").val("");
-    // var table1 = $('#table_modal').DataTable();
-    // table1.ajax.reload();
+
     table.ajax.reload();
   }
+
+  function edit(user_id){
+    $('#pertanyaan-container').empty();
+    $.ajax({
+            url: '{{ url('/detailhasilkepuasan') }}?ulasan_hasil_id='+user_id,
+            method: 'GET',
+            success: function (data) {
+                // Tampilkan pertanyaan dan jawaban dalam modal
+                var pertanyaanContainer = $('#pertanyaan-container');
+
+                data.forEach(function (ulasan,index) {
+                    index++;
+                    var pertanyaan = ulasan.nama;
+                    var jawaban = ulasan.isi;
+
+                    var modalContent = '<div>';
+                    modalContent += '<p>' +index+'.) ' + pertanyaan + '</p>';
+                    modalContent += '<p><img src="{{ asset("assets/icon/checklist.png") }}" alt="Gambar" style="margin-top:-5px;margin-right:10px">' + jawaban + '</p>';
+                    modalContent += '</div>';
+
+                    pertanyaanContainer.append(modalContent);
+                });
+
+                // Tampilkan modal
+                $('#tambah').modal('show');
+            }
+        });
+  }
+
+  
 </script>
 @endsection

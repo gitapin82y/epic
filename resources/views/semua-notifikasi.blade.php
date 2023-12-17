@@ -21,7 +21,7 @@
                     <h5 class="text-blue">Semua Notifikasi</h5>
                 </div>
                 <div class="col-2 pt-2 text-right">
-                    <a href="semua-notifikasi?is_seen=true" class="text-decoration-none text-main"><strong>Sudah Dibaca</strong></a>
+                    <a href="{{ route('semuaNotifikasi', ['is_seen' => true]) }}" class="text-decoration-none text-main"><strong>Sudah Dibaca</strong></a>
                 </div>
             </div>
         </div>

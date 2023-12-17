@@ -20,6 +20,7 @@ use Yajra\Datatables\Datatables;
 
 class PertanyaanSurveyKepuasanController extends Controller
 {
+
     public function index() {
       return view('pertanyaan-survey-kepuasan.index');
     }
@@ -137,11 +138,14 @@ class PertanyaanSurveyKepuasanController extends Controller
     public function sendSurveyKepuasan(Request $req) {
       $questions = $req->except(['_token']);
       $totalPertanyaan = DB::table('ulasan_pertanyaan')->where('is_active','Y')->get();
-
+      $ulasanId = DB::table('ulasan_hasil')->insertGetId([
+          'user_id' => Auth::user()->id,
+          'created_at' => Carbon::now("Asia/Jakarta"),
+      ]);
       foreach ($totalPertanyaan as $key => $answer) {
         $question_id = intval($key);
         DB::table('ulasan')->insertGetId([
-          'user_id' => Auth::user()->id,
+          'ulasan_hasil_id' => $ulasanId,
           'ulasan_pertanyaan_id' => $req->input("question{$question_id}"),
           'isi' => $req->input("answer{$question_id}"),
           'created_at' => Carbon::now("Asia/Jakarta"),

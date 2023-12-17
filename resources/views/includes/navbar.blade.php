@@ -46,7 +46,7 @@
           <li class="head-dropdown-notif">
             <div class="row justify-content-between d-flex">
                 <strong class="col-4 text-left">Notifikasi</strong>
-                <a href="semua-notifikasi" class="col-4 text-decoration-none text-main justify-content-end"><strong>Lihat Semua</strong></a>
+                <a href="{{route('semuaNotifikasi')}}" class="col-4 text-decoration-none text-main justify-content-end"><strong>Lihat Semua</strong></a>
             </div>
           </li>
           @forelse($notifications as $notification)
@@ -55,7 +55,7 @@
                   @if(strlen($notification->deskripsi) > 50)
                   <p class="my-2">
                 {{ substr($notification->deskripsi, 0, 50) }}...
-                    <small><a href="semua-notifikasi" class="text-main text-decoration-none">Selengkapnya</a></small>
+                    <small><a href="{{route('semuaNotifikasi')}}" class="text-main text-decoration-none">Selengkapnya</a></small>
                   </p>
             @else
                 <p class="my-2">{{ $notification->deskripsi }}</p> 
