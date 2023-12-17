@@ -46,7 +46,7 @@
           <li class="head-dropdown-notif">
             <div class="row justify-content-between d-flex">
                 <strong class="col-4 text-left">Notifikasi</strong>
-                <a href="semua-notifikasi" class="col-4 text-decoration-none text-main justify-content-end"><strong>Lihat Semua</strong></a>
+                <a href="{{ url('semua-notifikasi') }}" class="col-4 text-decoration-none text-main justify-content-end"><strong>Lihat Semua</strong></a>
             </div>
           </li>
           @forelse($notifications as $notification)
