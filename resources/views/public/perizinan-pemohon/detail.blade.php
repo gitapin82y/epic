@@ -1,10 +1,10 @@
 <!-- Modal -->
 <div id="detail" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-xs">
+  <div class="modal-dialog modal-lg">
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header bg-main text-white">
+      <div class="modal-header bg-main text-white py-2">
         <h4 class="modal-title">Detail Surat Perizinan</h4>
         <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
