@@ -9,7 +9,7 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body bg-light">
-        <div class="row">
+        <div class="row table_modal">
          <div class="col-12">
           <strong>Jenis Perizinan</strong>
           <p id="jenis_perizinan" class="mt-1"></p>
@@ -47,6 +47,22 @@
          </div>
          <div class="col-12" id="nama_surat_syarat">
          </div>
+         @if (Auth::user()->role_id === 5 || Auth::user()->role_id === 6)
+         <div class="col-12">
+          <input type="hidden" class="form-control form-control-sm id" name="id" id="id">
+          <button class="btn btn-warning btn-md w-100 mb-3 border-0 shadown-none" id="validasi" type="button"  style="background-color: #499DB1 !important">
+         @if (Auth::user()->role_id === 5)
+           
+            Validasi
+            @else 
+            Verifikasi
+            @endif
+          </button>
+          <button class="btn btn-light btn-md w-100 text-warning " id="showModalTolak" type="button"  style="color: #499DB1 !important">
+            Tolak
+          </button>
+        </div>
+         @endif
         </div>
       </div>
       </div>

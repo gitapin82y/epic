@@ -143,6 +143,8 @@ var table = $('#table-data').DataTable({
         // console.log
         $('.id').val(data.id);
         $('.nama').val(data.nama);
+        $('.dokumen_survey_template').val(data.dokumen_survey_template);
+        $('.gambar_alur_permohonan').val(data.gambar_alur_permohonan);
       
         // $('.datepicker').val(data.created_at)
         $('#tambah').modal('show');
@@ -152,10 +154,21 @@ var table = $('#table-data').DataTable({
   }
 
   $('#simpan').click(function(){
+    var formData = new FormData($('#form1')[0]);
+
     $.ajax({
       url: baseUrl + '/simpansuratjenis',
-      data:$('.table_modal :input').serialize(),
-      dataType:'json',
+      // data:$('.table_modal :input').serialize(),
+      data: formData,
+
+      type: 'POST',
+
+      // dataType:'json',
+      contentType: false,
+        processData: false,
+      headers: {
+        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    },
       success:function(data){
         if (data.status == 1) {
           iziToast.success({

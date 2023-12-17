@@ -6,6 +6,22 @@
 {{-- sweetalert2 --}} 
 <script src="{{asset('assets\js\sweetalert2.all.min.js')}}"></script>
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<style>
+   /* #map {
+          height: 400px;
+        } */
+        #map {
+          height: 100px;
+    /* height: 100%; */
+    width: 100%;
+    /* overflow: hidden; */
+}
+
+
+
+</style>
+
 {{-- data table + ui design --}}
 <link rel="stylesheet" href="{{asset('assets\DataTables-1.10.21\css\dataTables.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets\DataTables-1.10.21\css\jquery.dataTables.min.css')}}">
@@ -13,60 +29,54 @@
 @endsection
 @section('content')
 
-@include('surat.detail')
-@include('surat.tolak')
-@php
- $testing = DB::table("surat")->where("id", "2")->first();
-@endphp
-<style type="text/css">
 
-</style>
-                    <div class="main-content">
-                      <section class="section mt-4">
-                          <div class="row">
-                              <div class="col-md-12">
-                                  <div class="card">
-                                      <div class="card-header p-0 col-12 justify-content-between px-4">
-                                          <div class="col-md-6 col-lg-6 text-left col-12">
-                                              <h5 class="text-blue">List Hasil Survey 
-                                          </div>
-                                      </div>
-                    
-                                      <div class="card-body  pb-5 pt-2">
-                    
-                                              <div class="table-responsive overflow-hidden table-invoice">
-                                                  <table id="table-data" class="table w-100 table-hover">
-                                                      <thead>
+@include('surat.detail')
+
+@include('survey-penugasan.detail')
+@php
+ $jenis = DB::table("surat_jenis")->get();
+@endphp
+
+<!-- partial -->
+<div class="main-content">
+  <section class="section mt-4">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header p-0 col-12 justify-content-between px-4">
+                      <div class="col-md-6 col-lg-6 text-left col-12">
+                          <h5 class="text-blue">List Penugasan Survey</h5>
+                      </div>
+                     
+                  </div>
+
+                  <div class="card-body  pb-5 pt-2">
+
+                          <div class="table-responsive overflow-hidden table-invoice">
+                              <table id="table-data" class="table w-100 table-hover">
+                                  <thead>
                               <tr>
-                                @if (Auth::user()->role_id == 6)
                                 <th>No. Surat</th>
-                                <th>Jenis Surat</th>
-                                <th>Nama Surveyor</th>
+                                 <th>Jenis Surat</th>
+                               {{-- <th>Nama Pemohon</th>--}}
+                                <th>Jadwal Survey</th> 
                                 <th>Status</th>
-                                <th>Tanggal</th>
+                                <th>Tanggal Pengajuan</th>
                                 <th>Action</th>
-                                @else
-                                <th>No. Surat</th>
-                                <th>Jenis Perizinan</th>
-                                <th>Jadwal Survey</th>
-                                <th>Verifikasi Verifikator</th>
-                                <th>Action</th>
-                                @endif
                               </tr>
                             </thead>
-
                             <tbody>
-                              {{-- data table ajax --}}
-                          </tbody>
-                      </table>
-                  </div>
-          </div>
-      </div>
-  </div>
+                                {{-- data table ajax --}}
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+        </div>
+    </div>
 </div>
 </section>
 </div>
-<!-- content-wrapper ends -->
+
 @endsection
 
 {{-- script khusus pada pages kode rekening --}}
@@ -75,9 +85,26 @@
 {{-- data table --}}
 <script src="{{ asset('assets\DataTables-1.10.21\js\jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets\DataTables-1.10.21\js\dataTables.bootstrap4.js') }}"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+  var map = L.map('map').setView([-7.157358, 112.656169], 13);
+  var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+</script>
 
 <script>
 
+// var selectedStatus = 'Semua'; 
+// function handleFilter(status) {
+//   console.log({status});
+//     selectedStatus = status ;  // update selectedStatus
+//     document.getElementById("filter_jenis_surat").innerHTML = status
+
+//     // Update DataTable's Ajax URL
+//     table.ajax.url("{{ url('/arsiptable') }}/" + selectedStatus).load();
+// };
 var table = $('#table-data').DataTable({
         processing: true,
         serverSide: true,
@@ -91,7 +118,7 @@ var table = $('#table-data').DataTable({
             
         ],
         ajax: {
-          url: "{{ url('/hasilsurveytable') }}"  ,
+          url: "{{ url('/surveypenugasantable') }}"  ,
         },
         columnDefs: [
 
@@ -101,46 +128,31 @@ var table = $('#table-data').DataTable({
               },
               {
                  targets: 1,
-                 className: ' center'
+                 className: 'center'
               },
               {
                  targets: 2,
-                 className: ' center'
+                 className: 'center'
               },
               {
                  targets: 3,
-                 className: ' center'
+                 className: 'center'
               },
               {
                  targets: 4,
-                 className: ' center'
+                 className: 'center'
               },
-              @if (Auth::user()->role_id == 6)
-
-              {
-                 targets: 5,
-                 className: 'type center'
-              },
-              @endif
-              
+             
              
             ],
         "columns": [
-          @if (Auth::user()->role_id == 6)
-
-          {data: 'id', name: 'id'},
+          {data: 'DT_RowIndex', name: 'DT_RowIndex'},
           {data: 'surat_jenis', name: 'surat_jenis'},
-          {data: 'nama_surveyor', name: 'nama_surveyor'},
+          // {data: 'user', name: 'user'},
+          {data:'jadwal_survey', name: 'jadwal_survey'},
           {data:'status', name: 'status'},
-          {data:'jadwal_survey', name: 'jadwal_survey'},
-          {data: 'aksi', name: 'aksi'}, 
-          @else
-          {data: 'id', name: 'id'},
-          {data: 'surat_jenis', name: 'surat_jenis'},
-          {data:'jadwal_survey', name: 'jadwal_survey'},
-          {data:'status_survey', name: 'status_survey'},
-          {data: 'aksi', name: 'aksi'}, 
-          @endif
+          {data:'tanggal_pengajuan', name: 'tanggal_pengajuan'},
+          {data: 'aksi', name: 'aksi'},
 
         ],
         "language": {
@@ -162,9 +174,39 @@ var table = $('#table-data').DataTable({
                 }
   });
 
+  function tambah() {
+    // $('#user_id').val('');
+    // $('#user_id').select2();
+    // $('#tambah').modal('show');
+
+  }
+
+  function laporan(id) {
+    // body...
+    $.ajax({
+      url:baseUrl + '/detail-form-laporan-survey/'+id,
+      // data:{id},
+      dataType:'json',
+      success:function(data){
+        console.log({id})
+        console.log('data',data);
+        // $('.is_acc_penjadwalan').val(data.surat.is_acc_penjadwalan);
+        // $('.is_reschedule').val(data.surat.is_reschedule);
+        // $('.id').val(data.surat.id);
+        // $('.jadwal_survey').val(data.surat.jadwal_survey);
+        // $('#user_id').val(data.survey ? data.survey.user_id : '');
+        // $('#user_id').select2();
+       
+      
+        // $('.datepicker').val(data.created_at)
+        $('#tambah').modal('show');
+      }
+    });
+
+  }
 
 
-  function edit(id) {
+  function detailSurat(id) {
     // body...
     $.ajax({
       url:baseUrl + '/editsurat',
@@ -206,7 +248,7 @@ var table = $('#table-data').DataTable({
 
     // Apply CSS styles to reduce the margin between para and link
     para.style.marginBottom = "1px";  // Adjust the value as needed
-    link.style.color = "#499DB1"
+    link.style.color = "#F3B137"
     // Append paragraph and link to the container
     container.appendChild(para);
     container.appendChild(link);
@@ -227,9 +269,32 @@ var table = $('#table-data').DataTable({
 
   }
 
+  function detail(id) {
+    // body...
+    $.ajax({
+      url:baseUrl + '/editsurveypenugasan',
+      data:{id},
+      dataType:'json',
+      success:function(data){
+        console.log({data});
+        $('.is_acc_penjadwalan').val(data.surat.is_acc_penjadwalan);
+        $('.is_reschedule').val(data.surat.is_reschedule);
+        $('.id').val(data.surat.id);
+        $('.jadwal_survey').val(data.surat.jadwal_survey);
+        $('#user_id').val(data.survey ? data.survey.user_id : '');
+        $('#user_id').select2();
+       
+      
+        // $('.datepicker').val(data.created_at)
+        $('#detailPenugasan').modal('show');
+      }
+    });
+
+  }
+
   $('#simpan').click(function(){
     $.ajax({
-      url: baseUrl + '/simpansurat',
+      url: baseUrl + '/simpansurveypenugasan',
       data:$('.table_modal :input').serialize(),
       dataType:'json',
       success:function(data){
@@ -261,104 +326,6 @@ var table = $('#table-data').DataTable({
     });
   })
 
-  $('#validasi').click(function(){
-    iziToast.question({
-      close: false,
-  		overlay: true,
-  		displayMode: 'once',
-  		title: @if (Auth::user()->role_id === 5)
-      'Validasi Surat',
-      @else
-      'Verifikasi Surat',
-      @endif 
-  		message: 'Apakah anda yakin ?',
-  		position: 'center',
-  		buttons: [
-  			['<button><b>Ya</b></button>', function (instance, toast) {
-          $.ajax({
-            url:baseUrl + '/validasisurat',
-            data:$('.table_modal :input').serialize(),
-            dataType:'json',
-            success:function(data){
-              console.log({data})
-              if (data.status == 3) {
-          iziToast.success({
-              icon: 'fa fa-save',
-              message:
-              @if (Auth::user()->role_id === 5)
-              'Data Berhasil Divalidasi!',
-              @else
-              'Data Berhasil Diverifikasi!',
-              @endif
-          });
-          reloadall();
-        }else if(data.status == 4){
-          iziToast.warning({
-              icon: 'fa fa-info',
-              message: 'Data Gagal Divalidasi!',
-          });
-        }
-
-              reloadall();
-            }
-          });
-  			}, true],
-  			['<button>Tidak</button>', function (instance, toast) {
-  				instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-  			}],
-  		]
-  	});
-  })
-
-  $('#showModalTolak').click(function(){
-   var tes = document.getElementById("id").value ;
-   $('.id').val(tes);
-   $('.alasan_dikembalikan').val("");
-   $('#detail').modal('hide'); 
-   $('#showTolak').modal('show');
-      // }
-    // });
-    
-  })
-
-  $('#dikembalikanProcess').click(function(){
-    iziToast.question({
-      close: false,
-  		overlay: true,
-  		displayMode: 'once',
-  		title: 'Kembalikan Surat',
-  		message: 'Apakah anda yakin ?',
-  		position: 'center',
-  		buttons: [
-  			['<button><b>Ya</b></button>', function (instance, toast) {
-          $.ajax({
-            url:baseUrl + '/kembalikansurat',
-            data:$('.table_modal :input').serialize(),
-            dataType:'json',
-            success:function(data){
-              if (data.status == 3) {
-          iziToast.success({
-              icon: 'fa fa-save',
-              message: 'Surat Berhasil Dikembalikan!',
-          });
-          reloadall();
-        }else if(data.status == 4){
-          iziToast.warning({
-              icon: 'fa fa-info',
-              message: 'Surat Gagal Dikembalikan!',
-          });
-        }
-
-              reloadall();
-            }
-          });
-  			}, true],
-  			['<button>Tidak</button>', function (instance, toast) {
-  				instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
-  			}],
-  		]
-  	});
-  })
 
   function hapus(id) {
     iziToast.question({
@@ -371,7 +338,7 @@ var table = $('#table-data').DataTable({
   		buttons: [
   			['<button><b>Ya</b></button>', function (instance, toast) {
           $.ajax({
-            url:baseUrl + '/hapussurat',
+            url:baseUrl + '/arsipsurat',
             data:{id},
             dataType:'json',
             success:function(data){
@@ -394,8 +361,8 @@ var table = $('#table-data').DataTable({
   function reloadall() {
     $('.table_modal :input').val("");
     $('#tambah').modal('hide');
-    $('#detail').modal('hide');
-    $('#showTolak').modal('hide');
+    $('#user_id').val('');
+    $('#user_id').select2();
     // $('#table_modal :input').val('');
    
     // $(".inputtext").val("");
@@ -403,5 +370,18 @@ var table = $('#table-data').DataTable({
     // table1.ajax.reload();
     table.ajax.reload();
   }
+
+  
+  // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  //       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  //   }).addTo(map);
+
+//     const map = L.map('map').setView([-7.157358, 112.656169], 10);
+
+// const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     maxZoom: 19,
+//     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+// }).addTo(map);
+
 </script>
 @endsection

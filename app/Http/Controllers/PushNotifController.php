@@ -34,7 +34,7 @@ class PushNotifController extends Controller
         );
     
         $fields = array(
-            'app_id' => "216dd09c-3506-42e7-85d4-c26b355711a1",
+            'app_id' => "4f854fe7-e518-403d-b827-737af885d0ea",
             'data' => array("userid" => $userid),
             'contents' => $content,
             'headings' => $heading,
@@ -55,7 +55,7 @@ class PushNotifController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);    
     
-        // $response = curl_exec($ch);
+        $response = curl_exec($ch);
         curl_close($ch);
 
         DB::table("notifikasi")
@@ -68,6 +68,6 @@ class PushNotifController extends Controller
             "updated_at" => Carbon::now('Asia/Jakarta'),
           ]);
     
-        // return $response;
+        return $response;
     }
 }

@@ -108,7 +108,7 @@ Route::get('tolakprocesspemohon', 'PemohonController@tolakprocess');
 Route::get('surat-jenis', 'SuratJenisController@index');
 Route::get('suratjenistable', 'SuratJenisController@datatable');
 Route::get('editsuratjenis', 'SuratJenisController@edit');
-Route::get('simpansuratjenis', 'SuratJenisController@simpan');
+Route::post('simpansuratjenis', 'SuratJenisController@simpan');
 Route::get('hapussuratjenis', 'SuratJenisController@hapus');
 
 Route::get('surat-syarat', 'SuratSyaratController@index');
@@ -127,6 +127,9 @@ Route::get('surattable/{status}', 'SuratController@datatable');
 Route::get('editsurat', 'SuratController@edit');
 Route::get('validasisurat', 'SuratController@validasi');
 Route::get('kembalikansurat', 'SuratController@kembalikan');
+
+Route::get('surat-terlambat', 'SuratController@indexsuratterlambat');
+Route::get('suratterlambattable/', 'SuratController@suratterlambatdatatable');
 // Route::get('simpansuratsyarat', 'SuratSyaratController@simpan');
 // Route::get('hapussuratsyarat', 'SuratSyaratController@hapus');
 

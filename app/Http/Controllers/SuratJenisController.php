@@ -64,10 +64,37 @@ class SuratJenisController extends Controller
       if ($req->id == null) {
         DB::beginTransaction();
         try {
+          $imgPath = null;
+          $dokumenPath = null;
+          $tgl = Carbon::now('Asia/Jakarta');
+          $folder = $tgl->year . $tgl->month . $tgl->day;
+          $childPath = 'file/uploads/dokumen-survey-template/';
+          $childPathHasilSurvey = 'file/uploads/gambar-alur-permohonan/';
+          $path = $childPath;
+          $pathDokumen = $childPathHasilSurvey;
+  
+          $file = $req->file('dokumen_survey_template');
+          $fileDokumen = $req->file('gambar_alur_permohonan');
+          $name = null;
+          $nameDokumen = null;
+  
+          if ($file != null) {
+              $name = $folder . '.' . $file->getClientOriginalExtension();
+              $file->move($path, $name);
+              $imgPath = $childPath . $name;
+          }
+  
+          if ($fileDokumen != null) {
+              $nameDokumen = $folder . '.' . $fileDokumen->getClientOriginalExtension();
+              $fileDokumen->move($pathDokumen, $nameDokumen);
+              $dokumenPath = $childPathHasilSurvey . $nameDokumen;
+          }
 
         DB::table("surat_jenis")
               ->insertGetId([
               "nama" => $req->nama,
+              "dokumen_survey_template"=> $imgPath,
+              "gambar_alur_permohonan" => $dokumenPath,
               "created_at" => Carbon::now("Asia/Jakarta"),
               "updated_at" => Carbon::now("Asia/Jakarta")
             ]);
@@ -81,11 +108,37 @@ class SuratJenisController extends Controller
       } else {
         DB::beginTransaction();
         try {
-
+          $imgPath = null;
+          $dokumenPath = null;
+          $tgl = Carbon::now('Asia/Jakarta');
+          $folder = $tgl->year . $tgl->month . $tgl->day;
+          $childPath = 'file/uploads/dokumen-survey-template/';
+          $childPathHasilSurvey = 'file/uploads/gambar-alur-permohonan/';
+          $path = $childPath;
+          $pathDokumen = $childPathHasilSurvey;
+  
+          $file = $req->file('dokumen_survey_template');
+          $fileDokumen = $req->file('gambar_alur_permohonan');
+          $name = null;
+          $nameDokumen = null;
+  
+          if ($file != null) {
+              $name = $folder . '.' . $file->getClientOriginalExtension();
+              $file->move($path, $name);
+              $imgPath = $childPath . $name;
+          }
+  
+          if ($fileDokumen != null) {
+              $nameDokumen = $folder . '.' . $fileDokumen->getClientOriginalExtension();
+              $fileDokumen->move($pathDokumen, $nameDokumen);
+              $dokumenPath = $childPathHasilSurvey . $nameDokumen;
+          }
           DB::table("surat_jenis")
             ->where("id", $req->id)
             ->update([
               "nama" => $req->nama,
+              "dokumen_survey_template"=> $imgPath,
+              "gambar_alur_permohonan" => $dokumenPath,
               "updated_at" => Carbon::now("Asia/Jakarta")
             ]);
 

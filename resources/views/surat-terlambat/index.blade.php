@@ -28,8 +28,33 @@
                                   <div class="card">
                                       <div class="card-header p-0 col-12 justify-content-between px-4">
                                           <div class="col-md-6 col-lg-6 text-left col-12">
-                                              <h5 class="text-blue">List Hasil Survey 
+                                              <h5 class="text-blue">Daftar Perizinan Terlambat 
+                                                {{-- @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 9 || Auth::user()->role_id == 2) 
+                                                ( <span id="filter_status">Semua</span> )
+                                                @endif --}}
+                                              </h5>
                                           </div>
+                                          {{-- <div class="col-md-6 col-lg-6 d-flex col-12 justify-content-end">
+                                            @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 9 || Auth::user()->role_id == 2)
+
+                                            <div class="btn-group">
+                                              <button type="button" class="btn btn-warning dropdown-toggle border-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #499DB1 !important">
+                                                  Filter Status
+                                              </button>
+                                              <div class="dropdown-menu">
+                                                  <a class="dropdown-item" href="#" onclick="handleFilter('Semua')">Semua</a>
+                                                  <a class="dropdown-item" href="#" onclick="handleFilter('Pengisian Dokumen')">Pengisian Dokumen</a>
+                                                  <a class="dropdown-item" href="#" onclick="handleFilter('Validasi Operator')">Validasi Operator</a>
+                                                  <a class="dropdown-item" href="#" onclick="handleFilter('Verifikasi Verifikator')">Verifikasi Verifikator</a>
+                                                  <a class="dropdown-item" href="#" onclick="handleFilter('Penjadwalan Survey')">Penjadwalan Survey</a>
+                                                  <a class="dropdown-item" href="#" onclick="handleFilter('Verifikasi Hasil Survey')">Verifikasi Hasil Survey</a>
+                                                  <a class="dropdown-item" href="#" onclick="handleFilter('Verifikasi Kepala Dinas')">Verifikasi Kepala Dinas</a>
+                                                  <a class="dropdown-item" href="#" onclick="handleFilter('Selesai')">Selesai</a>
+                                              </div>
+                                          </div>
+                                          
+                                            @endif
+                                          </div> --}}
                                       </div>
                     
                                       <div class="card-body  pb-5 pt-2">
@@ -38,20 +63,12 @@
                                                   <table id="table-data" class="table w-100 table-hover">
                                                       <thead>
                               <tr>
-                                @if (Auth::user()->role_id == 6)
                                 <th>No. Surat</th>
                                 <th>Jenis Surat</th>
-                                <th>Nama Surveyor</th>
-                                <th>Status</th>
-                                <th>Tanggal</th>
-                                <th>Action</th>
-                                @else
-                                <th>No. Surat</th>
-                                <th>Jenis Perizinan</th>
                                 <th>Jadwal Survey</th>
-                                <th>Verifikasi Verifikator</th>
+                                <th>Status</th>
+                                <th>Tanggal Pengajuan</th>
                                 <th>Action</th>
-                                @endif
                               </tr>
                             </thead>
 
@@ -77,7 +94,14 @@
 <script src="{{ asset('assets\DataTables-1.10.21\js\dataTables.bootstrap4.js') }}"></script>
 
 <script>
+// var selectedStatus = 'Semua'; 
+// function handleFilter(status) {
+//     selectedStatus = status ;  // update selectedStatus
+//     document.getElementById("filter_status").innerHTML = status
 
+//     // Update DataTable's Ajax URL
+//     table.ajax.url("{{ url('/surattable') }}/" + selectedStatus).load();
+// };
 var table = $('#table-data').DataTable({
         processing: true,
         serverSide: true,
@@ -91,7 +115,7 @@ var table = $('#table-data').DataTable({
             
         ],
         ajax: {
-          url: "{{ url('/hasilsurveytable') }}"  ,
+          url: "{{ url('/suratterlambattable') }}" ,
         },
         columnDefs: [
 
@@ -101,7 +125,7 @@ var table = $('#table-data').DataTable({
               },
               {
                  targets: 1,
-                 className: ' center'
+                 className: 'nominal center'
               },
               {
                  targets: 2,
@@ -115,32 +139,19 @@ var table = $('#table-data').DataTable({
                  targets: 4,
                  className: ' center'
               },
-              @if (Auth::user()->role_id == 6)
-
               {
                  targets: 5,
                  className: 'type center'
               },
-              @endif
-              
              
             ],
         "columns": [
-          @if (Auth::user()->role_id == 6)
-
-          {data: 'id', name: 'id'},
+          {data: 'DT_RowIndex', name: 'DT_RowIndex'},
           {data: 'surat_jenis', name: 'surat_jenis'},
-          {data: 'nama_surveyor', name: 'nama_surveyor'},
+          {data:'jadwal_survey', name: 'jadwal_survey'},
           {data:'status', name: 'status'},
-          {data:'jadwal_survey', name: 'jadwal_survey'},
-          {data: 'aksi', name: 'aksi'}, 
-          @else
-          {data: 'id', name: 'id'},
-          {data: 'surat_jenis', name: 'surat_jenis'},
-          {data:'jadwal_survey', name: 'jadwal_survey'},
-          {data:'status_survey', name: 'status_survey'},
-          {data: 'aksi', name: 'aksi'}, 
-          @endif
+          {data:'tanggal_pengajuan', name: 'tanggal_pengajuan'},
+          {data: 'aksi', name: 'aksi'},
 
         ],
         "language": {
