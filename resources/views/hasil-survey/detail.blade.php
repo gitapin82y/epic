@@ -86,6 +86,13 @@ body {
                                 <p class="" >{{ $data->status }}</p>
 
                             </div>
+                            <div class="form-group col-6">
+                                <strong>Hasil Laporan</strong>
+                                <br>
+                                <a href="{{ asset($data->dokumen_survey) }}" class="text-light bg-main btn btn-md" style="background-color:#499DB1" target="_blank">Lihat Dokumen</a>
+                                {{-- <p class="" >{{ $data->dokumen_survey }}</p> --}}
+
+                            </div>
                            
                             {{-- <div class="form-group col-6">
                                 <label for="dokumen_survey">Upload Dokumen Hasil Survey</label>
