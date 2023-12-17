@@ -39,6 +39,7 @@
             @if (Auth::user()->role_id != 7)
                 
             <li class=""><a class="nav-link" href="{{ url('surat') }}"><i class="fas fa-file-alt"></i><span>Daftar Perizinan</span></a></li>
+            <li class=""><a class="nav-link" href="{{ url('surat-terlambat') }}"><i class="fas fa-file-alt"></i><span>Perizinan Terlambat</span></a></li>
             @endif
 
             <li class=""><a class="nav-link" href="{{ url('arsip') }}"><i class="fas fa-folder-open"></i><span>Arsip Perizinan</span></a></li>

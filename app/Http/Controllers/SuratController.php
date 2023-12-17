@@ -21,12 +21,6 @@ use Yajra\Datatables\Datatables;
 class SuratController extends Controller
 {
     public function index() {
-  //     $tes =  "<select class='custom-select float-right bg-warning' id='statusFilter' onchange='handleFilter()'>
-  //     <option value='' selected disabled>Select Status</option>
-  //     <option value='approved'>Approved</option>
-  //     <option value='rejected'>Rejected</option>
-  // </select>";
-
       return view('surat.index');
     }
 
@@ -38,7 +32,7 @@ class SuratController extends Controller
       $data = DB::table('surat')->where('status', $status)->orderby("created_at", "DESC")->get();
     }else{
       // $data;
-      $data = DB::table('surat')->where('status' ,'not like', 'Selesai')->where('status' ,'not like', 'Ditolak')->orderby("created_at", "DESC")->get();
+      $data = DB::table('surat')->whereNotIn('status' , ['Selesai','Ditolak','Pengisian Dokumen'])->orderby("created_at", "DESC")->get();
 
     }
   }else if(Auth::user()->role_id == 5){
@@ -49,6 +43,77 @@ else if(Auth::user()->role_id == 6){
   $data = DB::table('surat')->where('status', 'Verifikasi Verifikator')->get();
 
 }
+
+
+        // return $data;
+        // $xyzab = collect($data);
+        // return $xyzab;
+        // return $xyzab->i_price;
+        return Datatables::of($data)
+        ->addColumn("surat_jenis", function($data) {
+          $surat_jenis = DB::table('surat_jenis')->where('id', $data->surat_jenis_id)->first();
+          return $surat_jenis->nama;
+        })
+        ->addColumn('jadwal_survey', function ($data) {
+          if($data->jadwal_survey !== null){
+            return Carbon::parse($data->jadwal_survey)->format('d F Y');
+
+          }else{
+            return '<div><i>Belum Tersedia</i></div>';
+          }
+        })
+        ->addColumn('status', function ($data) {
+          $color = '<div><strong class="text-warning">' . $data->status . '</strong></div>';
+      
+          if ($data->status == "Selesai") {
+              // Tombol "Approve" hanya muncul jika is_active == 1
+              $color =  '<div><strong class="text-success">' . $data->status . '</strong></div>';
+          } else if ($data->status == "Ditolak"){
+            $color = '<div><strong class="text-danger">' . $data->status . '</strong></div>';
+          }else{
+            $color;
+          }
+          return $color;
+      })
+      ->addColumn('tanggal_pengajuan', function ($data) {
+        return Carbon::parse($data->created_at)->format('d F Y');
+
+      })
+          ->addColumn('aksi', function ($data) {
+            return  '<div class="btn-group">'.
+                     '<button type="button" onclick="edit('.$data->id.')" class="btn btn-success btn-lg pt-2" title="edit">'.
+                     '<label class="fa fa-eye w-100"></label></button>'.
+                  '</div>';
+          })
+          ->rawColumns(['aksi','jadwal_survey','status', 'tanggal_pengajuan'])
+          ->addIndexColumn()
+          // ->setTotalRecords(2)
+          ->make(true);
+    }
+
+    public function indexsuratterlambat() {
+      return view('surat-terlambat.index');
+    }
+
+    public function suratterlambatdatatable() {
+      // $data = DB::table('surat')->get();
+      if(Auth::user()->role_id == 1 || Auth::user()->role_id == 9 || Auth::user()->role_id == 2){
+
+    //   if($status != 'Semua'){
+    //   $data = DB::table('surat')->where('status', $status)->orderby("created_at", "DESC")->get();
+    // }else{
+      // $data;
+      $data = DB::table('surat')->where('is_terlambat' , 'Y')->orderby("created_at", "DESC")->get();
+
+    }
+//   }else if(Auth::user()->role_id == 5){
+//     $data = DB::table('surat')->where('status', 'Validasi Operator')->get();
+  
+// }
+// else if(Auth::user()->role_id == 6){
+//   $data = DB::table('surat')->where('status', 'Verifikasi Verifikator')->get();
+
+// }
 
 
         // return $data;
@@ -589,17 +654,15 @@ else if(Auth::user()->role_id == 6){
   public function getData(Request $req){
     try{
       if($req->input('user_id') ){
-        $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('user_id', $req->input('user_id'))->whereNotIn('surat.status', ['Selesai', 'Ditolak'])->get();
+        $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('user_id', $req->input('user_id'))->whereNotIn('status' , ['Selesai','Ditolak','Pengisian Dokumen'])->get();
       }else{
         if($req->input('status')){
         $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('status', $req->input('status'))->where(function ($query) {
-          $query->where('status','not like', 'Ditolak')
-                ->orWhere('status','not like', 'Selesai');
+          $query->whereNotIn('status' , ['Selesai','Ditolak','Pengisian Dokumen']);
       })->get();
     }else{
       $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where(function ($query) {
-        $query->where('status','not like', 'Ditolak')
-              ->orWhere('status','not like', 'Selesai');
+        $query->whereNotIn('status' , ['Selesai','Ditolak','Pengisian Dokumen']);
     })->get();
     }
       }
