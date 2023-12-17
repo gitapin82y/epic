@@ -82,27 +82,31 @@ body {
 
                             </div>
                             <div class="form-group col-6">
-                                <strong>Status</strong>
-                                <p class="" >{{ $data->surat_status }}</p>
+                                <strong>Status Survey</strong>
+                                <p class="" >{{ $data->status }}</p>
 
                             </div>
+                           
                             {{-- <div class="form-group col-6">
                                 <label for="dokumen_survey">Upload Dokumen Hasil Survey</label>
                               
 
                                 <input type="file" class="form-control" id="dokumen_survey" name="dokumen_survey">
                             </div> --}}
-                            <div class="form-group col-12">
+                            <div class="form-group col-6">
                                 <strong for="alamat_survey">Alamat</strong>
                                 <p class="" >{{ $data->alamat_survey }}</p>
                             </div>
                            
                             
                         </div>
+                        @if(Auth::user()->role_id == 6)
+
                         <div class="row btn-update-profile mt-4 col-12">
                             <button type="button" class="btn btn-main text-light col-12" id="simpan">Verifikasi Survey</button>
                             <button type="button" class="btn btn-main col-12 mt-4" id="" style="background-color: white !important; color:#499DB1 !important; border: 1px solid #499DB1">Tolak Survey</button>
                         </div>
+                        @endif
                     {{-- </form> --}}
                 </div>
             </div>
