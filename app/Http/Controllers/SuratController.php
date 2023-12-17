@@ -1046,9 +1046,12 @@ else {
 
   public function datatableHasilSurvey() {
     // $data = DB::table('surat')->get();
-    $data = DB::table('surat')->where('status', 'Verifikasi Hasil Survey')->get();
+    if(Auth::user()->role_id == 6){
+      $data = DB::table('surat')->where('status', 'Verifikasi Hasil Survey')->get();
+      }else if(Auth::user()->role_id == 7){
+      $data = DB::table('survey')->join('surat', 'surat.id' ,'=' ,'survey.surat_id')->select('surat.*','survey.*', 'survey.status as status_survey', 'survey.user_id as survey_user_id')->whereNotIn('survey.status', ['Belum Disurvey'])->where('survey.user_id', Auth::user()->id)->get();
 
-
+      }
 
       // return $data;
       // $xyzab = collect($data);
