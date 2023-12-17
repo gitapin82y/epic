@@ -104,7 +104,7 @@ Route::get('tolakprocesspemohon', 'PemohonController@tolakprocess');
 Route::get('surat-jenis', 'SuratJenisController@index');
 Route::get('suratjenistable', 'SuratJenisController@datatable');
 Route::get('editsuratjenis', 'SuratJenisController@edit');
-Route::get('simpansuratjenis', 'SuratJenisController@simpan');
+Route::post('simpansuratjenis', 'SuratJenisController@simpan');
 Route::get('hapussuratjenis', 'SuratJenisController@hapus');
 
 Route::get('surat-syarat', 'SuratSyaratController@index');
