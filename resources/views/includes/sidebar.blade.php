@@ -77,10 +77,9 @@
                 <a href="#" class="nav-link has-dropdown "><i class="fas fa-window-restore"></i><span>Survey Kepuasan</span></a>
                 <ul class="dropdown-menu">
                     <li class=""><a class="nav-link" href="{{url('survey-kepuasan/hasil-kepuasan')}}">Hasil Kepuasan</a></li>
-                    
+                    @if(Auth::user()->role_id == 1)
                     <li class=""><a class="nav-link" href="{{ url('survey-kepuasan/management-pertanyaan') }}">Kelola Pertanyaan</a></li>
-
-
+                    @endif
                 </ul>
             </li>
             @endif
