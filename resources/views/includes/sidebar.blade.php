@@ -36,14 +36,14 @@
         
             @if(Auth::user()->role_id != 9)
             <li class="menu-header text-black">Perizinan</li>
-            @if (Auth::user()->role_id != 7)
-                
-            <li class=""><a class="nav-link" href="{{ url('surat') }}"><i class="fas fa-file-alt"></i><span>Daftar Perizinan</span></a></li>
-            @if (Auth::user()->role_id == 1)
+                @if (Auth::user()->role_id != 7 && Auth::user()->role_id != 4 && Auth::user()->role_id != 8)
+                    
+                <li class=""><a class="nav-link" href="{{ url('surat') }}"><i class="fas fa-file-alt"></i><span>Daftar Perizinan</span></a></li>
+                    @if (Auth::user()->role_id == 1)
 
-            <li class=""><a class="nav-link" href="{{ url('surat-terlambat') }}"><i class="fas fa-file-alt"></i><span>Perizinan Terlambat</span></a></li>
-            @endif
-            @endif
+                    <li class=""><a class="nav-link" href="{{ url('surat-terlambat') }}"><i class="fas fa-file-alt"></i><span>Perizinan Terlambat</span></a></li>
+                    @endif
+                @endif
 
             <li class=""><a class="nav-link" href="{{ url('arsip') }}"><i class="fas fa-folder-open"></i><span>Arsip Perizinan</span></a></li>
             @endif
@@ -69,7 +69,7 @@
             </li>
             @endif
 
-            @if (Auth::user()->role_id == 1)
+            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 8)
 
             <li class="menu-header text-black">Survey Kepuasan</li>
 
@@ -77,8 +77,11 @@
                 <a href="#" class="nav-link has-dropdown "><i class="fas fa-window-restore"></i><span>Survey Kepuasan</span></a>
                 <ul class="dropdown-menu">
                     <li class=""><a class="nav-link" href="{{url('hasil-kepuasan')}}">Hasil Kepuasan</a></li>
-
+                    @if (Auth::user()->role_id == 1)
+                        
                     <li class=""><a class="nav-link" href="{{ url('survey-kepuasan/management-pertanyaan') }}">Kelola Pertanyaan</a></li>
+                    @endif
+
                 </ul>
             </li>
             @endif
