@@ -26,7 +26,7 @@
             </div>
         </div>
                 <div class="card px-5 py-3">
-                    @foreach($notifications as $notification)
+                  @forelse($notifications as $notification)
                   <div class="my-3">
                       <strong>{{ $notification->judul }}</strong>
                       <p class="my-2">
@@ -35,7 +35,10 @@
                       <small class="m-0 p-0 d-block text-muted">{{ Carbon::parse($notification->created_at)->format('d F Y')}}</small>
                   </div>
                   <hr>
-              @endforeach
+
+                @empty
+                <strong class="text-center">Belum ada notifikasi</strong>
+                @endforelse
                 </div>
     </div>
 </section>
