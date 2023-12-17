@@ -36,7 +36,7 @@
         
             @if(Auth::user()->role_id != 9)
             <li class="menu-header text-black">Perizinan</li>
-                @if (Auth::user()->role_id != 7 && Auth::user()->role_id != 4 && Auth::user()->role_id != 8)
+                @if (Auth::user()->role_id != 7 && Auth::user()->role_id != 4 && Auth::user()->role_id != 8 && Auth::user()->role_id != 2)
                     
                 <li class=""><a class="nav-link" href="{{ url('surat') }}"><i class="fas fa-file-alt"></i><span>Daftar Perizinan</span></a></li>
                     @if (Auth::user()->role_id == 1)
@@ -69,7 +69,7 @@
             </li>
             @endif
 
-            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 8)
+            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 8 || Auth::user()->role_id == 3 || Auth::user()->role_id == 2)
 
             <li class="menu-header text-black">Survey Kepuasan</li>
 
