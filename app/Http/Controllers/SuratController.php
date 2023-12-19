@@ -1143,6 +1143,7 @@ else {
             'jenis_perizinan' => $item->surat_jenis_nama,
             'nomor_surat'      => $item->id_surat,
             'tanggal'          => $item->created_at,
+            'nama'          => $item->nama,
             'status'        => $item->status,
 
         ];
