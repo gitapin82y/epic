@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
 use Illuminate\Http\Request;
 
 use App\mMember;
@@ -99,19 +100,17 @@ class PemohonController extends Controller
       if ($req->id == null) {
         DB::beginTransaction();
         try {
-          $cekusername= DB::table("user")->where("username",$req->username)->first();
+          // $cekusername= DB::table("user")->where("username",$req->username)->first();
           $cekemail= DB::table("user")->where("email",$req->email)->first();
 
           if($cekemail !== null){
             return response()->json(["status" => 2, "message" => "Email Sudah Terdaftar"]);
-          }else if($cekusername !== null){
-            return response()->json(["status" => 2, "message" => "Username Sudah Digunakan"]);
           }
           else{
-        DB::table("user")
+       $getId = DB::table("user")
               ->insertGetId([
               "nama_lengkap" => $req->nama_lengkap,
-              "username" => $req->username,
+              // "username" => '',
               "email" => $req->email,
               "password" => $req->password,
               "role_id" => "9",
@@ -130,9 +129,15 @@ class PemohonController extends Controller
               "created_at" => Carbon::now("Asia/Jakarta"),
               "updated_at" => Carbon::now("Asia/Jakarta")
             ]);
+            $user = Account::where("id", $getId)->first();
+            $role = DB::table('role')->where('id', $user->role_id)->first();
+
 
           DB::commit();
-          return response()->json(["status" => 1,'message' => 'Berhasil Registrasi Tunggu Admin Mengaktivasi Akun Anda dan Mengirimkan Email'  ]);
+          return response()->json(["status" => 1,'message' => 'Selamat, Anda Berhasil Registrasi', 'data' => [
+            'user' => $user,
+            'role' => $role
+        ]  ]);
           }
         } catch (\Exception $e) {
           DB::rollback();
@@ -147,7 +152,7 @@ class PemohonController extends Controller
             ->where("id", $req->id)
             ->update([
               "nama_lengkap" => $req->nama_lengkap,
-              "username" => $req->username,
+              // "username" => '',
               "email" => $req->email,
               "password" => $req->password,
               "alamat" => $req->alamat,

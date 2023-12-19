@@ -173,9 +173,10 @@ var table = $('#table-data').DataTable({
   }
 
   function edit(user_id){
+  console.log({user_id})
     $('#pertanyaan-container').empty();
     $.ajax({
-            url: '{{ url('/detailhasilkepuasan') }}?ulasan_hasil_id='+user_id,
+            url: "{{ url('/detailhasilkepuasan') }}/"+user_id,
             method: 'GET',
             success: function (data) {
               console.log(data);

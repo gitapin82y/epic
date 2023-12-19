@@ -74,10 +74,6 @@ Route::get('editperizinan', 'PerizinanPemohonController@edit');
 Route::post('penilaian-app', 'PertanyaanSurveyKepuasanController@sendSurveyKepuasan')->name('penilaian-app');
 
 Route::get('semua-notifikasi','PublicController@notifikasi')->name('semuaNotifikasi');
-Route::get('survey-kepuasan/hasil-kepuasan', 'HasilKepuasanController@index');
-Route::get('hasilkepuasan', 'HasilKepuasanController@datatable');
-Route::get('detailhasilkepuasan', 'HasilKepuasanController@detail');
-
 // Route::get('pemohonaccjadwalperizinan', 'PerizinanPemohonController@pemohonAccJadwalSurvey');
 // Route::get('jadwalulang', 'PerizinanPemohonController@jadwalulang');
 
@@ -181,6 +177,15 @@ Route::get('survey/penugasan/laporan/{id}',  [PenugasanSurveyController::class, 
  // Verifikasi Hasil Survey
  Route::post('surat/verifikasi-survey', 'SuratController@approveHasilSurvey');
  Route::post('surat/tolak-survey', 'SuratController@tolakHasilSurvey');
+
+ Route::get('surat/terbitkan', 'SuratController@terbitkanSurat');
+
+ Route::get('survey-kepuasan/hasil-kepuasan', 'HasilKepuasanController@index');
+ Route::get('hasilkepuasan', 'HasilKepuasanController@datatable');
+ Route::get('detailhasilkepuasan/{id}', 'HasilKepuasanController@detail');
+
+
+
 
 
 

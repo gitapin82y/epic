@@ -73,6 +73,10 @@ Route::middleware('api')->group(function () {
     // terbitkan dan tolak surat kepala dinas
     Route::post('surat/terbitkan', 'SuratController@terbitkanSurat');
     Route::post('surat/tolak', 'SuratController@tolakSuratKepalaDinas');
+
+    // arsip
+    Route::get('surat/arsip', 'SuratController@getDataArsip');
+
     
     
     // notification

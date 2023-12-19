@@ -32,7 +32,7 @@ class loginController extends Controller
 
         if ($user) {
             if($user->role_id == 9){
-                if($user->password === md5($req->password)){
+                if(md5($password) == $user->password ){
                     $role = DB::table('role')->where('id', $user->role_id)->first();
                     return response()->json([
                             'status' => 1,
@@ -68,7 +68,7 @@ class loginController extends Controller
             }
         } else {
             return response()->json([
-                        'status' => 2,
+                        'status' => 3,
                         'message' => 'akun tidak ditemukan'
             ]);
         }

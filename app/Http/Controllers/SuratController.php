@@ -35,7 +35,11 @@ class SuratController extends Controller
       $data = DB::table('surat')->whereNotIn('status' , ['Selesai','Ditolak','Pengisian Dokumen'])->orderby("created_at", "DESC")->get();
 
     }
-  }else if(Auth::user()->role_id == 5){
+  }else if(Auth::user()->role_id == 3){
+    $data = DB::table('surat')->where('status', 'Verifikasi Kepala Dinas')->get();
+  
+  }
+  else if(Auth::user()->role_id == 5){
     $data = DB::table('surat')->where('status', 'Validasi Operator')->get();
   
 }
@@ -1071,10 +1075,15 @@ else {
         }
       })
       ->addColumn('nama_surveyor', function ($data) {
-        $survey = DB::table('survey')->join('user', 'user.id' ,'=' ,'survey.user_id')->select('user.nama_lengkap as nama_surveyor')->where('survey.surat_id', $data->id)->first();
-
-        return $survey ? $survey->nama_surveyor : '';
-    })
+        if(Auth::user()->role_id == 6){
+  
+            $survey = DB::table('survey')->join('user', 'user.id' ,'=' ,'survey.user_id')->select('user.nama_lengkap as nama_surveyor')->where('survey.surat_id', $data->id)->first();
+    
+            return $survey ? $survey->nama_surveyor : '';
+        }else{
+          return null;
+        }
+        })
     
         ->addColumn('aksi', function ($data) {
           return  '<div class="btn-group">'.
@@ -1086,6 +1095,63 @@ else {
         ->addIndexColumn()
         // ->setTotalRecords(2)
         ->make(true);
+  }
+
+  public function getDataArsip(Request $req) {
+    try{
+    if($req->user_id != ""){
+    if ($req->jenis != "") {
+      $surat = DB::table('surat')
+      ->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")
+      ->select('surat.*','surat.id as id_surat', 'surat_jenis.nama as surat_jenis_nama')
+      ->where('user_id',  $req->user_id)
+      ->where("surat.surat_jenis_id", $req->jenis)
+      ->whereIn('surat.status', ['Selesai', 'Ditolak'])
+      ->get();
+    } else {
+      $surat = DB::table('surat')
+      ->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")
+      ->select('surat.*','surat.id as id_surat', 'surat_jenis.nama as surat_jenis_nama')
+      ->where('user_id',  $req->user_id)
+      ->whereIn('surat.status', ['Selesai', 'Ditolak'])
+      ->get();
+    }
+  }else{
+    if ($req->jenis != "") {
+      $surat = DB::table('surat')
+      ->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")
+      ->select('surat.*','surat.id as id_surat', 'surat_jenis.nama as surat_jenis_nama')
+      // ->where('user_id',  $req->user_id)
+      ->where("surat.surat_jenis_id", $req->jenis)
+      ->whereIn('surat.status', ['Selesai', 'Ditolak'])
+      ->get();
+    } else {
+      $surat = DB::table('surat')
+      ->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")
+      ->select('surat.*','surat.id as id_surat', 'surat_jenis.nama as surat_jenis_nama')
+      ->whereIn('surat.status', ['Selesai', 'Ditolak'])
+      ->get();
+    }
+  }
+
+
+    $data = [];
+
+    foreach ($surat as $item) {
+        $data[] = [
+            'id'               => $item->id_surat,
+            'jenis_perizinan' => $item->surat_jenis_nama,
+            'nomor_surat'      => $item->id_surat,
+            'tanggal'          => $item->created_at,
+            'status'        => $item->status,
+
+        ];
+    }
+
+    return response()->json(['status' => 1, 'data' => $data]);
+  }catch(\Exception $e){
+    return response()->json(["status" => 2, "message" => $e->getMessage()]);
+  }
   }
 
 
