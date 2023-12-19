@@ -12,7 +12,7 @@
         <div class="row">
           <table class="table table_modal">
             <tr>
-              <div id="pertanyaan-container"></div>
+              <div id="pertanyaan-container" class="w-100"></div>
             </tr>
           </table>
         </div>

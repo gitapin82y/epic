@@ -45,9 +45,12 @@ class HasilKepuasanController extends Controller
       public function detail(Request $req){
         $ulasanData = DB::table('ulasan')
             ->join('ulasan_pertanyaan', 'ulasan.ulasan_pertanyaan_id', '=', 'ulasan_pertanyaan.id')
-            ->select('ulasan.id', 'ulasan_pertanyaan.nama', 'ulasan.isi')
+            ->select('ulasan.id', 'ulasan_pertanyaan.nama', 'ulasan.isi','ulasan.created_at')
             ->where('ulasan.ulasan_hasil_id','=',$req->ulasan_hasil_id)
             ->get();
-        return response()->json($ulasanData);
+            $heading['nama'] = DB::table('user')->find($req->ulasan_hasil_id)->nama_lengkap;
+            $heading['tanggal_ulasan'] = Carbon::parse($ulasanData[0]->created_at)->format('d F Y');;
+            return response()->json(['heading' => $heading, 'ulasan' => $ulasanData]);
+
       }
 }

@@ -77,9 +77,7 @@
                 <a href="#" class="nav-link has-dropdown "><i class="fas fa-window-restore"></i><span>Survey Kepuasan</span></a>
                 <ul class="dropdown-menu">
                     <li class=""><a class="nav-link" href="{{url('survey-kepuasan/hasil-kepuasan')}}">Hasil Kepuasan</a></li>
-                    @if(Auth::user()->role_id == 1)
                     <li class=""><a class="nav-link" href="{{ url('survey-kepuasan/management-pertanyaan') }}">Kelola Pertanyaan</a></li>
-                    @endif
                 </ul>
             </li>
             @endif
@@ -92,7 +90,7 @@
             <li class=""><a class="nav-link" href="{{ url('chatbot') }}"><i class="fas fa-file-alt"></i><span>Chatbot</span></a></li>
             @endif
 
-            @if (Auth::user()->role_id == 7 || Auth::user()->role_id == 9 || Auth::user()->role_id == 5)
+            @if (Auth::user()->role_id == 7 || Auth::user()->role_id == 5)
 
             <li class=""><a class="nav-link" href="{{ url('chat') }}"><i class="fas fa-comment"></i><span>Live Chat</span></a></li>
 
@@ -102,12 +100,14 @@
 
             <li class=""><a class="nav-link" href="{{ url('video-panduan') }}"><i class="fas fa-video"></i><span>Video Panduan</span></a></li>
             {{-- @endif --}}
+         
+            @endif
 
-           
+              
 
             @if (Auth::user()->role_id == 9)
+            <li class=""><a class="nav-link" href="{{ url('chat') }}"><i class="fas fa-comment"></i><span>Live Chat</span></a></li>
             <li class=""><a class="nav-link" type="button" data-toggle="modal" data-target="#penilaianApp"><i class="fas fa-star"></i><span>Penilaian App</span></a></li>            
-            @endif
             @endif
 
             

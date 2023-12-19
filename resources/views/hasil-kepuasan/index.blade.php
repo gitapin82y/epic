@@ -178,16 +178,18 @@ var table = $('#table-data').DataTable({
             url: '{{ url('/detailhasilkepuasan') }}?ulasan_hasil_id='+user_id,
             method: 'GET',
             success: function (data) {
+              console.log(data);
                 // Tampilkan pertanyaan dan jawaban dalam modal
                 var pertanyaanContainer = $('#pertanyaan-container');
-
-                data.forEach(function (ulasan,index) {
+                var modalContent = '<div class="row mb-4"><div class="col-6"><h5>Nama Pemohon</h5>' + data.heading.nama +'</div>';
+                modalContent += '<div class="col-6"><h5>Tanggal</h5>' + data.heading.tanggal_ulasan + '</div></div>';
+                data.ulasan.forEach(function (ulasan,index) {
                     index++;
                     var pertanyaan = ulasan.nama;
                     var jawaban = ulasan.isi;
 
-                    var modalContent = '<div>';
-                    modalContent += '<p>' +index+'.) ' + pertanyaan + '</p>';
+                    modalContent += '<div>';
+                    modalContent += '<p  class="mb-1">' +index+'.) ' + pertanyaan + '</p>';
                     modalContent += '<p><img src="{{ asset("assets/icon/checklist.png") }}" alt="Gambar" style="margin-top:-5px;margin-right:10px">' + jawaban + '</p>';
                     modalContent += '</div>';
 
