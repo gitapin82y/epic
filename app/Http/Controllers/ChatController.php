@@ -94,7 +94,9 @@ class ChatController extends Controller
             }
   
            DB::commit();
-           return Response()->json($data ? $data : ['id' => $dataBaru]);
+           return Response()->json($data ? ['id' => $data->id , 'surveyor_id' => $req->id] : ['id' => $dataBaru , 'surveyor_id' => $req->id]);
+          // return Response()->json('sukses');
+
       } catch (\Exception $e) {
            DB::rollback();
            return Response()->json("gagal");
