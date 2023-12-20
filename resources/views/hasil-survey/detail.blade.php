@@ -107,7 +107,7 @@ body {
                            
                             
                         </div>
-                        @if(Auth::user()->role_id == 6)
+                        @if(Auth::user()->role_id == 6 && $data->status == 'Sudah Disurvey')
 
                         <div class="row btn-update-profile mt-4 col-12">
                             <button type="button" class="btn btn-main text-light col-12" id="simpan">Verifikasi Survey</button>

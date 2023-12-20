@@ -131,7 +131,7 @@ var table = $('#table-data').DataTable({
           {data: 'id', name: 'id'},
           {data: 'surat_jenis', name: 'surat_jenis'},
           {data: 'nama_surveyor', name: 'nama_surveyor'},
-          {data:'status', name: 'status'},
+          {data:'status_survey', name: 'status_survey'},
           {data:'jadwal_survey', name: 'jadwal_survey'},
           {data: 'aksi', name: 'aksi'}, 
           @else
