@@ -72,6 +72,11 @@ class ChatController extends Controller
                       ->where("account", $req->auth_id . "-" . $req->id)
                       ->first();
 
+            $data = DB::table("roomchat")
+            ->where("account", $req->auth_id . "-" . $req->id)
+            ->select('roomchat.id')
+            ->first();
+
             if ($cek != null) {
               DB::table('roomchat')
               ->where("id", $cek->id)
@@ -79,9 +84,9 @@ class ChatController extends Controller
                 "created_at" => Carbon::now('Asia/Jakarta'),
               ]);
             } else {
-              DB::table('roomchat')
-                ->insert([
-                  'account' => Auth::user()->id . "-" . $req->id,
+            $dataBaru = DB::table('roomchat')
+                ->insertGetId([
+                  'account' => $req->auth_id . "-" . $req->id,
                   'last_message' => "",
                   'counter_kedua' => 0,
                   'created_at' => Carbon::now('Asia/Jakarta'),
@@ -89,7 +94,7 @@ class ChatController extends Controller
             }
   
            DB::commit();
-           return Response()->json("sukses");
+           return Response()->json($data ? $data : ['id' => $dataBaru]);
       } catch (\Exception $e) {
            DB::rollback();
            return Response()->json("gagal");
