@@ -278,11 +278,31 @@ class SurveyController extends Controller
       }
     }
 
-    public function getDataBySurveyorId($id){
+    public function getDataBySurveyorId($id, Request $req){
       try {
+        if ($req->keyword == "" && $req->jenis == "") {
+
         $data = DB::table('survey')->join('surat', 'surat.id', '=', "survey.surat_id")->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'survey.id as survey_id', 'survey.user_id as surveyor_id', 'surat_jenis.nama as surat_jenis_nama')
         ->where("surat.status",'Penjadwalan Survey')->where('survey.status','Belum Disurvey')->where('survey.user_id', $id)
         ->get();
+        }else if ($req->keyword != "" && $req->jenis == "") {
+          $data = DB::table('survey')->join('surat', 'surat.id', '=', "survey.surat_id")->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'survey.id as survey_id', 'survey.user_id as surveyor_id', 'surat_jenis.nama as surat_jenis_nama')
+          ->where('surat.id', 'like', "%" .$req->input('keyword') . "%" )
+          ->where("surat.status",'Penjadwalan Survey')->where('survey.status','Belum Disurvey')->where('survey.user_id', $id)
+          ->get();
+        }else if ($req->keyword == "" && $req->jenis != "") {
+          $data = DB::table('survey')->join('surat', 'surat.id', '=', "survey.surat_id")->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'survey.id as survey_id', 'survey.user_id as surveyor_id', 'surat_jenis.nama as surat_jenis_nama')
+          ->where('surat.surat_jenis_id', $req->input('jenis'))
+          ->where("surat.status",'Penjadwalan Survey')->where('survey.status','Belum Disurvey')->where('survey.user_id', $id)
+          ->get();
+        }else if ($req->keyword != "" && $req->jenis != "") {
+          $data = DB::table('survey')->join('surat', 'surat.id', '=', "survey.surat_id")->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'survey.id as survey_id', 'survey.user_id as surveyor_id', 'surat_jenis.nama as surat_jenis_nama')
+          ->where('surat.surat_jenis_id', $req->input('jenis'))
+          ->where('surat.id', 'like', "%" .$req->input('keyword') . "%" )
+          ->where('surat.surat_jenis_id', $req->input('jenis'))
+          ->where("surat.status",'Penjadwalan Survey')->where('survey.status','Belum Disurvey')->where('survey.user_id', $id)
+          ->get();
+        }
         return response()->json(["status" => 1, "data" => $data]);
 
       } catch (\Exception $e) {
