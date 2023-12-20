@@ -1150,60 +1150,64 @@ else {
 
   public function getDataArsip(Request $req) {
     try{
-    if($req->user_id != ""){
-    if ($req->jenis != "") {
-      $surat = DB::table('surat')
-      ->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")
-      ->select('surat.*','surat.id as id_surat', 'surat_jenis.nama as surat_jenis_nama')
-      ->where('user_id',  $req->user_id)
-      ->where("surat.surat_jenis_id", $req->jenis)
-      ->whereIn('surat.status', ['Selesai', 'Ditolak'])
-      ->get();
-    } else {
-      $surat = DB::table('surat')
-      ->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")
-      ->select('surat.*','surat.id as id_surat', 'surat_jenis.nama as surat_jenis_nama')
-      ->where('user_id',  $req->user_id)
-      ->whereIn('surat.status', ['Selesai', 'Ditolak'])
-      ->get();
+      if($req->input('user_id') ){
+        if ($req->keyword == "" && $req->jenis == "") {
+          $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('user_id', $req->input('user_id'))->whereIn('surat.status', ['Selesai', 'Ditolak'])->orderByDesc('id')->get();
+        } else if ($req->keyword != "" && $req->jenis == "") {
+          $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")
+          ->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('user_id', $req->input('user_id'))
+          ->whereIn('surat.status', ['Selesai', 'Ditolak'])
+          ->where('surat.id', 'like', "%" .$req->input('keyword') . "%" )
+          ->orderByDesc('id')->get();
+        }else if ($req->keyword == "" && $req->jenis != "") {
+          $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")
+          ->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('user_id', $req->input('user_id'))
+          ->whereIn('surat.status', ['Selesai', 'Ditolak'])
+          ->where('surat_jenis_id', $req->input('jenis'))
+          ->orderByDesc('id')->get();
+        }  
+        else if ($req->keyword != "" && $req->jenis != "") {
+          $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")
+          ->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('user_id', $req->input('user_id'))
+          ->whereIn('surat.status', ['Selesai', 'Ditolak'])
+          ->where('surat.id', 'like', "%" .$req->input('keyword') . "%" )
+          ->where('surat_jenis_id', $req->input('jenis'))
+          ->orderByDesc('id')->get();
+        } else {
+          $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('surat.id', 'like', "%" .$req->input('keyword') . "%" )->where('user_id', $req->input('user_id'))->whereIn('surat.status', ['Selesai', 'Ditolak'])->orderByDesc('id')->get();
+        }
+        }
+        else if($req->input('jenis')){
+            if ($req->keyword == "") {
+          
+              $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('surat_jenis_id', $req->input('jenis'))->where(function ($query) use ($req) {
+              $query->whereIn('surat.status', ['Selesai', 'Ditolak']);
+              })->orderByDesc('id')->get();
+            }  else {
+              $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('surat.id', 'like', "%" .$req->input('keyword') . "%" )->where('surat_jenis_id', $req->input('jenis'))->get();
+            }
+            //  else {
+            //   $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('status', $req->input('surat_jenis_id'))->where(function ($query) use ($req) {
+            //     $query->whereNotIn('surat.status', ['Selesai', 'Ditolak'])
+            //         ->where('surat.id', $req->input('keyboard'));
+            //     })->get();
+            // }
+          // }else{
+          //   if ($req->keyword == "") {
+          //     $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->get();
+          //   } else {
+          //     $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->Where('surat.id','like', "%" . $req->keyword . "%")->get();
+          //   }
+          // }
+      }   
+      else {
+            $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('surat.id', $req->input('keyword') )->get();
+            // $data = $req->keyword;
+          }
+      return response()->json(['status' => 1, 'data' => $data]);
+    }catch(\Exception $e){
+      return response()->json(["status" => 2, "message" => $e->getMessage()]);
     }
-  }else{
-    if ($req->jenis != "") {
-      $surat = DB::table('surat')
-      ->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")
-      ->select('surat.*','surat.id as id_surat', 'surat_jenis.nama as surat_jenis_nama')
-      // ->where('user_id',  $req->user_id)
-      ->where("surat.surat_jenis_id", $req->jenis)
-      ->whereIn('surat.status', ['Selesai', 'Ditolak'])
-      ->get();
-    } else {
-      $surat = DB::table('surat')
-      ->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")
-      ->select('surat.*','surat.id as id_surat', 'surat_jenis.nama as surat_jenis_nama')
-      ->whereIn('surat.status', ['Selesai', 'Ditolak'])
-      ->get();
-    }
-  }
-
-
-    $data = [];
-
-    foreach ($surat as $item) {
-        $data[] = [
-            'id'               => $item->id_surat,
-            'jenis_perizinan' => $item->surat_jenis_nama,
-            'nomor_surat'      => $item->id_surat,
-            'tanggal'          => $item->created_at,
-            'nama'          => $item->nama,
-            'status'        => $item->status,
-
-        ];
-    }
-
-    return response()->json(['status' => 1, 'data' => $data]);
-  }catch(\Exception $e){
-    return response()->json(["status" => 2, "message" => $e->getMessage()]);
-  }
   }
 
 
