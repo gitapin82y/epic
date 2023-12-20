@@ -141,7 +141,7 @@ class ChatController extends Controller
                                   ->first();
             }
   
-            $cekOperatorRoom->created_at = Carbon::parse($cekOperatorRoom->created_at)->diffForHumans();
+            $cekOperatorRoom->created_at = Carbon::parse($cekOperatorRoom->created_at)->locale('id')->diffForHumans();
 
             $resultRoom[0] = $cekOperatorRoom;
 
@@ -173,7 +173,7 @@ class ChatController extends Controller
                                     ->first();
               }
     
-              $cekOperatorRoom->created_at = Carbon::parse($cekOperatorRoom->created_at)->diffForHumans();
+              $cekOperatorRoom->created_at = Carbon::parse($cekOperatorRoom->created_at)->locale('id')->diffForHumans();
 
               $resultRoom[0] = $cekOperatorRoom;
             }
@@ -200,7 +200,7 @@ class ChatController extends Controller
                                   ->first();
             }
   
-            $value->created_at = Carbon::parse($value->created_at)->diffForHumans();
+            $value->created_at = Carbon::parse($value->created_at)->locale('id')->diffForHumans();
   
             $resultRoom[$key + 1] = $value;
           }
@@ -223,7 +223,7 @@ class ChatController extends Controller
                                   ->first();
             }
   
-            $value->created_at = Carbon::parse($value->created_at)->diffForHumans();
+            $value->created_at = Carbon::parse($value->created_at)->locale('id')->diffForHumans();
   
             $resultRoom[$key] = $value;
           }
@@ -269,7 +269,7 @@ class ChatController extends Controller
                                 ->first();
           }
 
-          $cekOperatorRoom->created_at = Carbon::parse($cekOperatorRoom->created_at)->diffForHumans();
+          $cekOperatorRoom->created_at = Carbon::parse($cekOperatorRoom->created_at)->locale('id')->diffForHumans();
 
           $resultRoom[0] = $cekOperatorRoom;
         } else {
@@ -299,7 +299,7 @@ class ChatController extends Controller
                                   ->first();
             }
   
-            $cekOperatorRoom->created_at = Carbon::parse($cekOperatorRoom->created_at)->diffForHumans();
+            $cekOperatorRoom->created_at = Carbon::parse($cekOperatorRoom->created_at)->locale('id')->diffForHumans();
 
             $resultRoom[0] = $cekOperatorRoom;
           }
@@ -326,7 +326,7 @@ class ChatController extends Controller
                                 ->first();
           }
   
-          $value->created_at = Carbon::parse($value->created_at)->diffForHumans();
+          $value->created_at = Carbon::parse($value->created_at)->locale('id')->diffForHumans();
   
           $resultRoom[$key + 1] = $value;
         }
@@ -349,7 +349,7 @@ class ChatController extends Controller
                                 ->first();
           }
   
-          $value->created_at = Carbon::parse($value->created_at)->diffForHumans();
+          $value->created_at = Carbon::parse($value->created_at)->locale('id')->diffForHumans();
   
           $resultRoom[$key] = $value;
         }
@@ -407,7 +407,17 @@ class ChatController extends Controller
        }
 
       foreach ($chat as $key => $value) {
-        $value->created_at = Carbon::parse($value->created_at)->diffForHumans();
+        // $value->created_at = Carbon::parse($value->created_at)->locale('id')->diffForHumans();
+        $created_at = Carbon::parse($value->created_at);
+
+// Jika lebih dari 24 jam, gunakan format "1 hari yang lalu" dan seterusnya
+if ($created_at->diffInHours() >= 24) {
+    $formattedTime = $created_at->locale('id')->format('d/m');
+} else {
+    // Jika kurang dari 24 jam, gunakan format jam dan menit biasa
+    $formattedTime = $created_at->format('H:i');
+}
+      $value->created_at = $formattedTime;
       }
 
       return Response()->json($chat);
@@ -448,7 +458,7 @@ class ChatController extends Controller
        }
 
       foreach ($chat as $key => $value) {
-        $value->created_at = Carbon::parse($value->created_at)->diffForHumans();
+        $value->created_at = Carbon::parse($value->created_at)->locale('id')->diffForHumans();
       }
 
       return Response()->json($chat);
