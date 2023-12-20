@@ -786,16 +786,27 @@ else if(Auth::user()->role_id == 6){
   }
   }
 
-  public function listPerizinanMasuk() {
+  public function listPerizinanMasuk(Request $req) {
     try{
+      if ($req->keyword == ""  && $req->surat_jenis_id == "" ) {
 
     $surat = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*','surat.id as id_surat', 'surat_jenis.nama as surat_jenis_nama')->where('surat.is_terlambat','N')->whereNotIn('surat.status', ['Selesai', 'Ditolak'])->get();
+
+      }else if ($req->keyword != ""  && $req->surat_jenis_id == "" ) {
+        $surat = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*','surat.id as id_surat', 'surat_jenis.nama as surat_jenis_nama')->where('surat.is_terlambat','N')->whereNotIn('surat.status', ['Selesai', 'Ditolak'])->where('surat.id', 'like', "%" .$req->input('keyword') . "%" )->get();
+      }else if ($req->keyword == ""  && $req->surat_jenis_id != "" ) {
+        $surat = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*','surat.id as id_surat', 'surat_jenis.nama as surat_jenis_nama')->where('surat.is_terlambat','N')->whereNotIn('surat.status', ['Selesai', 'Ditolak'])->where('surat_jenis_id', $req->input('surat_jenis_id'))->get();
+      }else if ($req->keyword != ""  && $req->surat_jenis_id != "" ) {
+        $surat = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*','surat.id as id_surat', 'surat_jenis.nama as surat_jenis_nama')->where('surat.is_terlambat','N')->whereNotIn('surat.status', ['Selesai', 'Ditolak'])->where('surat.id', 'like', "%" .$req->input('keyword') . "%" )
+        ->where('surat_jenis_id', $req->input('surat_jenis_id'))->get();
+      }
 
     $data = [];
 
     foreach ($surat as $item) {
         $data[] = [
             'id'               => $item->id_surat,
+            'surat_jenis_id'   => $item->surat_jenis_id,
             'jenis_perizinan' => $item->surat_jenis_nama,
             'nomor_surat'      => $item->id_surat,
             'tanggal'          => $item->created_at,
