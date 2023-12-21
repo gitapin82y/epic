@@ -87,20 +87,21 @@ input:checked + .slider:before {
                   <div class="card-body">
                     <h4 class="card-title">Chatbot</h4>
 
-                    <form method="POST" class="form-horizontal" action="{{ url('chatbot/save') }}" accept-charset="UTF-8" id="tambahpekerja" enctype="multipart/form-data">
+                    <form method="POST" class="form-horizontal" action="{{ url('chatbot/save') }}" accept-charset="UTF-8" id="tambahpekerja">
                       {{csrf_field()}}
                       <div class="row">
+                          <input type="hidden" name="is_active" id="is_active">
 
-                             <div class="col-md-12 col-sm-12 col-xs-12" style="height: 1%;">
+                            <div class="col-md-12 col-sm-12 col-xs-12" style="height: 1%;">
                              <label class="switch">
                                 @if(isset($data))
                                     @if($data->is_active == "Y")
-                                    <input type="checkbox" name="is_active" checked>
+                                    <input type="checkbox" id="active" name="active" onclick="changeSwitch()" checked>
                                     @else 
-                                    <input type="checkbox" name="is_active">
+                                    <input type="checkbox" id="active" name="active" onclick="changeSwitch()">
                                     @endif
                                 @else
-                                <input type="checkbox" name="is_active">
+                                <input type="checkbox" id="active" name="active" onclick="changeSwitch()">
                                 @endif
                                 <span class="slider round"></span>
                             </label>
@@ -147,7 +148,8 @@ input:checked + .slider:before {
         </div>
 <!-- content-wrapper ends -->
 @endsection
-@section('extra_script')
+
+@section('soloScript')
 <script>
   @if (session('sukses'))
   iziToast.success({
@@ -162,5 +164,10 @@ input:checked + .slider:before {
       message: 'Data Gagal disimpan!',
   });
   @endif
+
+  function changeSwitch() {
+    let check = $("#active").is(":checked")
+    $("#is_active").val(check)
+  }
 </script>
 @endsection

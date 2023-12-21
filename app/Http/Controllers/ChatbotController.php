@@ -41,10 +41,10 @@ class ChatbotController extends Controller
 
             $data = DB::table("chatbot")->get();
 
-            if ($req->is_active == true) {
-                $active = true;
+            if ($req->is_active == "true") {
+                $active = "Y";
             } else {
-                $active = false;
+                $active = "N";
             }
 
             if (count($data) != 0) {
