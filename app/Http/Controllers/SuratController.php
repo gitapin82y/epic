@@ -773,6 +773,7 @@ else if(Auth::user()->role_id == 6){
         $data[] = [
             'id'               => $item->id_surat,
             'surat_jenis_id'   => $item->surat_jenis_id,
+            'nama'             => $item->nama,
             'jenis_perizinan' => $item->surat_jenis_nama,
             'nomor_surat'      => $item->id_surat,
             'tanggal'          => $item->created_at,
@@ -807,6 +808,7 @@ else if(Auth::user()->role_id == 6){
         $data[] = [
             'id'               => $item->id_surat,
             'surat_jenis_id'   => $item->surat_jenis_id,
+            'nama'             => $item->nama,
             'jenis_perizinan' => $item->surat_jenis_nama,
             'nomor_surat'      => $item->id_surat,
             'tanggal'          => $item->created_at,
@@ -840,6 +842,7 @@ else if(Auth::user()->role_id == 6){
         $data[] = [
             'id'               => $item->id_surat,
             'surat_jenis_id'   => $item->surat_jenis_id,
+            'nama'             => $item->nama,
             'jenis_perizinan' => $item->surat_jenis_nama,
             'nomor_surat'      => $item->id_surat,
             'tanggal'          => $item->created_at,
