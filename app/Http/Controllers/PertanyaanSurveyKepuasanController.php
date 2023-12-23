@@ -164,4 +164,66 @@ class PertanyaanSurveyKepuasanController extends Controller
 
       return back();
     }
+
+    public function apiSendSurveyKepuasan(Request $request)
+    {
+       
+      try {
+        //code...
+     
+        DB::beginTransaction();
+        // DB::table('survey')->where('surat_id', $request->surat_id)->update([
+        //   'jadwal_survey' => $request->input('jadwal_survey'),
+        //   'status' => 'Sudah Disurvey',
+        //   'foto_survey' => $request
+        // ]);
+       $getId = DB::table('ulasan_hasil')->insertGetId([
+          'user_id' => $request->user_id,
+          'created_at' => Carbon::now("Asia/Jakarta"),
+          "updated_at" => Carbon::now("Asia/Jakarta")
+        ]);
+
+        // return response()->json(["data" => $getId]);
+
+        foreach ($request->input('ulasan_pertanyaan_id') as $key => $ulasanPertanyaanId) {
+          // $ulasanHasilId = $request->input('ulasan_hasil_id');
+          // $ulasanHasilId = $getId;
+
+          $jawaban = $request->input('isi')[$key];
+
+          // Check if data already exists for the given survey_id and survey_pertanyaan_id
+          // $existingData = DB::table('survey_hasil')
+          //     ->where('survey_id', $surveyId)
+          //     ->where('survey_pertanyaan_id', $surveyPertanyaanId)
+          //     ->first();
+
+          // if ($existingData) {
+              // If data already exists, update the existing record
+          //     DB::table('survey_hasil')
+          //         ->where('id', $existingData->id)
+          //         ->update([
+          //             'jawaban' => $jawaban,
+          //             'updated_at' => Carbon::now("Asia/Jakarta")
+          //         ]);
+          // } else {
+              // If data doesn't exist, insert a new record
+              DB::table('ulasan')->insert([
+                  'ulasan_hasil_id' => $getId,
+                  'ulasan_pertanyaan_id' => $ulasanPertanyaanId,
+                  'isi' => $jawaban,
+                  'created_at' => Carbon::now("Asia/Jakarta"),
+                  'updated_at' => Carbon::now("Asia/Jakarta")
+              ]);
+          // }
+      }
+      
+
+
+      DB::commit();
+
+        return response()->json(["status" => 1,'message' => 'Jawaban Penilaian App berhasil disimpan']);
+      } catch(\Exception $e){
+        return response()->json(["status" => 2, "message" => $e->getMessage()]);
+      }
+    }
 }
