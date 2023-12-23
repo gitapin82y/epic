@@ -20,6 +20,146 @@ class LoginPemohonController extends Controller
         $this->middleware('guest');
     }
 
+    public function lupa() {
+        return view('login-system.lupa');
+    }
+
+    public function changepassword(Request $req) {
+        if ($req->otp != null) {
+            $data = DB::table("user")
+                    ->where("otp", $req->otp)
+                    ->where("email", $req->email)
+                    ->first();
+
+            return view('login-system.changepassword', compact("data"));
+         }
+    }
+    
+    public function dochangepassword(Request $req) {
+        $data = DB::table("user")
+                ->where("otp", $req->otp)
+                ->where("email", $req->email)
+                ->first();
+
+        if ($req->password == $req->confirmpassword) {
+            DB::table("user")
+            ->where("otp", $req->otp)
+            ->where("email", $req->email)
+            ->update([
+                "password" => $req->password
+            ]);
+
+            return redirect('loginpemohon');
+        } else {
+            Session::flash('password', "password tidak sama");
+            return view('login-system.changepassword', compact("data"));
+        }
+    } 
+
+    public function apidochangepassword(Request $req) {
+        if ($req->password == $req->confirmpassword) {
+            DB::table("user")
+            ->where("email", $req->email)
+            ->update([
+                "password" => $req->password
+            ]);
+
+            return response()->json([
+                'status' => 1,
+                'message' => 'success',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 1,
+                'message' => 'Password tidak sama!',
+            ]);
+        }
+    } 
+
+    public function apidolupa(Request $req) {
+        $data = DB::table("user")
+                    ->where("email", $req->email)
+                    ->first();
+
+        if($data == null) {
+            return response()->json([
+                'status' => 2,
+                'message' => 'email tidak ada!',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 1,
+                'message' => 'email ditemukan!',
+            ]);
+        }
+    }
+
+    public function dolupa(Request $req) {
+        $data = DB::table("user")
+                    ->where("email", $req->email)
+                    ->first();
+
+        if($data == null) {
+            Session::flash('email','Email Tidak Ada');
+            return Redirect('/lupapassword');
+        } else {
+            $this->sendOTP($data->nama_lengkap, $data->email);
+            Session::flash('showmodal',$data->email);
+            return Redirect('/lupapassword');
+        }
+    }
+
+    public function dosendotp(Request $req) {
+        $data = DB::table("user")
+                    ->where("email", $req->email)
+                    ->first();
+
+        $this->sendOTP($data->nama_lengkap, $req->email);
+    }
+
+    public function confirmotp(Request $req) {
+        $data = DB::table("user")
+                ->where("otp", $req->otp)
+                ->first();
+
+        if($data != null) {
+            return response()->json([
+                'status' => 1,
+                'message' => 'success otp',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 2,
+                'message' => 'gagal otp',
+            ]);
+        }
+    }
+
+    public function sendOTP($nama, $email) {
+
+        $digits = 4;
+        $otp = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
+
+        DB::table("user")
+            ->where("otp", strval($otp))
+            ->update([
+                "otp" => ""
+            ]);
+
+        DB::table("user")
+            ->where("email", $email)
+            ->update([
+                "otp" => $otp
+            ]);
+
+        SendemailController::Send($nama, "Code OTP Ganti Password Anda : " . $otp, "Silahkan Masukkan Code OTP untuk mengganti password anda!",  $email);
+
+        return response()->json([
+            'status' => 1,
+            'message' => 'success otp',
+        ]);
+    }
+
     public function index() {
         return view('login-system.loginpemohon');
     }
@@ -119,7 +259,7 @@ class LoginPemohonController extends Controller
 	            			          ->first();
 
             	// if (Crypt::decryptString($user_pass->password) === $password) {
-            	if (md5($req->password) == $user->password) {
+            	if ($req->password == $user->password) {
 
            			Account::where('email',$email)->update([
                      'updated_at'=>Carbon::now(),

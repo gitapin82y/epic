@@ -60,6 +60,11 @@
                             <div class="red"  style="color: red"><b>Password Yang Anda Masukan Salah</b></div>
                             @endif
                     </div>
+
+                    <a href="{{url('lupapassword')}}" style="float:right;" class="text-main">Lupa Kata Sandi</a>
+                    <br>
+                    <br>
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                             Login

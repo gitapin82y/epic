@@ -94,4 +94,9 @@ Route::middleware('api')->group(function () {
     Route::any('registerpemohon', 'RegisterPemohonController@apiregister');
 
     Route::get('logingoogle', 'LoginPemohonController@apigoogle');
+
+    Route::get('dolupa', 'LoginPemohonController@apidolupa');
+    Route::get('kirimotp', 'LoginPemohonController@dosendotp');
+    Route::get('confirmotp', 'LoginPemohonController@confirmotp');
+    Route::get('dochangepassword', 'LoginPemohonController@apidochangepassword');
 });

@@ -14,12 +14,13 @@ class SendemailController extends Controller
         Mail::send('email', ['nama' => $nama, 'pesan' => $pesan, 'deskripsi' => $deskripsi], function ($message) use ($email, $deskripsi)
         {
             $message->subject($deskripsi);
-            $message->from('smartics@gmail.com', 'Smartics');
+            $message->from('smartics@gmail.com', 'Epic');
             $message->to($email);
         });
 
         return true;
       } catch (\Exception $e) {
+        dd($e);
         return false;
       }
     }

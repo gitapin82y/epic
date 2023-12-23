@@ -62,6 +62,12 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get('login/google', 'LoginPemohonController@redirectToGoogle');
     Route::get('login/google/callback', 'LoginPemohonController@handleGoogleCallback');
 
+    Route::get('lupapassword', 'LoginPemohonController@lupa');
+    Route::get('dolupa', 'LoginPemohonController@dolupa');
+    Route::get('kirimotp', 'LoginPemohonController@dosendotp');
+    Route::get('confirmotp', 'LoginPemohonController@confirmotp');
+    Route::get('changepassword', 'LoginPemohonController@changepassword');
+    Route::get('dochangepassword', 'LoginPemohonController@dochangepassword');
 });
 
 
