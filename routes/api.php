@@ -99,4 +99,7 @@ Route::middleware('api')->group(function () {
     Route::get('kirimotp', 'LoginPemohonController@dosendotp');
     Route::get('confirmotp', 'LoginPemohonController@confirmotp');
     Route::get('dochangepassword', 'LoginPemohonController@apidochangepassword');
+
+    Route::post('penilaian-app', 'PertanyaanSurveyKepuasanController@apiSendSurveyKepuasan')->name('penilaian-app');
+
 });

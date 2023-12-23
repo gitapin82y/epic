@@ -14,7 +14,7 @@ class SendemailController extends Controller
         Mail::send('email', ['nama' => $nama, 'pesan' => $pesan, 'deskripsi' => $deskripsi], function ($message) use ($email, $deskripsi)
         {
             $message->subject($deskripsi);
-            $message->from('smartics@gmail.com', 'Epic');
+            $message->from('epicapps@gmail.com', 'Epic');
             $message->to($email);
         });
 

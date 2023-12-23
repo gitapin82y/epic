@@ -119,14 +119,6 @@ class VideoPanduanController extends Controller
               ->where("id", $req->id)
               ->first();
 
-      // $petugas = [
-      //   "id" => $data->id,
-      //   "nama_lengkap" => $data->nama_lengkap,
-      //   "username" => $data->username,
-      //   "password" => Crypt::decryptString($data->password),
-      //   "role_id" => $data->role_id,
-      // ];
-      // $data->created_at = Carbon::parse($data->created_at)->format("d-m-Y");
 
       return response()->json($data);
     }

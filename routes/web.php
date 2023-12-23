@@ -48,7 +48,6 @@ Route::group(['middleware' => 'guest'], function () {
     Route::get("doforgotlink", 'ForgotpasswordController@doforgotlink');
     Route::get("forgotlogin/{id}", 'ForgotpasswordController@forgotlogin');
 
-    Route::get("generatetagihan", 'TagihanController@generatetagihan');
 
     Route::get("tesemail", 'VerificationController@tesemail');
     // Route::post('login', 'loginController@authenticate')->name('login');
@@ -80,8 +79,6 @@ Route::get('editperizinan', 'PerizinanPemohonController@edit');
 Route::post('penilaian-app', 'PertanyaanSurveyKepuasanController@sendSurveyKepuasan')->name('penilaian-app');
 
 Route::get('semua-notifikasi','PublicController@notifikasi')->name('semuaNotifikasi');
-// Route::get('pemohonaccjadwalperizinan', 'PerizinanPemohonController@pemohonAccJadwalSurvey');
-// Route::get('jadwalulang', 'PerizinanPemohonController@jadwalulang');
 
 Route::get('profil-pengguna', 'PublicController@profilPengguna');
 Route::put('/profil-pengguna/{id}', 'PublicController@profilPenggunaUpdate')->name('profil-pengguna.update');
