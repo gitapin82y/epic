@@ -114,7 +114,7 @@ id="buat-perizinan"
 
           
           $.each(data, function (index, item) {
-              table.append('<tr><td style="width: 100px;">' + (index + 1) + '</td><td>' + item.nama + '<a href='+item.syarat_perizinan+' target="__blank" class="text-main">( Lihat Template Dokumen )</a></td></tr>');
+              table.append('<tr><td style="width: 100px;">' + (index + 1) + '</td><td>' + item.nama + '<a href='+item.syarat_template+' target="__blank" class="text-main">( Lihat Template Dokumen )</a></td></tr>');
           });
       }
   });
