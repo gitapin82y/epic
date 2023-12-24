@@ -27,7 +27,7 @@ Route::middleware('api')->group(function () {
 
     
     // pemohon
-    Route::post('pemohon/register', 'PemohonController@simpan');
+    // Route::post('pemohon/register', 'PemohonController@simpan');
 
     // Surat
     Route::get('list-surat', [SuratController::class, 'getData']);
@@ -90,8 +90,8 @@ Route::middleware('api')->group(function () {
     Route::any('/countchat', 'ChatController@apicountchat');
     Route::any('/newroom', 'ChatController@apinewroom');
 
-    Route::any('loginpemohon', 'LoginPemohonController@loginApi');
-    Route::any('registerpemohon', 'RegisterPemohonController@apiregister');
+    // Route::any('loginpemohon', 'LoginPemohonController@loginApi');
+    Route::any('pemohon/register', 'RegisterPemohonController@apiregister');
 
     Route::get('logingoogle', 'LoginPemohonController@apigoogle');
 

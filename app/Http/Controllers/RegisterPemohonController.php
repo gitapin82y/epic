@@ -9,6 +9,8 @@ use App\mMember;
 use App\Authentication;
 
 use Auth;
+use App\Account;
+
 
 use Carbon\Carbon;
 
@@ -166,8 +168,8 @@ class RegisterPemohonController extends Controller
         if ($valid == false) {
           return response()->json(["status" => 2, "message" => $message]);
         } else {
-          DB::table("user")
-            ->insert([
+          $getId =   DB::table("user")
+            ->insertGetId([
               "role_id" => "9",
               "password" => md5($req->password),
               "email" => $req->email,
@@ -188,9 +190,15 @@ class RegisterPemohonController extends Controller
               "created_at" => Carbon::now('Asia/Jakarta'),
               "updated_at" => Carbon::now('Asia/Jakarta'),
             ]);
-            
+            $user = Account::where("id", $getId)->first();
+            $role = DB::table('role')->where('id', $user->role_id)->first();
+
           DB::commit();
-          return response()->json(["status" => 1, 'message' => 'Berhasil Registrasi , Selamat Datang di Epic' ]);
+          return response()->json(["status" => 1,'message' => 'Selamat, Anda Berhasil Registrasi', 'data' => [
+            'user' => $user,
+            'role' => $role
+        ]  
+      ]);
         }
 
       } catch (\Exception $e) {

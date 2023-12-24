@@ -46,7 +46,7 @@ class LoginPemohonController extends Controller
             ->where("otp", $req->otp)
             ->where("email", $req->email)
             ->update([
-                "password" => $req->password
+                "password" => md5($req->password)
             ]);
 
             return redirect('loginpemohon');
@@ -61,7 +61,7 @@ class LoginPemohonController extends Controller
             DB::table("user")
             ->where("email", $req->email)
             ->update([
-                "password" => $req->password
+                "password" => md5($req->password)
             ]);
 
             return response()->json([
@@ -212,7 +212,7 @@ class LoginPemohonController extends Controller
         $password = $req->password;
         $user = Account::where("email", $email)->where("role_id", "9")->first();
         // if ($user && Crypt::decryptString($user->password) ===  $req->password) {
-        if ($user && $user->password ===  $req->email) {
+        if ($user && $user->password ===  md5($req->email)) {
 
 
             return response()->json([
@@ -259,7 +259,7 @@ class LoginPemohonController extends Controller
 	            			          ->first();
 
             	// if (Crypt::decryptString($user_pass->password) === $password) {
-            	if ($req->password == $user->password) {
+            	if (md5($req->password) == $user->password) {
 
            			Account::where('email',$email)->update([
                      'updated_at'=>Carbon::now(),
