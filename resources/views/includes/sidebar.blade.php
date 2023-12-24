@@ -96,13 +96,13 @@
 
             @endif
 
-            @if (Auth::user()->role_id == 8 || Auth::user()->role_id == 3 || Auth::user()->role_id == 2)
-            <li class=""><a class="nav-link" href="{{url('survey-kepuasan/hasil-kepuasan')}}"><i class="fas fa-sticky-note"></i><span>Hasil Kepuasan</span></a></li>
-            @endif
-
             {{-- @if (Auth::user()->role_id != 1 && Auth::user()->role_id != 9) --}}
 
             <li class=""><a class="nav-link" href="{{ url('video-panduan') }}"><i class="fas fa-video"></i><span>Video Panduan</span></a></li>
+
+            @if (Auth::user()->role_id == 8 || Auth::user()->role_id == 3 || Auth::user()->role_id == 2)
+            <li class=""><a class="nav-link" href="{{url('survey-kepuasan/hasil-kepuasan')}}"><i class="fas fa-sticky-note"></i><span>Hasil Kepuasan</span></a></li>
+            @endif
             {{-- @endif --}}
             @endif
 
