@@ -105,7 +105,6 @@ class SuratSyaratController extends Controller
 
 
     public function simpan(Request $req) {
-     
       if ($req->id == null) {
         DB::beginTransaction();
         try {
@@ -157,11 +156,17 @@ class SuratSyaratController extends Controller
             $name = $folder . '.' . $file->getClientOriginalExtension();
             $file->move($path, $name);
             $imgPath = $childPath . $name;
-          } else {
-              return 'error';
-          }
+            DB::table("surat_syarat")
+            ->where("id", $req->id)
+            ->update([
+              "nama" => $req->nama,
+              "surat_jenis_id" => $req->surat_jenis_id,
+              "syarat_template" => $imgPath,
+              "updated_at" => Carbon::now("Asia/Jakarta")
+            ]);
 
-          DB::table("surat_syarat")
+          } else {
+            DB::table("surat_syarat")
             ->where("id", $req->id)
             ->update([
               "nama" => $req->nama,
@@ -169,7 +174,7 @@ class SuratSyaratController extends Controller
               "syarat_template" => $req->syarat_template,
               "updated_at" => Carbon::now("Asia/Jakarta")
             ]);
-
+          }
          
           DB::commit();
           return response()->json(["status" => 3]);

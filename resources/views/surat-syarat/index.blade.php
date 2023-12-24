@@ -154,7 +154,8 @@ var table = $('#table-data').DataTable({
       data:{id},
       dataType:'json',
       success:function(data){
-        // console.log
+        $('#tambah').modal('show');
+
         $('.id').val(data.id);
         $('.nama').val(data.nama);
         $('#surat_jenis_id').val(data.surat_jenis_id);
@@ -163,7 +164,6 @@ var table = $('#table-data').DataTable({
 
       
         // $('.datepicker').val(data.created_at)
-        $('#tambah').modal('show');
       }
     });
 
@@ -172,9 +172,11 @@ var table = $('#table-data').DataTable({
   $('#simpan').click(function () {
     var formdata = new FormData();
     formdata.append('nama', $('.nama').val()); 
+    formdata.append('id', $('.id').val()); 
     formdata.append('surat_jenis_id', $('#surat_jenis_id').val()); 
     formdata.append('syarat_template', $('.syarat_template')[0].files[0]); // Sesuaikan nama properti dengan nama yang diharapkan oleh server
     // var csrfToken = $('meta[name="csrf-token"]').attr('content');
+    // Menampilkan isi data menggunakan console log
 
     $.ajax({
         url: baseUrl + '/simpansuratsyarat',
@@ -186,6 +188,8 @@ var table = $('#table-data').DataTable({
             'X-CSRF-TOKEN': '{{ csrf_token() }}'// Sertakan token CSRF dalam header permintaan
         },
         success: function (data) {
+    console.log(data);
+
             if (data.status == 1) {
               console.log({data})
                 iziToast.success({
