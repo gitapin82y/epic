@@ -127,7 +127,10 @@ class PublicController extends Controller
     }
 
     public function profilPengguna(Request $req){
-        $user = DB::table('user')->where('id',Auth::user()->id)->first();
+        $user = DB::table('user')
+        ->join('role','role.id','=','user.role_id')
+        ->select('user.*','role.nama as role_user')
+        ->where('user.id',Auth::user()->id)->first();
         return view('profil-pengguna',compact('user'));
     }
 
@@ -151,7 +154,7 @@ class PublicController extends Controller
         }
 
 
-
+        if(Auth::user()->role_id == 9){
         $data = DB::table('user')->where('id',$id)->update([
             'nama_lengkap' => $req->input('nama_lengkap'),
             'email' => $req->input('email'),
@@ -170,6 +173,12 @@ class PublicController extends Controller
             'avatar' => $imgPath
             // ... tambahkan kolom lainnya
         ]);
+        }else{
+            $data = DB::table('user')->where('id',$id)->update([
+                'avatar' => $imgPath
+                // ... tambahkan kolom lainnya
+            ]);
+        }
 
 
         return redirect()->back()->with('success', 'Perubahan berhasil disimpan');
