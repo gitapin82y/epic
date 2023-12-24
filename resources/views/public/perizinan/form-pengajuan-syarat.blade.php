@@ -131,7 +131,7 @@ id="ajukan-perizinan"
 
                 // Iterasi melalui data syaratPerizinan dan tampilkan label dan input file
                 $.each(syaratPerizinan, function (index, item) {
-                    container.append(' <div class="form-group mb-5"><label for="syarat' + (index + 1) + '">' + item.nama + ':</label><div class="d-flex mt-2"><input type="file" class="form-control" name="syarat' + (index + 1) + '" required> <a href="'+item.syarat_template+'" target="__blank"><img src="assets/public/icon/lihat-template-syarat.png" class="ms-2" width="38px"></a></div></div>');
+                    container.append(' <div class="form-group mb-5"><label for="syarat' + (index + 1) + '">' + item.nama + ':</label><div class="d-flex mt-2"><input type="file" class="form-control" name="syarat' + (index + 1) + '" required> <a href="'+item.syarat_template+'" target="_blank"><img src="assets/public/icon/lihat-template-syarat.png" class="ms-2" width="38px"></a></div></div>');
                 });
             }
   });
