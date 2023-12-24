@@ -5,7 +5,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-warning" style="background-color: #499DB1 !important">
-        <h4 class="modal-title text-white mb-4">Form Pertanyaan Survey Kepuasan</h4>
+        <h4 class="modal-title text-white mb-4">Detail Jawaban Survey Kepuasan</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
