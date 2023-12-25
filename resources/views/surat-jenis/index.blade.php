@@ -143,8 +143,8 @@ var table = $('#table-data').DataTable({
         // console.log
         $('.id').val(data.id);
         $('.nama').val(data.nama);
-        $('.dokumen_survey_template').val(data.dokumen_survey_template);
-        $('.gambar_alur_permohonan').val(data.gambar_alur_permohonan);
+        // $('.dokumen_survey_template').val(data.dokumen_survey_template);
+        // $('.gambar_alur_permohonan').val(data.gambar_alur_permohonan);
       
         // $('.datepicker').val(data.created_at)
         $('#tambah').modal('show');

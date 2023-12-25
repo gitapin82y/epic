@@ -93,8 +93,8 @@ class SuratJenisController extends Controller
         DB::table("surat_jenis")
               ->insertGetId([
               "nama" => $req->nama,
-              "dokumen_survey_template"=> $imgPath,
-              "gambar_alur_permohonan" => $dokumenPath,
+              "dokumen_survey_template"=> $imgPath ,
+              "gambar_alur_permohonan" => $dokumenPath ,
               "created_at" => Carbon::now("Asia/Jakarta"),
               "updated_at" => Carbon::now("Asia/Jakarta")
             ]);
@@ -122,16 +122,21 @@ class SuratJenisController extends Controller
           $name = null;
           $nameDokumen = null;
   
+          $cekData = DB::table('surat_jenis')->where('id', $req->id)->first();
           if ($file != null) {
               $name = $folder . '.' . $file->getClientOriginalExtension();
               $file->move($path, $name);
               $imgPath = $childPath . $name;
+          }else{
+            $imgPath = $cekData->dokumen_survey_template;
           }
   
           if ($fileDokumen != null) {
               $nameDokumen = $folder . '.' . $fileDokumen->getClientOriginalExtension();
               $fileDokumen->move($pathDokumen, $nameDokumen);
               $dokumenPath = $childPathHasilSurvey . $nameDokumen;
+          }else{
+            $dokumenPath = $cekData->gambar_alur_permohonan;
           }
           DB::table("surat_jenis")
             ->where("id", $req->id)
