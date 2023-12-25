@@ -1355,7 +1355,7 @@ else {
           // }
       }   
       else {
-            $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('surat.id', $req->input('keyword') )->get();
+            $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->whereIn('surat.status', ['Selesai', 'Ditolak'])->get();
             // $data = $req->keyword;
           }
       return response()->json(['status' => 1, 'data' => $data]);
