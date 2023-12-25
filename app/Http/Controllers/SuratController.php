@@ -744,7 +744,7 @@ else if(Auth::user()->role_id == 6){
            
       }   
       else {
-            $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('surat.status', $req->input('status') )->get();
+            $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->whereNotIn('surat.status', ['Selesai', 'Ditolak', 'Pengisian Dokumen'])->get();
             // $data = $req->keyword;
           }
       return response()->json(['status' => 1, 'data' => $data]);
