@@ -37,12 +37,12 @@
             ->get();
     @endphp
     <li class="nav-item dropdown notifikasi pt-1">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <a class="nav-link dropdown-toggle-notifikasi" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fa fa-bell"></i>
           <small class="badge">{{ DB::table('notifikasi')->where('user_id', auth()->id())->where('is_seen','N')->count() }}</small>
       </a>
       <!-- Dropdown Notifikasi -->
-      <ul class="dropdown-menu pt-0">
+      <ul class="dropdown-menu dropdown-menu-notifikasi pt-0">
           <li class="head-dropdown-notif">
             <div class="row justify-content-between d-flex">
                 <strong class="col-4 text-left">Notifikasi</strong>
@@ -69,7 +69,8 @@
           @endforelse
       </ul>
     </li>
-    <li class="dropdown"><a href="#" data-toggle="dropdown"
+    <li class="dropdown">
+      <a href="#" data-toggle="dropdown"
         class="nav-link dropdown-toggle nav-link-lg nav-link-user">
 
         @if (Auth::user()->avatar)
@@ -81,7 +82,7 @@
          echo Auth::user()->nama_lengkap;
         @endphp</div>
       </a>
-      <div class="dropdown-menu dropdown-menu-right">
+      <div class="dropdown-menu  dropdown-menu-right">
         <a href="{{ url('profil-pengguna')}}" class="dropdown-item has-icon">
           <i class="far fa-user"></i> Profile
         </a>

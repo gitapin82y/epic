@@ -45,9 +45,9 @@
   });
 
   $(document).ready(function () {
-        $('.notifikasi .dropdown-toggle').click(function () {
+        $('.notifikasi .dropdown-toggle-notifikasi').click(function () {
             // Toggle class 'show' pada dropdown notifikasi
-            $('.dropdown-menu').toggleClass('show');
+            $('.dropdown-menu-notifikasi').toggleClass('show');
         });
     });
 
@@ -57,5 +57,16 @@ iziToast.success({
  message: 'Survey Berhasil Dikirim',
 });
 @endif
+
+// $(document).ready(function() {
+//     // Menghentikan event klik agar tidak menyebar ke dropdown profil
+//     $('.head-dropdown-notif').on('click', function(e) {
+//         e.stopPropagation();
+//     });
+
+//     // ... (kode lainnya)
+
+//     // Selengkapnya, jika diperlukan
+// });
 
   </script>
