@@ -50,7 +50,7 @@ Route::middleware('api')->group(function () {
     Route::post('surat/tolak-survey', 'SuratController@tolakHasilSurvey');
 
     // Surat Jenis
-    Route::get('surat-jenis/', 'SuratJenisController@getData');
+    Route::get('surat-jenis', 'SuratJenisController@getData');
 
     // Surat Syarat
     Route::get('surat-syarat/', 'SuratSyaratController@getData');

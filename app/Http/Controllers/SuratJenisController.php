@@ -194,7 +194,12 @@ class SuratJenisController extends Controller
     
     public function getData(Request $req){
       try {
+        if($req->id == ""){
         $data = DB::table("surat_jenis")->get();
+      }else{
+        $data = DB::table("surat_jenis")->where('id', $req->id)->first();
+
+      }
 
         return response()->json(['status' => 1, 'data' => $data]);
         
