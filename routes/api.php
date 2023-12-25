@@ -74,6 +74,7 @@ Route::middleware('api')->group(function () {
     Route::get('list-perizinan-masuk', 'SuratController@listPerizinanMasuk');
     Route::get('list-perizinan-terlambat', 'SuratController@listPerizinanTerlambat');
     Route::get('list-perizinan-dikembalikan', 'SuratController@listPerizinanDikembalikan');
+    Route::get('list-perizinan-diterbitkan', 'SuratController@listPerizinanDiterbitkan');
 
     
     // terbitkan dan tolak surat kepala dinas
