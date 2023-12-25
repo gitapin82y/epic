@@ -122,4 +122,14 @@ class VideoPanduanController extends Controller
 
       return response()->json($data);
     }
+
+    public function getData(Request $req) {
+    try {
+      $data = DB::table('video_panduan')->get();
+
+      return response()->json(["status" => 1, "data" => $data]);
+    } catch (\Exception $e) {
+      return response()->json(["status" => 2, "error" => $e->getMessage()]);
+    }
+    }
 }

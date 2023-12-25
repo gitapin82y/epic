@@ -108,4 +108,6 @@ Route::middleware('api')->group(function () {
     Route::post('penilaian-app', 'PertanyaanSurveyKepuasanController@apiSendSurveyKepuasan')->name('penilaian-app');
     Route::get('pertanyaan', 'PertanyaanSurveyKepuasanController@getDataPertanyaan');
 
+    Route::get('video-panduan', 'VideoPanduanController@getData');
+
 });
