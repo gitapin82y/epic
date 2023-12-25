@@ -146,7 +146,7 @@ class loginController extends Controller
             DB::table("user")
             ->where("id", $req->id)
             ->update([
-                "is_active" => "N"
+                "is_login" => "N"
             ]);
             return response()->json([
                 'status' => 1,
