@@ -166,6 +166,34 @@ class PertanyaanSurveyKepuasanController extends Controller
       }
     }
 
+    public function getData(Request $req){
+      try{
+        $data = DB::table('ulasan_hasil')->join('user', 'user.id', '=', "ulasan_hasil.user_id")->select('ulasan_hasil.created_at', 'user.nama_lengkap')->get();
+  
+        return response()->json(["status" => 1, "data" => $data]);
+      }catch(\Exception $e){
+        return response()->json(["status" => 2, "message" => $e->getMessage()]);
+      }
+    }
+
+    public function getDataDetail(Request $req){
+      try{
+        $ulasan_hasil = DB::table('ulasan')->join('ulasan_pertanyaan', 'ulasan_pertanyaan.id', '=', "ulasan.ulasan_pertanyaan_id")->select('ulasan_pertanyaan.nama', 'ulasan.isi')->where('ulasan.ulasan_hasil_id',$req->id)->get();
+
+        $user = DB::table('ulasan_hasil')->join('user', 'user.id', '=', "ulasan_hasil.user_id")->select('ulasan_hasil.created_at', 'user.nama_lengkap')->where('ulasan_hasil.id', $req->id)->first();
+        // ->join('ulasan_hasil', 'ulasan_hasil.id', '=', "ulasan.ulasan_hasil_id")->join('user', 'user.id', '=', "ulasan_hasil.user_id")
+
+        $data = [
+          "user" => $user,
+          "ulasan_hasil" => $ulasan_hasil
+        ];
+  
+        return response()->json(["status" => 1, "data" => $data]);
+      }catch(\Exception $e){
+        return response()->json(["status" => 2, "message" => $e->getMessage()]);
+      }
+    }
+
     public function updateStatus(Request $request){
       DB::table('ulasan_pertanyaan')->where('id',$request->id)->update($request->all());
 
