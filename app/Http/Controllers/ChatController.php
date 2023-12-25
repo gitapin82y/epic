@@ -567,33 +567,17 @@ if ($created_at->diffInHours() >= 24) {
 
          DB::table("listchat")
             ->insert([
-              'roomchat_id' => $req->id,
+              'roomchat_id' => $req->room,
               'account' => $req->id . "-" . $req->penerima,
               'message' => $req->message,
               'created_at' => Carbon::now('Asia/Jakarta'),
             ]);
 
-          $this->aksesBot($req->id, $req->id, $req->penerima);
-
-          $botchat = DB::table("chatbot")->where("id", 1)->first();
-          if ($botchat->is_active == "Y") {
-            $now = Carbon::now('Asia/Jakarta');
-            $time = $now->format('H:i');
-
-            if ($time >= $botchat->jam_active || $time <= $botchat->jam_selesai) {
-              DB::table("listchat")
-                ->insert([
-                  'roomchat_id' => $req->id,
-                  'account' => $req->penerima . "-" . $req->id,
-                  'message' => "Mohon maaf saat ini kami sedang offline, akan kita balas dijam aktif kami, terima kasih",
-                  'created_at' => Carbon::now('Asia/Jakarta'),
-                ]);
-            }
-          }
+          $this->aksesBot($req->room, $req->id, $req->penerima);
 
           $count = 0;
           $room = DB::table('roomchat')
-               ->where("id", $req->id)
+               ->where("id", $req->room)
                ->first();
            // foreach ($chat as $key => $value) {
              $account = explode("-",$room->account);
