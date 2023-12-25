@@ -87,7 +87,7 @@
 
             <li class="menu-header text-black">Master</li>
             @if (Auth::user()->role_id == 5)
-            <li class=""><a class="nav-link" href="{{ url('chatbot') }}"><i class="fas fa-file-alt"></i><span>Chatbot</span></a></li>
+            <li class=""><a class="nav-link" href="{{ url('chatbot') }}"><i class="fas fa-file-alt"></i><span>EVA</span></a></li>
             @endif
 
             @if (Auth::user()->role_id == 7 || Auth::user()->role_id == 5)

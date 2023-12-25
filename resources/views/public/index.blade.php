@@ -96,7 +96,7 @@
           Dengan epic mengurus surat perizinan lebih instan, buruan buat
           surat permohonan kamu sekarang!
         </p>
-        <a href="#" class="btn btn-main">Buat Permohonan</a>
+        <a href="buat-permohonan" class="btn btn-main">Buat Permohonan</a>
       </div>
       <div class="col-12 col-md-6" data-aos="fade-left">
         <img
