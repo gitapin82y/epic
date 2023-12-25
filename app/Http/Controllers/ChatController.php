@@ -517,7 +517,15 @@ if ($created_at->diffInHours() >= 24) {
               'created_at' => Carbon::now('Asia/Jakarta'),
             ]);
 
-          $this->aksesBot($req->id, Auth::user()->id, $req->penerima);
+          $cekpenerima = DB::table("user")
+                          ->where("id", $req->penerima)
+                          ->first();
+          
+          if(Auth::user()->role_id == 5 || Auth::user()->role_id == 7) {
+
+          } else {
+            $this->aksesBot($req->id, Auth::user()->id, $req->penerima);
+          }
 
           $count = 0;
           $room = DB::table('roomchat')
@@ -573,7 +581,14 @@ if ($created_at->diffInHours() >= 24) {
               'created_at' => Carbon::now('Asia/Jakarta'),
             ]);
 
-          $this->aksesBot($req->room, $req->id, $req->penerima);
+          $cekuser = DB::table("user")
+                        ->where("id", $req->id)
+                        ->first();
+          if($cekuser->role_id == 5 || $cekuser->role_id == 7) {
+
+          } else {
+            $this->aksesBot($req->room, $req->id, $req->penerima);
+          }
 
           $count = 0;
           $room = DB::table('roomchat')
