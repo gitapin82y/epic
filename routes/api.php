@@ -44,6 +44,8 @@ Route::middleware('api')->group(function () {
     Route::post('surat/verifikasi-surat', 'SuratController@validasi');
     Route::post('surat/kembalikan', 'SuratController@kembalikan');
     Route::get('generate-pdf', 'PublicController@cetakRegisPdf');
+    Route::get('cetak-perizinan', 'PerizinanPemohonController@cetakPerizinan');
+
 
     // Verifikasi Hasil Survey
     Route::post('surat/verifikasi-survey', 'SuratController@approveHasilSurvey');
