@@ -176,7 +176,7 @@ var table = $('#table-data').DataTable({
         document.getElementById("jenis_perizinan").innerHTML = data.surat_jenis.nama;
         document.getElementById("surat_id").innerHTML = data.surat.id;
         document.getElementById("status_surat").innerHTML = data.surat.status;
-        data.surat.status === "Selesai" ? document.getElementById("status_surat").style.color = "green" : data.surat.status === "Ditolak" ? document.getElementById("status_surat").style.color = "red" : document.getElementById("status_surat").style.color = "#F3B137";
+        data.surat.status == "Selesai" ? document.getElementById("status_surat").style.color = "green" : data.surat.status == "Ditolak" ? document.getElementById("status_surat").style.color = "red" : document.getElementById("status_surat").style.color = "#F3B137";
         document.getElementById("nama_pemohon").innerHTML = data.user.nama_lengkap;
         document.getElementById("email").innerHTML = data.user.email;
         document.getElementById("tanggal_pengajuan").innerHTML = data.tanggal_pengajuan;
@@ -266,7 +266,7 @@ var table = $('#table-data').DataTable({
       close: false,
   		overlay: true,
   		displayMode: 'once',
-  		title: @if (Auth::user()->role_id === 5)
+  		title: @if (Auth::user()->role_id == 5)
       'Validasi Surat',
       @else
       'Verifikasi Surat',
@@ -285,7 +285,7 @@ var table = $('#table-data').DataTable({
           iziToast.success({
               icon: 'fa fa-save',
               message:
-              @if (Auth::user()->role_id === 5)
+              @if (Auth::user()->role_id == 5)
               'Data Berhasil Divalidasi!',
               @else
               'Data Berhasil Diverifikasi!',

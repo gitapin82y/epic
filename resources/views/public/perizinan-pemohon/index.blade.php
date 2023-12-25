@@ -176,7 +176,7 @@ function edit(id) {
           document.getElementById("jenis_perizinan").innerHTML = data.surat_jenis.nama;
           document.getElementById("surat_id").innerHTML = data.surat.id;
           document.getElementById("status_surat").innerHTML = data.surat.status;
-          data.surat.status === "Selesai" ? document.getElementById("status_surat").style.color = "green" : data.surat.status === "Ditolak" ? document.getElementById("status_surat").style.color = "red" : document.getElementById("status_surat").style.color = "#F3B137";
+          data.surat.status == "Selesai" ? document.getElementById("status_surat").style.color = "green" : data.surat.status == "Ditolak" ? document.getElementById("status_surat").style.color = "red" : document.getElementById("status_surat").style.color = "#F3B137";
           document.getElementById("tanggal_pengajuan").innerHTML = data.tanggal_pengajuan;
           document.getElementById("jadwal_survey").innerHTML = data.jadwal_survey;
           document.getElementById("alamat_lokasi").innerHTML = data.surat.alamat_lokasi;

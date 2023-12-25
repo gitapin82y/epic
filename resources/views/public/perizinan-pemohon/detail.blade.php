@@ -39,11 +39,11 @@
          </div>
          <div class="col-12" id="nama_surat_syarat">
          </div>
-         @if (Auth::user()->role_id === 5 || Auth::user()->role_id === 6)
+         @if (Auth::user()->role_id == 5 || Auth::user()->role_id == 6)
          <div class="col-12">
           <input type="hidden" class="form-control form-control-sm id" name="id" id="id">
           <button class="btn btn-main btn-md w-100 mb-3" id="validasi" type="button">
-         @if (Auth::user()->role_id === 5)
+         @if (Auth::user()->role_id == 5)
            
             Validasi
             @else 

@@ -51,9 +51,7 @@
                             Login
                         </button>
                     </div>
-                    <div class="mt-2 text-muted text-center">
-                        Tidak Punya Akun? <a href="/register">Daftar</a>
-                    </div>
+                   
                 </form>
             </div>
         </div>
