@@ -134,46 +134,9 @@ class SurveyController extends Controller
       
       }
 
-      //  else {
-      //   DB::beginTransaction();
-      //   try {
-
-      //     DB::table("user")
-      //       ->where("id", $req->id)
-      //       ->update([
-      //         "nama_lengkap" => $req->nama_lengkap,
-      //         "username" => $req->username,
-      //         "password" => Crypt::encryptString($req->password),
-      //         "role_id" => $req->role,
-      //         "updated_at" => Carbon::now("Asia/Jakarta")
-      //       ]);
-
-         
-      //     DB::commit();
-      //     return response()->json(["status" => 3]);
-      //   } catch (\Exception $e) {
-      //     DB::rollback();
-      //     return response()->json(["status" => 4, "message" =>$e->getMessage()]);
-      //   }
-      // }
+     
 
 
-    public function hapus(Request $req) {
-      DB::beginTransaction();
-      try {
-
-        DB::table("user")
-            ->where("id", $req->id)
-            ->delete();
-
-        DB::commit();
-        return response()->json(["status" => 3]);
-      } catch (\Exception $e) {
-        DB::rollback();
-        return response()->json(["status" => 4]);
-      }
-
-    }
 
     public function tolak(Request $req) {
       $data = DB::table("user")
@@ -250,22 +213,22 @@ class SurveyController extends Controller
       try{
         if ($req->keyword == "" && $req->jenis == "") {
 
-        $data = DB::table('survey')->join('surat', 'surat.id' ,'=' ,'survey.surat_id')->join('user', 'user.id' ,'=' ,'survey.user_id')->select('surat.*', 'survey.status as status_survey', 'user.nama_lengkap as surveyor')
+        $data = DB::table('survey')->join('surat', 'surat.id' ,'=' ,'survey.surat_id')->join('surat_jenis', 'surat_jenis.id' ,'=' ,'surat.surat_jenis_id')->join('user', 'user.id' ,'=' ,'survey.user_id')->select('surat.*', 'survey.status as status_survey', 'user.nama_lengkap as surveyor','surat_jenis.nama as jenis_perizinan')
         // ->where("surat.status",'Penjadwalan Survey')
         ->whereNotIn("survey.status", ['null', 'Belum Disurvey'])
         ->get();
         } else if ($req->keyword != "" && $req->jenis == "") {
-          $data = DB::table('survey')->join('surat', 'surat.id' ,'=' ,'survey.surat_id')->join('user', 'user.id' ,'=' ,'survey.user_id')->select('surat.*', 'survey.status as status_survey', 'user.nama_lengkap as surveyor')
+          $data = DB::table('survey')->join('surat', 'surat.id' ,'=' ,'survey.surat_id')->join('surat_jenis', 'surat_jenis.id' ,'=' ,'surat.surat_jenis_id')->join('user', 'user.id' ,'=' ,'survey.user_id')->select('surat.*', 'survey.status as status_survey', 'user.nama_lengkap as surveyor','surat_jenis.nama as jenis_perizinan')
           ->where('surat.id', 'like', "%" .$req->input('keyword') . "%" )
           ->whereNotIn("survey.status", ['null', 'Belum Disurvey'])
           ->get();
         }else if ($req->keyword == "" && $req->jenis != "") {
-          $data = DB::table('survey')->join('surat', 'surat.id' ,'=' ,'survey.surat_id')->join('user', 'user.id' ,'=' ,'survey.user_id')->select('surat.*', 'survey.status as status_survey', 'user.nama_lengkap as surveyor')
+          $data = DB::table('survey')->join('surat', 'surat.id' ,'=' ,'survey.surat_id')->join('surat_jenis', 'surat_jenis.id' ,'=' ,'surat.surat_jenis_id')->join('user', 'user.id' ,'=' ,'survey.user_id')->select('surat.*', 'survey.status as status_survey', 'user.nama_lengkap as surveyor','surat_jenis.nama as jenis_perizinan')
           ->where('surat.surat_jenis_id', $req->input('jenis'))
           ->whereNotIn("survey.status", ['null', 'Belum Disurvey'])
           ->get();
         }else if ($req->keyword != "" && $req->jenis != "") {
-          $data = DB::table('survey')->join('surat', 'surat.id' ,'=' ,'survey.surat_id')->join('user', 'user.id' ,'=' ,'survey.user_id')->select('surat.*', 'survey.status as status_survey', 'user.nama_lengkap as surveyor')
+          $data = DB::table('survey')->join('surat', 'surat.id' ,'=' ,'survey.surat_id')->join('surat_jenis', 'surat_jenis.id' ,'=' ,'surat.surat_jenis_id')->join('user', 'user.id' ,'=' ,'survey.user_id')->select('surat.*', 'survey.status as status_survey', 'user.nama_lengkap as surveyor','surat_jenis.nama as jenis_perizinan')
           ->where('surat.surat_jenis_id', $req->input('jenis'))
           ->where('surat.id', 'like', "%" .$req->input('keyword') . "%" )
           ->whereNotIn("survey.status", ['null', 'Belum Disurvey'])
