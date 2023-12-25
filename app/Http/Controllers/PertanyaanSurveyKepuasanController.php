@@ -168,7 +168,7 @@ class PertanyaanSurveyKepuasanController extends Controller
 
     public function getData(Request $req){
       try{
-        $data = DB::table('ulasan_hasil')->join('user', 'user.id', '=', "ulasan_hasil.user_id")->select('ulasan_hasil.created_at', 'user.nama_lengkap')->get();
+        $data = DB::table('ulasan_hasil')->join('user', 'user.id', '=', "ulasan_hasil.user_id")->select('ulasan_hasil.created_at', 'user.nama_lengkap','ulasan_hasil.id')->get();
   
         return response()->json(["status" => 1, "data" => $data]);
       }catch(\Exception $e){
