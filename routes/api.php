@@ -106,5 +106,6 @@ Route::middleware('api')->group(function () {
     Route::post('dochangepassword', 'LoginPemohonController@apidochangepassword');
 
     Route::post('penilaian-app', 'PertanyaanSurveyKepuasanController@apiSendSurveyKepuasan')->name('penilaian-app');
+    Route::get('pertanyaan', 'PertanyaanSurveyKepuasanController@getDataPertanyaan');
 
 });

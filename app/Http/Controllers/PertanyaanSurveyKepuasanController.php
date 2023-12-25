@@ -156,6 +156,16 @@ class PertanyaanSurveyKepuasanController extends Controller
       return back();
     }
 
+    public function getDataPertanyaan(Request $req){
+      try{
+        $data = DB::table('ulasan_pertanyaan')->where('is_active','Y')->get();
+  
+        return response()->json(["status" => 1, "data" => $data]);
+      }catch(\Exception $e){
+        return response()->json(["status" => 2, "message" => $e->getMessage()]);
+      }
+    }
+
     public function updateStatus(Request $request){
       DB::table('ulasan_pertanyaan')->where('id',$request->id)->update($request->all());
 
