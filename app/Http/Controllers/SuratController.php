@@ -198,16 +198,24 @@ else if(Auth::user()->role_id == 6){
         DB::beginTransaction();
         try {
 
-          DB::table("surat_jenis")
-            ->where("id", $req->id)
-            ->update([
+          DB::table("surat")->where('id', $req->id)
+              ->update([
               "nama" => $req->nama,
+              "user_id" => $req->user_id,
+              "surat_jenis_id" => $req->surat_jenis_id,
+              "status" => 'Pengisian Dokumen',
+              "kategori" => $req->kategori,
+              "alamat_lokasi" => $req->alamat_lokasi,
+              "is_dikembalikan"=> "N",
+              "longitude" => $req->longitude,
+              "latitude" => $req->latitude,
               "updated_at" => Carbon::now("Asia/Jakarta")
             ]);
 
          
           DB::commit();
-          return response()->json(["status" => 1]);
+          $dataBaru = DB::table("surat")->where('id', $req->id)->first();
+          return response()->json(["status" => 1,'message' => 'success', 'data' => $dataBaru]);
         } catch (\Exception $e) {
           DB::rollback();
           return response()->json(["status" => 2, "message" =>$e->getMessage()]);
