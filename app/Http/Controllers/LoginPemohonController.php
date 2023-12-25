@@ -114,7 +114,20 @@ class LoginPemohonController extends Controller
                     ->where("email", $req->email)
                     ->first();
 
-        $this->sendOTP($data->nama_lengkap, $req->email);
+                    if($data == null) {
+                        return response()->json([
+                            'status' => 2,
+                            'message' => 'email tidak ada!',
+                        ]);
+                    } else {
+                     $this->sendOTP($data->nama_lengkap, $req->email);
+
+                        return response()->json([
+                            'status' => 1,
+                            'message' => 'email ditemukan!',
+                        ]);
+
+                    }
     }
 
     public function confirmotp(Request $req) {

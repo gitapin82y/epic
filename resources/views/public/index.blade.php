@@ -570,7 +570,7 @@
       >
         <h1 class="fw-bold">Epic tersedia di mobile app</h1>
         <p>Download epic di mobile apps sekarang</p>
-        <a href="" class="btn btn-main">Play Store</a>
+        <a href="https://play.google.com/store/apps/details?id=com.urbanifyepicdev" class="btn btn-main" target="_blank">Play Store</a>
       </div>
       <div
         class="col-12 col-md-5 justify-content-end row"

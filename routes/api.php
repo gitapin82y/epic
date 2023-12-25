@@ -100,10 +100,10 @@ Route::middleware('api')->group(function () {
 
     Route::get('logingoogle', 'LoginPemohonController@apigoogle');
 
-    Route::get('dolupa', 'LoginPemohonController@apidolupa');
-    Route::get('kirimotp', 'LoginPemohonController@dosendotp');
-    Route::get('confirmotp', 'LoginPemohonController@confirmotp');
-    Route::get('dochangepassword', 'LoginPemohonController@apidochangepassword');
+    Route::post('dolupa', 'LoginPemohonController@apidolupa');
+    Route::post('kirimotp', 'LoginPemohonController@dosendotp');
+    Route::post('confirmotp', 'LoginPemohonController@confirmotp');
+    Route::post('dochangepassword', 'LoginPemohonController@apidochangepassword');
 
     Route::post('penilaian-app', 'PertanyaanSurveyKepuasanController@apiSendSurveyKepuasan')->name('penilaian-app');
 
