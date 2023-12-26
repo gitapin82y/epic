@@ -210,32 +210,25 @@ function handleError(error) {
       $('#form1').submit(function (e) {
           e.preventDefault();
 
-           // Validasi input sebelum menyimpan data
-           var kategori = $('#kategori_perizinan').val();
+      var kategori = $('#kategori_perizinan').val();
       var nama = $('#nama_perizinan').val();
       var alamat = $('#alamat').val();
 
-      // Reset pesan error
-      $('#error_kategori').text('');
 
+      $('#error_kategori').text('');
       $('#error_nama').text('');
       $('#error_alamat').text('');
 
       let validasi = false;
 
-      // Validasi kategori
       if (kategori === null || kategori === "") {
         $('#error_kategori').text('Kategori perizinan diperlukan.');
         validasi = true;
       }
-
-      // Validasi nama
       if (nama === '') {
         $('#error_nama').text('Nama diperlukan.');
         validasi = true;
       }
-
-      // Validasi alamat
       if (alamat === '') {
         $('#error_alamat').text('Alamat diperlukan.');
         validasi = true;
