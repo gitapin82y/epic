@@ -1237,7 +1237,7 @@ else {
 
   public function datatableHasilSurvey() {
     // $data = DB::table('surat')->get();
-    if(Auth::user()->role_id == 6){
+    if(Auth::user()->role_id == 7 || Auth::user()->role_id == 1){
       // $data = DB::table('surat')->where('status', 'Verifikasi Hasil Survey')->get();
       $data = DB::table('survey')->join('surat', 'surat.id' ,'=' ,'survey.surat_id')->join('user', 'user.id' ,'=' ,'survey.user_id')->select('surat.*', 'survey.status as status_survey', 'user.nama_lengkap as surveyor')
       // ->where("surat.status",'Penjadwalan Survey')
@@ -1245,7 +1245,6 @@ else {
       ->get();
       }else if(Auth::user()->role_id == 7){
       $data = DB::table('survey')->join('surat', 'surat.id' ,'=' ,'survey.surat_id')->select('surat.*','survey.*', 'survey.status as status_survey', 'survey.user_id as survey_user_id')->whereNotIn('survey.status', ['Belum Disurvey'])->where('survey.user_id', Auth::user()->id)->get();
-
       }
 
       // return $data;
@@ -1277,7 +1276,7 @@ else {
         })
     
         ->addColumn('aksi', function ($data) {
-          if(Auth::user()->role_id == 7){
+          if(Auth::user()->role_id == 7 || Auth::user()->role_id == 1){
           return  '<div class="btn-group">'.
                    '<a  href="penugasan/laporan/'.$data->id.'" class="btn btn-success btn-lg pt-2" title="edit">'.
                    '<label class="fa fa-eye w-100"></label></a>'.
@@ -1294,7 +1293,7 @@ else {
                    '<label class="fa fa-eye w-100"></label></a>'.
                 '</div>';
                 }
-              }
+              } 
         })
         ->rawColumns(['aksi','jadwal_survey','status', 'tanggal_pengajuan','nama_surveyor'])
         ->addIndexColumn()

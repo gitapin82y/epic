@@ -30,11 +30,10 @@ class PenugasanSurveyController extends Controller
       $data = DB::table('survey')->join('surat', 'surat.id', '=', "survey.surat_id")->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->join('user', 'user.id', '=', "survey.user_id")->select('survey.*', 'surat_jenis.id as surat_jenis_id', 'user.nama_lengkap as nama_surveyor', 'user.email as email_surveyor', 'surat.status as surat_status')
       ->where('surat_id', $id)
       ->first();
-        if(Auth::user()->role_id == 7 && $data->status == 'Belum Disurvey'){
+        if(Auth::user()->role_id == 7 || Auth::user()->role_id == 1 && $data->status == 'Belum Disurvey'){
         return view('survey-penugasan.laporan', compact('data'));
-      }else if(Auth::user()->role_id == 6 || Auth::user()->role_id == 7 && $data->status != 'Belum Disurvey'){
+      }else if(Auth::user()->role_id == 6 || Auth::user()->role_id == 7  || Auth::user()->role_id == 1 && $data->status != 'Belum Disurvey'){
         return view('hasil-survey.detail', compact('data'));
-
       }
       }
 
