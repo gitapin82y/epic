@@ -1,5 +1,5 @@
 @extends('layouts.public')
-@section('title','Layanan Digital Perizinan')
+@section('title','Beranda')
 @push('extra_style')
   <style>
        /* Container untuk gambar */

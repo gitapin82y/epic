@@ -44,7 +44,6 @@
                                   <thead>
                               <tr>
                                 <th>No</th>
-                                <th>Username</th>
                                 <th>Email</th>
                                 <th>Nama Lengkap</th>
                                 <th>Action</th>
@@ -97,24 +96,19 @@ var table = $('#table-data').DataTable({
               },
               {
                  targets: 1,
-                 className: 'nominal center'
-              },
-              {
-                 targets: 2,
                  className: 'type center'
               },
               {
-                 targets: 3,
+                 targets: 2,
                  className: 'center'
               },
               {
-                 targets: 4,
+                 targets: 3,
                  className: 'center'
               }
             ],
         "columns": [
           {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-          {data: 'username', name: 'username'},
           {data: 'email', name: 'email'},
           {data: 'nama_lengkap', name: 'Nama Lengkap'},
           {data: 'aksi', name: 'aksi'},
@@ -148,14 +142,26 @@ var table = $('#table-data').DataTable({
       data:{id},
       dataType:'json',
       success:function(data){
-        // console.log
+        console.log(data)
         $('.id').val(data.id);
         $('.nama_lengkap').val(data.nama_lengkap);
         $('.username').val(data.username);
-      
-
-        
-        
+        $('.password').val(data.password);
+        $('.email').val(data.email);
+        $('.nama_lengkap').val(data.nama_lengkap);
+        $('.jenis_identitas').val(data.jenis_identitas);
+        $('.nomor_identitas').val(data.nomor_identitas);
+        $('.jenis_kelamin').val(data.jenis_kelamin);
+        $('.tempat_lahir').val(data.tempat_lahir);
+        $('.tanggal_lahir').val(data.tanggal_lahir);
+        $('.provinsi').val(data.provinsi);
+        $('.kabupaten_kota').val(data.kabupaten_kota);
+        $('.kecamatan').val(data.kecamatan);
+        $('.kelurahan').val(data.kelurahan);
+        $('.alamat').val(data.alamat);
+        $('.no_telp').val(data.no_telp);
+        $('.pekerjaan').val(data.pekerjaan);
+    
         // $('.datepicker').val(data.created_at)
         $('#tambah').modal('show');
       }

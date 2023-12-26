@@ -256,13 +256,8 @@ class PemohonController extends Controller
               ->where("id", $req->id)
               ->first();
 
-      $petugas = [
-        "id" => $data->id,
-        "nama_lengkap" => $data->nama_lengkap,
-        "username" => $data->username,
-      ];
       // $data->created_at = Carbon::parse($data->created_at)->format("d-m-Y");
 
-      return response()->json($petugas);
+      return response()->json($data);
     }
 }
