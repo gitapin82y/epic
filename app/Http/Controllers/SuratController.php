@@ -253,7 +253,8 @@ else if(Auth::user()->role_id == 6){
           $file->move($path, $name);
           $imgPath = $childPath . $name;
         } else {
-            return 'error';
+          return response()->json(["status" => 2, "message" => 'Data Surat Belum Diupload']);
+
         }
 
        
@@ -275,12 +276,19 @@ else if(Auth::user()->role_id == 6){
         else{
         $file = $req->file('dokumen_syarat_pemohon');
         $name = null;
+        $allowed = array('pdf', 'jpg', 'jpeg', 'png');
+
+        if (!in_array($file->getClientOriginalExtension(), $allowed)) {
+          return response()->json(["status" => 2, "message" => 'Format file' . $file->getClientOriginalExtension() . " tidak diperbolehkan"]);
+        }
+
         if ($file != null) {
           $name = $folder . '.' . $file->getClientOriginalExtension();
           $file->move($path, $name);
           $imgPath = $childPath . $name;
         } else {
-            return 'error';
+          return response()->json(["status" => 2, "message" => 'Data Surat Belum Diupload']);
+
         }
 
        
