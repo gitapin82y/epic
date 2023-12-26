@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-md-6 col-lg-6 d-flex col-12 justify-content-end">
                             <div class="card-header-action mx-1">
-                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#tambah">Tambah
+                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#tambah" onclick="tambah()">Tambah
                                     Data <i class="fas fa-plus"></i></a>
                             </div>
                         </div>
@@ -124,7 +124,9 @@
             ]
       });
     
-    
+      function tambah() {
+        reloadall()
+      }
     
       function edit(id) {
         // body...
