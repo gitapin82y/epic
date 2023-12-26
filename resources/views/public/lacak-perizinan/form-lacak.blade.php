@@ -49,7 +49,7 @@ body {
                 </div>
                 <div class="modal-body">
                   <div
-                  class="row col-12 justify-content-center mt-2"
+                  class="row col-12 justify-content-center mt-2 mx-auto"
                   id="detail-perizinan"
                   >
                   <div class="col-12">
