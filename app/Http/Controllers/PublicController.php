@@ -88,8 +88,8 @@ class PublicController extends Controller
 
     public function cetakRegisPdf(Request $req)
     {
-        $data = DB::table('surat')->where('id',$req->dataId)->first();
-        $qrcode = base64_encode(QrCode::format('svg')->size(300)->errorCorrection('H')->generate($req->dataId));
+        $data = DB::table('surat')->where('id',$req->noSurat)->first();
+        $qrcode = base64_encode(QrCode::format('svg')->size(300)->errorCorrection('H')->generate($req->noSurat));
         $namaPerizinan=DB::table('surat_jenis')->where('id',$data->surat_jenis_id)->first()->nama;
         $pdf = \PDF::loadView('public.perizinan.cetak-regis', compact('data','qrcode','namaPerizinan'));
         return $pdf->stream('registrasi-permohonan.pdf');
