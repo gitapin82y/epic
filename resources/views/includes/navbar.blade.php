@@ -84,7 +84,7 @@
       </a>
       <div class="dropdown-menu  dropdown-menu-right">
         <a href="{{ url('profil-pengguna')}}" class="dropdown-item has-icon">
-          <i class="far fa-user"></i> Profile
+          <i class="far fa-user"></i> Profil
         </a>
         <div class="dropdown-divider"></div>
       <a href="{{ url('logout') }}" class="dropdown-item has-icon text-danger">
