@@ -1244,7 +1244,7 @@ else {
       ->whereNotIn("survey.status", ['null', 'Belum Disurvey'])
       ->get();
       }else if(Auth::user()->role_id == 7){
-      $data = DB::table('survey')->join('surat', 'surat.id' ,'=' ,'survey.surat_id')->select('surat.*','survey.*', 'survey.status as status_survey', 'survey.user_id as survey_user_id')->whereNotIn('survey.status', ['Belum Disurvey'])->where('survey.user_id', Auth::user()->id)->get();
+      $data = DB::table('survey')->join('surat', 'surat.id' ,'=' ,'survey.surat_id')->select('surat.*', 'survey.status as status_survey', 'survey.user_id as survey_user_id')->whereNotIn('survey.status', ['Belum Disurvey'])->where('survey.user_id', Auth::user()->id)->get();
 
       }
 
