@@ -30,6 +30,7 @@ crossorigin="anonymous"
   closeOnClick: true,
   position:'topRight'
   });
+  
 
   $('#videoPanduan .owl-carousel').owlCarousel({
     loop:true,

@@ -53,6 +53,7 @@ id="ajukan-perizinan"
           <option value="SD">SD</option>
           <option value="SMP">SMP</option>
         </select>
+        <span id="error_kategori" class="text-danger"></span>
       </div>
       <div class="form-group my-3">
         <label for="nama_perizinan">Nama</label>
@@ -62,10 +63,12 @@ id="ajukan-perizinan"
           id="nama_perizinan"
           name="nama"
         />
+        <span id="error_nama" class="text-danger"></span>
       </div>
       <div class="form-group my-3">
         <label for="alamat">Alamat</label>
         <textarea class="form-control" name="alamat_lokasi" id="alamat" rows="3"></textarea>
+        <span id="error_alamat" class="text-danger"></span>
       </div>
       <div class="form-group">
         <div id="map" class="" ></div>
@@ -104,6 +107,7 @@ id="ajukan-perizinan"
   </div>
 </div>
 </div>
+
 @endsection
 
 @push('extra_script')
@@ -205,6 +209,47 @@ function handleError(error) {
   $(document).ready(function () {
       $('#form1').submit(function (e) {
           e.preventDefault();
+
+           // Validasi input sebelum menyimpan data
+           var kategori = $('#kategori_perizinan').val();
+      var nama = $('#nama_perizinan').val();
+      var alamat = $('#alamat').val();
+
+      // Reset pesan error
+      $('#error_kategori').text('');
+
+      $('#error_nama').text('');
+      $('#error_alamat').text('');
+
+      let validasi = false;
+
+      // Validasi kategori
+      if (kategori === null || kategori === "") {
+        $('#error_kategori').text('Kategori perizinan diperlukan.');
+        validasi = true;
+      }
+
+      // Validasi nama
+      if (nama === '') {
+        $('#error_nama').text('Nama diperlukan.');
+        validasi = true;
+      }
+
+      // Validasi alamat
+      if (alamat === '') {
+        $('#error_alamat').text('Alamat diperlukan.');
+        validasi = true;
+      }
+
+      if(validasi){
+        iziToast.warning({
+              icon: 'fa fa-info',
+              message: 'Data Gagal disimpan!',
+          });
+        return;
+      }
+
+     
 
           var formData = $(this).serializeArray();
 
