@@ -38,20 +38,23 @@
     
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group w-100">
                         <div class="d-block">
                             <label for="password" class="control-label">Password</label>
                         </div>
-                        <input id="password" type="password"
-                            class="form-control" value="" type="password" name="password" id="password" placeholder="Password">
-                            @if (session('password'))
-                            <div class="red"  style="color: red"><b>Password Yang Anda Masukan Salah</b></div>
-                            @endif
-                            @error('password')
-                            <div class="red"  style="color: red"><b>{{ $message }}</b></div>
-                            @enderror
-
+                        <div class="input-group">
+                        <input class="form-control" type="password" name="password" id="password" required placeholder="Password">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fa fa-eye" id="togglePassword"></i>
+                                </span>
+                            </div>
+                        </div>
+                        @if (session('password'))
+                        <div class="red"  style="color: red"><b>Password Yang Anda Masukan Salah</b></div>
+                        @endif
                     </div>
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                             Login
@@ -79,5 +82,18 @@
   
   @include('sweetalert::alert')
 </body>
+
+<script>
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordInput = document.getElementById('password');
+
+  console.log(passwordInput)
+
+    togglePassword.addEventListener('click', function () {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        togglePassword.classList.toggle('fa-eye-slash');
+    });
+</script>
 
 </html>

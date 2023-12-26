@@ -47,18 +47,21 @@
     
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group w-100">
                         <div class="d-block">
                             <label for="password" class="control-label">Password</label>
                         </div>
-                        <input id="password" type="password"
-                            class="form-control" value="" type="password" name="password" id="password" required placeholder="Password">
-                            <div class="invalid-feedback">
-                                Password harus di isi
-                              </div>
-                            @if (session('password'))
-                            <div class="red"  style="color: red"><b>Password Yang Anda Masukan Salah</b></div>
-                            @endif
+                        <div class="input-group">
+                        <input class="form-control" type="password" name="password" id="password" required placeholder="Password">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fa fa-eye" id="togglePassword"></i>
+                                </span>
+                            </div>
+                        </div>
+                        @if (session('password'))
+                        <div class="red"  style="color: red"><b>Password Yang Anda Masukan Salah</b></div>
+                        @endif
                     </div>
 
                     <a href="{{url('lupapassword')}}" style="float:right;" class="text-main">Lupa Kata Sandi</a>
@@ -127,6 +130,17 @@
       message: 'Berhasil Mendaftar, Login Sekarang!',
   });
   @endif
+
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordInput = document.getElementById('password');
+
+  console.log(passwordInput)
+
+    togglePassword.addEventListener('click', function () {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        togglePassword.classList.toggle('fa-eye-slash');
+    });
 
 </script>
 </body>
