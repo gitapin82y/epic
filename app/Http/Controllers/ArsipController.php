@@ -177,6 +177,12 @@ class ArsipController extends Controller
           else{
           $file = $req->file('dokumen_syarat_pemohon');
           $name = null;
+
+          $allowed = array('pdf', 'jpg', 'jpeg', 'png');
+          if (!in_array($file->getClientOriginalExtension(), $allowed)) {
+            return response()->json(["status" => 2, "message" => 'Format file' . $file->getClientOriginalExtension() . " tidak diperbolehkan"]);
+          }
+          
           if ($file != null) {
             $name = $folder . '.' . $file->getClientOriginalExtension();
             $file->move($path, $name);
@@ -185,7 +191,6 @@ class ArsipController extends Controller
               return 'error';
           }
   
-         
           DB::table("surat_dokumen")
           ->insertGetId([
             // "id" => $max,

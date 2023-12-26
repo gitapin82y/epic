@@ -315,6 +315,12 @@ class SurveyController extends Controller
 
         $file = $request->file('foto_survey');
         $fileDokumen = $request->file('dokumen_survey');
+
+        $allowed = array('pdf', 'jpg', 'jpeg', 'png');
+        if (!in_array($fileDokumen->getClientOriginalExtension(), $allowed)) {
+          return response()->json(["status" => 2, "message" => 'Format file dokumen survey ' . $fileDokumen->getClientOriginalExtension() . " tidak diperbolehkan"]);
+        }
+
         $name = null;
         $nameDokumen = null;
 
