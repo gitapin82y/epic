@@ -33,17 +33,24 @@ class ArsipController extends Controller
     public function datatable($surat_jenis) {
       // $data = DB::table('surat')->get();
 
-      if($surat_jenis !== 'Semua'){
-      $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->where('surat_jenis.nama', $surat_jenis)->where(function ($query) {
-        $query->where('status', 'Ditolak')
-              ->orWhere('status', 'Selesai');
-    })->get();
+      if(Auth::user()->role_id == 9){
 
-      // $surat_dokumen = DB::table("surat_dokumen")->join('surat_syarat', 'surat_syarat.id', '=', 'surat_dokumen.surat_syarat_id')
-      // ->where('surat_dokumen.surat_id', $surat->id)->get();
+        if($surat_jenis !== 'Semua'){
+        $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->where('surat_jenis.nama', $surat_jenis)->whereIn('status', ['Selesai', 'Ditolak'])->where('user_id', Auth::user()->id)->get();
+      }else{
+        // $data;
+        $data = DB::table('surat')->whereIn('status', ['Selesai', 'Ditolak'])->where('user_id', Auth::user()->id)->get();
+      }
     }else{
-      // $data;
-      $data = DB::table('surat')->where('status', 'Selesai')->orWhere('status', 'Ditolak')->get();
+      if($surat_jenis !== 'Semua'){
+        $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->where('surat_jenis.nama', $surat_jenis)->where(function ($query) {
+          $query->where('status', 'Ditolak')
+                ->orWhere('status', 'Selesai');
+      })->get();
+      }else{
+        // $data;
+        $data = DB::table('surat')->where('status', 'Selesai')->orWhere('status', 'Ditolak')->get();
+      }
     }
 
 
@@ -91,7 +98,7 @@ class ArsipController extends Controller
               '<button type="button" onclick="edit('.$data->id.')" class="btn btn-success btn-lg pt-2" title="edit">'.
               '<label class="fa fa-eye w-100"></label></button>'.
             '</div>'.
-           '<a href="cetak-perizinan?dataId='.$data->id.'" class="btn btn-primary ml-2 btn-lg pt-2" target="_blank" title="cetak perizinan">'.
+           '<a href="cetak-perizinan?dataId='.$data->id.'" class="btn btn-primary ml-1 btn-lg pt-2" target="_blank" title="cetak perizinan">'.
               '<label class="fa fa-print w-100"></label></a>';
             }else{
               return  '<div class="btn-group">'.

@@ -481,7 +481,35 @@ var table = $('#table-data').DataTable({
   		]
   	});
   }
+  function clearNamaSuratSyarat() {
+    // Dapatkan referensi ke elemen div dengan ID "nama_surat_syarat"
+    var container = document.getElementById("nama_surat_syarat");
 
+    // Hapus semua elemen di dalam container
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+}
+  function closeModal() {
+  // Menutup modal
+  // ...
+  // const container = document.getElementById("nama_surat_syarat");
+
+// Create paragraph element
+// const para = document.createElement("p");
+// para.remove()
+  // Menghapus elemen <p> jika sudah dibuat sebelumnya
+  // if (para) {
+
+    clearNamaSuratSyarat()
+    
+
+    // $('#detail').modal('hide');
+    // table.ajax.reload();
+    
+
+  // }
+}
   function reloadall() {
     $('.table_modal :input').val("");
     $('#tambah').modal('hide');
