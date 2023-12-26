@@ -154,6 +154,52 @@
       }
     
       $('#simpan').click(function(){
+
+        var nama_lengkap = $('.nama_lengkap').val();
+var role = $('#role_id').val();
+var email = $('.email').val();
+var username = $('.username').val();
+var password = $('.password').val();
+
+
+$('.error-message').text('');
+
+
+      let validasi = false;
+
+    if (nama_lengkap === '') {
+    $('#error_nama_lengkap').text('Nama Lengkap diperlukan.');
+    validasi = true;
+}
+if (role === null || role === "") {
+    $('#error_role').text('Role diperlukan.');
+    validasi = true;
+}
+if (email === '') {
+    $('#error_email').text('Email diperlukan.');
+    validasi = true;
+}
+if (username === '') {
+    $('#error_username').text('Username diperlukan.');
+    validasi = true;
+}
+if (password === '') {
+    $('#error_password').text('Password diperlukan.');
+    validasi = true;
+}
+
+
+      if(validasi){
+        iziToast.warning({
+              icon: 'fa fa-info',
+              message: 'Data Gagal disimpan!',
+          });
+        return;
+      }
+
+      $('.error-message').text('');
+
+
         $.ajax({
           url: baseUrl + '/simpanpetugas',
           data:$('.table_modal :input').serialize(),

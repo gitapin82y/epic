@@ -16,6 +16,7 @@
             <td>
               <input type="text" class="form-control form-control-sm inputtext nama_lengkap" name="nama_lengkap">
               <input type="hidden" class="form-control form-control-sm id" name="id">
+              <span class="error-message text-danger" id="error_nama_lengkap"></span>
             </td>
           </tr>
           <tr>
@@ -27,27 +28,28 @@
                 <option value="{{$value->id}}">{{$value->nama}}</option>
               @endforeach
             </select>
+            <span class="error-message text-danger" id="error_role"></span>
             </td>
           </tr>
           <tr>
             <td>Email</td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext email" name="email">
-
+              <span class="error-message text-danger" id="error_email"></span>
             </td>
           </tr>
           <tr>
             <td>Username</td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext username" name="username">
-
+              <span class="error-message text-danger" id="error_username"></span>
             </td>
           </tr>
           <tr>
             <td>Password</td>
             <td>
               <input type="text" class="form-control form-control-sm inputtext password" name="password">
-
+              <span class="error-message text-danger" id="error_password"></span>
             </td>
           </tr>
           </table>
