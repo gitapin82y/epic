@@ -44,20 +44,22 @@ body {
                                 <input type="hidden" class="form-control" id="id" name="id" value="{{ $data->id }}">
                                 <input type="hidden" class="form-control" id="jadwal_survey" name="jadwal_survey" value="@php
                             use Carbon\Carbon;
-                                
-                                echo Carbon::now('Asia/Jakarta'); @endphp">
+                            
+                            echo Carbon::now('Asia/Jakarta'); @endphp">
 
-                                <input type="file" class="form-control" id="foto_survey" name="foto_survey">
+                            <input type="file" class="form-control" id="foto_survey" accept="image/*" name="foto_survey">
+                            <div class="error-message text-danger" id="errorFotoSurvey"></div>
                             </div>
                             <div class="form-group col-6">
                                 <label for="dokumen_survey">Upload Dokumen Hasil Survey</label>
-                              
-
+                            
                                 <input type="file" class="form-control" id="dokumen_survey" name="dokumen_survey">
+                                <div class="error-message text-danger" id="errorDokumenSurvey"></div>
                             </div>
                             <div class="form-group col-12">
                                 <label for="alamat_survey">Alamat</label>
                                 <textarea class="form-control" id="alamat_survey" name="alamat_survey">{{ $data->alamat_survey }}</textarea>
+                                <div class="error-message text-danger" id="errorAlamat"></div>
                             </div>
                             <div class="form-group col-12">
                                 <label for="map">Alamat pada Peta</label>
@@ -143,6 +145,43 @@ function handleError(error) {
 askForLocation();
 
 $('#simpan').click(function(){
+     // Ambil nilai input
+     var alamat = $('#alamat_survey').val();
+        var fotoSurvey = $('#foto_survey').val();
+        var dokumenSurvey = $('#dokumen_survey').val();
+
+        // Reset pesan error sebelum melakukan validasi
+        $('.error-message').text('');
+
+        let isValid = false;
+
+        // Validasi Alamat
+        if (alamat  == '') {
+            $('#errorAlamat').text('Alamat diperlukan.');
+            isValid = true;
+        }
+
+        // Validasi Foto Survey
+        if (fotoSurvey  == '') {
+            $('#errorFotoSurvey').text('Foto Survey diperlukan.');
+            isValid = true;
+        }
+
+        // Validasi Dokumen Survey
+        if (dokumenSurvey  == '') {
+            $('#errorDokumenSurvey').text('Dokumen Survey diperlukan.');
+            isValid = true;
+        }
+
+        if (isValid) {
+            console.log('asd');
+            iziToast.warning({
+                icon: 'fa fa-info',
+                message: 'Data Gagal disimpan!',
+            });
+            return;
+        }
+
     var formData = new FormData($('#form1')[0]);
     console.log('form1',  JSON.stringify(formData));
     
