@@ -84,10 +84,16 @@ class loginController extends Controller
             'email' => 'required|min:3', // make sure the email is an actual email
             'password' => 'required|min:2' // password can only be alphanumeric and has to be greater than 3 characters
         );
+        $pesan = array(
+            'email.required' => 'Email wajib diisi.',
+            'email.min' => 'Panjang email minimal :min karakter.',
+            'password.required' => 'Password wajib diisi.',
+            'password.min' => 'Panjang password minimal :min karakter.',
+        );
     	// dd($req->all());
-        $validator = Validator::make($req->all(), $rules);
+        $validator = Validator::make($req->all(), $rules, $pesan);
         if ($validator->fails()) {
-            return Redirect('/')
+            return Redirect('/admin')
                             ->withErrors($validator) // send back all errors to the login form
                             ->withInput($req->except('password')); // send back the input (not the password) so that we can repopulate the form
         } else {

@@ -32,6 +32,9 @@
                         @if (session('email'))
                         <div class="red"  style="color: red"><b>Email Tidak Ada</b></div>
                       @endif
+                      @error('email')
+                      <div class="red"  style="color: red"><b>{{ $message }}</b></div>
+                      @enderror
     
                     </div>
 
@@ -44,6 +47,9 @@
                             @if (session('password'))
                             <div class="red"  style="color: red"><b>Password Yang Anda Masukan Salah</b></div>
                             @endif
+                            @error('password')
+                            <div class="red"  style="color: red"><b>{{ $message }}</b></div>
+                            @enderror
 
                     </div>
                     <div class="form-group">
