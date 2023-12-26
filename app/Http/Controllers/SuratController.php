@@ -242,6 +242,12 @@ else if(Auth::user()->role_id == 6){
         // return response()->json(["status" => 2, "message" => 'Data Dokumen Sudah Ada']);
         $file = $req->file('dokumen_syarat_pemohon');
         $name = null;
+
+        $allowed = array('pdf', 'jpg', 'jpeg', 'png');
+        if (!in_array($file->getClientOriginalExtension(), $allowed)) {
+          return response()->json(["status" => 2, "message" => 'Format file' . $file->getClientOriginalExtension() . " tidak diperbolehkan"]);
+        }
+
         if ($file != null) {
           $name = $folder . '.' . $file->getClientOriginalExtension();
           $file->move($path, $name);
