@@ -98,7 +98,7 @@ class RegisterPemohonController extends Controller
 
         if ($valid == false) {
           Session::flash('gagalLogin','gagalLogin');
-          return back();
+          return redirect('registerpemohon');
         } else {
           $apin = DB::table("user")
             ->insert([

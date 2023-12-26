@@ -1,6 +1,7 @@
 @extends('login-system.layouts.template')
 @section('title','Register')
 @push('before_style')
+<script src="{{asset('assets\js\sweetalert2.all.min.js')}}"></script>
   <style>
     body{
       background: url('assets/img/bg-login.png');
@@ -60,11 +61,11 @@
                             <label for="email">Email</label>
 
                             <input id="email" type="email"
-                                class="form-control @error('email') is-invalid @enderror" name="email"
+                                class="form-control" name="email"
                                 value="{{ old('email') }}">
-                            @error('email')
-                            <i class="text-danger">{{ $message }}</i>
-                            @enderror
+                                @if (session('email'))
+                                <small class="text-danger"><b>Email sudah terdaftar!</b></small>
+                                @endif
 
                         </div>
                         <div class="form-group col-6">
@@ -187,23 +188,28 @@
     </div>
 </div>
 
+
+<script>
+
+  @if (session('gagalLogin'))
+  iziToast.warning({
+      icon: 'fa fa-info',
+      message: 'Terdapat Kesalahan, Periksa kembali!',
+  });
+  @endif
+
+</script>
+
 @endsection
 
     @include('includes.script')
+    @include('sweetalert::alert')
 
 <script src="{{asset('assets/node_modules/jquery/dist/jquery.min.js')}}"></script>
 <script src="{{asset('assets/node_modules/select2/dist/js/select2.min.js')}}"></script>
 <script src="{{asset('assets/js/off-canvas.js')}}"></script>
 <script src="{{asset('assets/js/hoverable-collapse.js')}}"></script>
 <script src="{{asset('assets/js/misc.js')}}"></script>
-<script>
-@if (session('gagalLogin'))
-  iziToast.warning({
-      icon: 'fa fa-info',
-      message: 'Terdapat Kesalahan, Periksa kembali!',
-  });
-  @endif
-</script>
 <script>
     $(document).ready(function(){
       provinsi();

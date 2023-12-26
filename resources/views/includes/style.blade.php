@@ -1,4 +1,9 @@
 <!-- General CSS Files -->
+<link
+      rel="shortcut icon"
+      href="{{asset('assets/public/img/favicon.ico')}}"
+      type="image/x-icon"
+    />
 
 <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{asset('assets/fontawesome/css/all.css')}}">

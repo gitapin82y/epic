@@ -1,5 +1,5 @@
 @extends('layouts.public')
-@section('title','Permohonan Saya')
+@section('title','Buat Permohonan')
 
 @push('extra_style')
 <style>

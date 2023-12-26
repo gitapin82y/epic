@@ -1,6 +1,6 @@
 @extends('layouts.main-chat')
 
-@section('title','Petugas')
+@section('title','Chat')
 
 @section('soloStyle')
 {{-- sweetalert2 --}} 

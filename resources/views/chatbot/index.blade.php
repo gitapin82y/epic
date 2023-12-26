@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title','Petugas')
+@section('title','Chatbot')
 
 @section('soloStyle')
 {{-- sweetalert2 --}} 

@@ -6,6 +6,12 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>@yield('title') | EPIC</title>
 
+    <link
+      rel="shortcut icon"
+      href="{{asset('assets/public/img/favicon.ico')}}"
+      type="image/x-icon"
+    />
+
     @include('includes.style')
     @stack('before_style')
 </head>
