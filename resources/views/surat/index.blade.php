@@ -15,6 +15,7 @@
 
 @include('surat.detail')
 @include('surat.tolak')
+@include('surat.tolak-terbitkan')
 @php
  $testing = DB::table("surat")->where("id", "2")->first();
 @endphp
@@ -320,15 +321,95 @@ var table = $('#table-data').DataTable({
   	});
   })
 
-  $('#showModalTolak').click(function(){
+  $('#terbitkan').click(function(){
+    iziToast.question({
+      close: false,
+  		overlay: true,
+  		displayMode: 'once',
+  		title: 'Terbitkan Surat',
+  		message: 'Apakah anda yakin ?',
+  		position: 'center',
+  		buttons: [
+  			['<button><b>Ya</b></button>', function (instance, toast) {
+          $.ajax({
+            url:baseUrl + '/surat/terbitkan',
+            data:$('.table_modal :input').serialize(),
+            dataType:'json',
+            success:function(data){
+              console.log({data})
+              if (data.status == 1) {
+          iziToast.success({
+              icon: 'fa fa-save',
+              message:'Data Berhasil Diterbitkan!',
+          });
+          reloadall();
+        }else if(data.status == 2){
+          iziToast.warning({
+              icon: 'fa fa-info',
+              message: 'Data Gagal Divalidasi!',
+          });
+        }
+
+              reloadall();
+            }
+          });
+  			}, true],
+  			['<button>Tidak</button>', function (instance, toast) {
+  				instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+  			}],
+  		]
+  	});
+  })
+
+  $('#showModalTolakDiterbitkan').click(function(){
    var tes = document.getElementById("id").value ;
+  //  console.log({tes})
    $('.id').val(tes);
-   $('.alasan_dikembalikan').val("");
+   $('.alasan_ditolak').val("");
    $('#detail').modal('hide'); 
-   $('#showTolak').modal('show');
+   $('#showTolakTerbitkan').modal('show');
       // }
     // });
     
+  })
+
+  $('#ditolakProcess').click(function(){
+    iziToast.question({
+      close: false,
+  		overlay: true,
+  		displayMode: 'once',
+  		title: 'Tolak Surat',
+  		message: 'Apakah anda yakin ?',
+  		position: 'center',
+  		buttons: [
+  			['<button><b>Ya</b></button>', function (instance, toast) {
+          $.ajax({
+            url:baseUrl + '/surat/tolak',
+            data:$('.table_modal :input').serialize(),
+            dataType:'json',
+            success:function(data){
+              if (data.status == 1) {
+          iziToast.success({
+              icon: 'fa fa-save',
+              message: 'Surat Berhasil Ditolak!',
+          });
+          reloadall();
+        }else if(data.status == 2){
+          iziToast.warning({
+              icon: 'fa fa-info',
+              message: 'Surat Gagal Ditolak!',
+          });
+        }
+
+              reloadall();
+            }
+          });
+  			}, true],
+  			['<button>Tidak</button>', function (instance, toast) {
+  				instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+  			}],
+  		]
+  	});
   })
 
   $('#dikembalikanProcess').click(function(){
@@ -406,6 +487,8 @@ var table = $('#table-data').DataTable({
     $('#tambah').modal('hide');
     $('#detail').modal('hide');
     $('#showTolak').modal('hide');
+   $('#showTolakTerbitkan').modal('hide');
+
     // $('#table_modal :input').val('');
    
     // $(".inputtext").val("");

@@ -63,6 +63,18 @@
           </button>
         </div>
          @endif
+         @if (Auth::user()->role_id == 3)
+         <div class="col-12 mt-4">
+          <input type="hidden" class="form-control form-control-sm id" name="id" id="id">
+          <button class="btn btn-main btn-md w-100 mb-3 border-0 shadown-none" id="terbitkan" type="button"  style="background-color: #499DB1 !important">
+        
+            Terbitkan
+          </button>
+          <button class="btn btn-md w-100 text-warning " id="showModalTolakDiterbitkan" type="button"  style="color: #499DB1 !important; bg-color:white !important;border:1px solid #499DB1 !important;border-radius:25px">
+            Tolak
+          </button>
+        </div>
+         @endif
         </div>
       </div>
       </div>

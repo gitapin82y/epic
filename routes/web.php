@@ -182,6 +182,8 @@ Route::get('survey/penugasan/laporan/{id}',  [PenugasanSurveyController::class, 
  Route::post('surat/tolak-survey', 'SuratController@tolakHasilSurvey');
 
  Route::get('surat/terbitkan', 'SuratController@terbitkanSurat');
+ Route::get('surat/tolak', 'SuratController@tolakSuratKepalaDinas');
+
 
  Route::get('survey-kepuasan/hasil-kepuasan', 'HasilKepuasanController@index');
  Route::get('hasilkepuasan', 'HasilKepuasanController@datatable');
