@@ -56,7 +56,7 @@ id="ajukan-perizinan"
         <span id="error_kategori" class="text-danger"></span>
       </div>
       <div class="form-group my-3">
-        <label for="nama_perizinan">Nama</label>
+        <label for="nama_perizinan">Nama Instansi</label>
         <input
           type="text"
           class="form-control"
@@ -226,7 +226,7 @@ function handleError(error) {
         validasi = true;
       }
       if (nama === '') {
-        $('#error_nama').text('Nama diperlukan.');
+        $('#error_nama').text('Nama Instansi diperlukan.');
         validasi = true;
       }
       if (alamat === '') {
