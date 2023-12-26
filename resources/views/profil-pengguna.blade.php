@@ -49,7 +49,7 @@
                                         <div class="file-select">
                                         <div class="file-select-button" id="fileName">Ubah Avatar</div>
                                         <div class="file-select-name" id="noFile">No file chosen...</div> 
-                                        <input type="file" name="avatar" accept="image/*" id="chooseFile" required>
+                                        <input type="file" name="avatar" accept="image/*" id="chooseFile">
                                         </div>
                                     </div>
                                 </div>
