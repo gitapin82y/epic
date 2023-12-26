@@ -105,6 +105,10 @@ class PertanyaanSurveyKepuasanController extends Controller
       DB::beginTransaction();
       try {
 
+        DB::table("ulasan")
+        ->where("ulasan_pertanyaan_id", $req->id)
+        ->delete();
+
         DB::table("ulasan_pertanyaan")
             ->where("id", $req->id)
             ->delete();
@@ -113,7 +117,7 @@ class PertanyaanSurveyKepuasanController extends Controller
         return response()->json(["status" => 3]);
       } catch (\Exception $e) {
         DB::rollback();
-        return response()->json(["status" => 4]);
+        return response()->json(["status" => 4,"error_message" => $e->getMessage()]);
       }
 
     }

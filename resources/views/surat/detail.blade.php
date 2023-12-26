@@ -75,6 +75,14 @@
           </button>
         </div>
          @endif
+         {{-- surveyor --}}
+         @if (Auth::user()->role_id == 7)
+         <div class="col-12 mt-4">
+          <a href="#" target="_blank" class="btn btn-main btn-md w-100 mb-3 border-0 text-white text-decoration-none shadown-none" id="template-laporan-survey" style="background-color: #499DB1 !important">
+            Template Laporan Survey
+          </a>
+        </div>
+         @endif
         </div>
       </div>
       </div>

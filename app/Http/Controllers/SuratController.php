@@ -629,6 +629,8 @@ else if(Auth::user()->role_id == 6){
       $surat_dokumen = DB::table("surat_dokumen")->join('surat_syarat', 'surat_syarat.id', '=', 'surat_dokumen.surat_syarat_id')
       ->where('surat_dokumen.surat_id', $surat->id)->get();
 
+      $dokumen_survey_template = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat_jenis.dokumen_survey_template as dokumen_survey_template')->where('surat.id', $surat->id)->first()->dokumen_survey_template;
+
       
 
       $data = [
@@ -638,6 +640,7 @@ else if(Auth::user()->role_id == 6){
        'tanggal_pengajuan' => Carbon::parse($surat->created_at)->format('d F Y'),
        'jadwal_survey' => $surat->jadwal_survey ? Carbon::parse($surat->jadwal_survey)->format('d F Y') : 'Belum Tersedia',
        'surat_dokumen' => $surat_dokumen,
+       'dokumen_survey_template' => $dokumen_survey_template,
        'surveyor_id' => $surveyor ? $surveyor->surveyor_id : null
       ];
       // $data->created_at = Carbon::parse($data->created_at)->format("d-m-Y");

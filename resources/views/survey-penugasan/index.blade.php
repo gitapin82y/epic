@@ -227,6 +227,7 @@ var table = $('#table-data').DataTable({
         // data.surat_dokumen.forEach(function(surat_syarat) {
         // document.getElementsByClassName("nama_surat_syarat").innerHTML = surat_syarat.nama;
         // });
+        document.getElementById('template-laporan-survey').setAttribute('href',data.dokumen_survey_template);
 
         data.surat_dokumen.forEach(myFunction);
 

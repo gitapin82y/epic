@@ -109,7 +109,7 @@ class PenugasanSurveyController extends Controller
          if ($data->jadwal_survey == NULL) {
           $aksi = '<div class="btn-group">'.
           '<button type="button" onclick="edit('.$data->id.')" class="btn btn-success btn-lg pt-2" title="penjadwalan survey">'.
-          '<label class="fa fa-calendar-plus-o w-100" style="padding:0 2px"></label></button>'.
+          '<label class="fa fa-calendar-plus w-100" style="padding:0 2px"></label></button>'.
        '</div>';
                  } else if ( $data->jadwal_survey != NULL) {
           $aksi = '<div class="btn-group border">'.

@@ -205,10 +205,11 @@ var table = $('#table-data').DataTable({
   		buttons: [
   			['<button><b>Ya</b></button>', function (instance, toast) {
           $.ajax({
-            url:baseUrl + '/hapuspertanyaansurveykepuasan',
-            data:{id},
-            dataType:'json',
+            url:baseUrl + '/hapuspertanyaansurveykepuasan?id=' + id,
+            method: 'GET',
+            dataType: 'json',
             success:function(data){
+              console.log(data);
               iziToast.success({
                   icon: 'fa fa-trash',
                   message: 'Data Berhasil Dihapus!',
