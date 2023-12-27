@@ -146,7 +146,7 @@ var table = $('#table-data').DataTable({
              
             ],
         "columns": [
-          {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+          {data: 'id', name: 'id'},
           {data: 'surat_jenis', name: 'surat_jenis'},
           {data:'jadwal_survey', name: 'jadwal_survey'},
           {data:'status', name: 'status'},

@@ -78,8 +78,12 @@ class PerizinanPemohonController extends Controller
                 }else if($data->status == "Penjadwalan Survey"){
                 $statusSurvey = DB::table('survey')->where('surat_id', $data->id)->first();
                 // $color = '<div><strong class="text-warning">' . $data->id  .'</strong></div>';
-
+                if($statusSurvey){
                   $color = '<div><strong class="text-warning">' . $data->status .'<br>( '. $statusSurvey->status .' )</strong></div>';
+                }else{
+                  $color = '<div><strong class="text-warning">' . $data->status .'<br>( Menunggu Jadwal )</strong></div>';
+
+                }
                 }
                 else{
                   $color;
