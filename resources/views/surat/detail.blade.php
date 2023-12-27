@@ -58,7 +58,7 @@
             Verifikasi
             @endif
           </button>
-          <button class="btn btn-light btn-md w-100 text-warning " id="showModalTolak" type="button"  style="color: #499DB1 !important">
+          <button class="btn btn-md w-100 text-warning " id="showModalTolak" type="button"  style="color: #499DB1 !important; bg-color:white !important;border:1px solid #499DB1 !important;">
             Tolak
           </button>
         </div>

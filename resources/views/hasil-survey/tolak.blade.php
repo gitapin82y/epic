@@ -5,14 +5,14 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header bg-warning"  style="background-color: #499DB1 !important">
-        <h4 class="modal-title">Form Pemohon</h4>
+        <h4 class="modal-title">Tolak Hasil Survey</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <div class="row">
           <table class="table table_modal">
           <tr>
-            <td>Alasan Dikembalikan</td>
+            <td>Alasan Ditolak</td>
             <td>
               <textarea class="form-control form-control-sm inputtext alasan_dikembalikan px-auto" name="alasan_dikembalikan" rows=5 value="">
               </textarea>

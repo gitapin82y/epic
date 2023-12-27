@@ -23,6 +23,8 @@ body {
 @endsection
 
 @section('content')
+@include('hasil-survey.tolak')
+
 <div class="main-content">
     <section class="section mt-4">
         <div class="row">
@@ -111,7 +113,7 @@ body {
 
                         <div class="row btn-update-profile mt-4 col-12">
                             <button type="button" class="btn btn-main text-light col-12" id="simpan">Verifikasi Survey</button>
-                            <button type="button" class="btn btn-main col-12 mt-4" id="" style="background-color: white !important; color:#499DB1 !important; border: 1px solid #499DB1">Tolak Survey</button>
+                            <button type="button" class="btn col-12 mt-4" id="showModalTolak" style="background-color: white !important; color:#499DB1 !important; border: 1px solid #499DB1; border-radius:25px">Tolak Survey</button>
                         </div>
                         @endif
                     {{-- </form> --}}
@@ -190,7 +192,15 @@ $('#simpan').click(function(){
         'id' : idSurat
     }
     console.log({formData})
-    
+    iziToast.question({
+      close: false,
+  		overlay: true,
+  		displayMode: 'once',
+  		title: 'Verifikasi Hasil Survey',
+  		message: 'Apakah anda yakin ?',
+  		position: 'center',
+  		buttons: [
+  			['<button><b>Ya</b></button>', function (instance, toast) {
     $.ajax({
         url: baseUrl + '/surat/verifikasi-survey',
         type: 'POST',
@@ -229,7 +239,69 @@ $('#simpan').click(function(){
             }
         }
     });
-});
+}, true],
+  			['<button>Tidak</button>', function (instance, toast) {
+  				instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+  			}],
+  		]
+  	});
+  })
+
+
+  $('#showModalTolak').click(function(){
+   var tes = document.getElementById("id").value ;
+  //  console.log({tes})
+   $('.id').val(tes);
+   $('.alasan_ditolak').val("");
+//    $('#detail').modal('hide'); 
+   $('#showTolak').modal('show');
+      // }
+    // });
+    
+  })
+
+  $('#dikembalikanProcess').click(function(){
+    iziToast.question({
+      close: false,
+  		overlay: true,
+  		displayMode: 'once',
+  		title: 'Tolak Hasil Survey',
+  		message: 'Apakah anda yakin ?',
+  		position: 'center',
+  		buttons: [
+  			['<button><b>Ya</b></button>', function (instance, toast) {
+          $.ajax({
+            url:baseUrl + '/surat/tolak-survey',
+            data:$('.table_modal :input').serialize(),
+            dataType:'json',
+            success:function(data){
+              if (data.status == 1) {
+          iziToast.success({
+              icon: 'fa fa-save',
+              message: 'Surat Berhasil Ditolak!',
+          });
+        //   reloadall();
+   $('#showTolak').modal('hide');
+   window.location = baseUrl+ "/survey/hasil-survey"
+
+        }else if(data.status == 2){
+          iziToast.warning({
+              icon: 'fa fa-info',
+              message: 'Surat Gagal Ditolak!',
+          });
+        }
+
+              reloadall();
+            }
+          });
+  			}, true],
+  			['<button>Tidak</button>', function (instance, toast) {
+  				instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+  			}],
+  		]
+  	});
+  })
+
 
 </script>
 @endsection

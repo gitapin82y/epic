@@ -499,10 +499,10 @@ else if(Auth::user()->role_id == 6){
         PushNotifController::sendMessage($cekDataUser->user_id,"Mohon Maaf, Surat No. ".$req->id." Dikembalikan !","Sayangnya, surat dengan nomor No. ".$req->id."  Anda ditolak oleh operator. Silakan periksa email anda untuk melihat alasan dikembalikan dan lakukan koreksi sesuai petunjuk yang diberikan untuk mengajukan kembali." );
 
        
-        return response()->json(["status" => 3, 'message' => 'dikembalikan']);
+        return response()->json(["status" => 1, 'message' => 'dikembalikan']);
       } catch (\Exception $e) {
         DB::rollback();
-        return response()->json(["status" => 4, "message" => $e->getMessage()]);
+        return response()->json(["status" => 2, "message" => $e->getMessage()]);
       }
     }else if(  Auth::user()->role_id == 6 )
     {
@@ -522,10 +522,10 @@ else if(Auth::user()->role_id == 6){
         PushNotifController::sendMessage($cekDataUser->user_id,"Mohon Maaf, Surat No. ".$req->id." Dikembalikan !","Sayangnya, surat dengan nomor No. ".$req->id."  Anda ditolak oleh verifikator. Silakan periksa email anda untuk melihat alasan dikembalikan dan lakukan koreksi sesuai petunjuk yang diberikan untuk mengajukan kembali." );
 
        
-        return response()->json(["status" => 3, 'message' => 'dikembalikan']);
+        return response()->json(["status" => 1, 'message' => 'dikembalikan']);
       } catch (\Exception $e) {
         DB::rollback();
-        return response()->json(["status" => 4, "message" => $e->getMessage()]);
+        return response()->json(["status" => 2, "message" => $e->getMessage()]);
       }
     }
   }else{
@@ -549,7 +549,8 @@ else if(Auth::user()->role_id == 6){
         PushNotifController::sendMessage($cekDataUser->user_id,"Mohon Maaf, Surat No. ".$req->id." Dikembalikan !","Sayangnya, surat dengan nomor No. ".$req->id."  Anda ditolak oleh operator. Silakan periksa email anda untuk melihat alasan dikembalikan dan lakukan koreksi sesuai petunjuk yang diberikan untuk mengajukan kembali." );
 
        
-        return response()->json(["status" => 1, 'message' => 'dikembalikan operator']);
+        return response()->json(["status" => 1, 'message' => 'Alasan dan Berkas Berhasil
+        Dikembalikan ke Pemohon']);
           }else{
         return response()->json(["status" => 2, "message" => "Status Surat bukan Validasi Operator"]);
 
@@ -581,7 +582,8 @@ else if(Auth::user()->role_id == 6){
         PushNotifController::sendMessage($cekDataUser->user_id,"Mohon Maaf, Surat No. ".$req->id." Dikembalikan !","Sayangnya, surat dengan nomor No. ".$req->id."  Anda ditolak oleh verifikator. Silakan periksa email anda untuk melihat alasan dikembalikan dan lakukan koreksi sesuai petunjuk yang diberikan untuk mengajukan kembali." );
 
        
-        return response()->json(["status" => 1, 'message' => 'dikembalikan verifikator']);
+        return response()->json(["status" => 1, 'message' => 'Alasan dan Berkas Berhasil
+        Dikembalikan ke Pemohon']);
           }else{
         return response()->json(["status" => 2, "message" => "Status Surat bukan Verifikasi Verifikator"]);
 

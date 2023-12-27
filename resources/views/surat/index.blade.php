@@ -292,7 +292,7 @@ var table = $('#table-data').DataTable({
             dataType:'json',
             success:function(data){
               console.log({data})
-              if (data.status == 3) {
+              if (data.status == 1) {
           iziToast.success({
               icon: 'fa fa-save',
               message:
@@ -303,7 +303,7 @@ var table = $('#table-data').DataTable({
               @endif
           });
           reloadall();
-        }else if(data.status == 4){
+        }else if(data.status == 2){
           iziToast.warning({
               icon: 'fa fa-info',
               message: 'Data Gagal Divalidasi!',
@@ -373,6 +373,18 @@ var table = $('#table-data').DataTable({
     
   })
 
+  $('#showModalTolak').click(function(){
+   var tes = document.getElementById("id").value ;
+  //  console.log({tes})
+   $('.id').val(tes);
+   $('.alasan_dikembalikan').val("");
+   $('#detail').modal('hide'); 
+   $('#showTolak').modal('show');
+      // }
+    // });
+    
+  })
+
   $('#ditolakProcess').click(function(){
     iziToast.question({
       close: false,
@@ -427,13 +439,13 @@ var table = $('#table-data').DataTable({
             data:$('.table_modal :input').serialize(),
             dataType:'json',
             success:function(data){
-              if (data.status == 3) {
+              if (data.status == 1) {
           iziToast.success({
               icon: 'fa fa-save',
               message: 'Surat Berhasil Dikembalikan!',
           });
           reloadall();
-        }else if(data.status == 4){
+        }else if(data.status == 2){
           iziToast.warning({
               icon: 'fa fa-info',
               message: 'Surat Gagal Dikembalikan!',

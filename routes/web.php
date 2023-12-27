@@ -179,7 +179,7 @@ Route::get('survey/penugasan/laporan/{id}',  [PenugasanSurveyController::class, 
 
  // Verifikasi Hasil Survey
  Route::post('surat/verifikasi-survey', 'SuratController@approveHasilSurvey');
- Route::post('surat/tolak-survey', 'SuratController@tolakHasilSurvey');
+ Route::get('surat/tolak-survey', 'SuratController@tolakHasilSurvey');
 
  Route::get('surat/terbitkan', 'SuratController@terbitkanSurat');
  Route::get('surat/tolak', 'SuratController@tolakSuratKepalaDinas');
