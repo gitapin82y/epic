@@ -186,16 +186,20 @@ class PublicController extends Controller
 
     
     public function updatePassword(Request $req){
-        $passwordUpdate = md5($req->password);
-        // $passwordUpdate = $req->password;
-        
-        $user = auth()->user(); // Mendapatkan pengguna yang sedang login
-        
-        // Update password di dalam tabel users
-        DB::table('user')
-        ->where('id', $user->id)
-        ->update(['password' => $passwordUpdate]);
-        return back()->with('passwordUpadate', 'Password Berhasil Diubah');
+        if ($req->password != $req->password_confirmation) {
+            return back()->with('gagal', 'Password Berhasil Diubah');
+        } else {
+            $passwordUpdate = md5($req->password);
+            // $passwordUpdate = $req->password;
+            
+            $user = auth()->user(); // Mendapatkan pengguna yang sedang login
+            
+            // Update password di dalam tabel users
+            DB::table('user')
+            ->where('id', $user->id)
+            ->update(['password' => $passwordUpdate]);
+            return back()->with('passwordUpadate', 'Password Berhasil Diubah');
+        }
     }
     
     public function getDetailPerizinan($id){

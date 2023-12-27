@@ -271,6 +271,13 @@
       message: 'Password Berhasil Diubah',
   });
   @endif
+
+  @if (session('gagal'))
+    iziToast.warning({
+        icon: 'fa fa-info',
+        message: 'Password tidak sama!',
+    });
+  @endif
 </script>
 <script>
     //input file
