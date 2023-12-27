@@ -250,12 +250,31 @@ if (password === '') {
                 data:{id},
                 dataType:'json',
                 success:function(data){
-                  iziToast.success({
-                      icon: 'fa fa-trash',
-                      message: 'Data Berhasil Dihapus!',
-                  });
-    
-                  reloadall();
+                  if (data.status == 1) {
+              iziToast.success({
+                  icon: 'fa fa-save',
+                  message: 'Data Berhasil Disimpan!',
+              });
+              reloadall();
+            }else if(data.status == 2){
+                console.log(data.message);
+              iziToast.warning({
+                  icon: 'fa fa-info',
+                  // message: 'Data Gagal disimpan!',
+                  message: data.message,
+              });
+            }else if (data.status == 3){
+              iziToast.success({
+                  icon: 'fa fa-save',
+                  message: 'Data Berhasil Diubah!',
+              });
+              reloadall();
+            }else if (data.status == 4){
+              iziToast.warning({
+                  icon: 'fa fa-info',
+                  message: 'Data Gagal Diubah!',
+              });
+            }
                 }
               });
                   }, true],

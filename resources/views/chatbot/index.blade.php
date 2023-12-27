@@ -85,7 +85,7 @@ input:checked + .slider:before {
           <div class="col-md-12">
               <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Chatbot</h4>
+                    <h4 class="card-title">EVA (Epic Virtual Assistant)</h4>
 
                     <form method="POST" class="form-horizontal" action="{{ url('chatbot/save') }}" accept-charset="UTF-8" id="tambahpekerja">
                       {{csrf_field()}}
