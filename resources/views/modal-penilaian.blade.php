@@ -18,25 +18,25 @@
 
             @foreach($questions as $key => $question)
             <label for="question{{ $key}}" class="mt-1 font-weight-bold">{{ $key+1 }}. {{ $question->nama }}</label>   
-            <input type="hidden" name="question{{ $key}}" value="{{$question->id}}"> 
+            <input type="hidden" name="question[{{ $key}}]" value="{{$question->id}}"> 
             <div>
-                <input type="radio" id="sangat_baik{{ $key}}" name="answer{{ $key}}" value="Sangat Baik">
+                <input type="radio" id="sangat_baik{{ $key}}" name="answer[{{$key}}]" value="Sangat Baik">
                 <label for="sangat_baik{{ $key}}">Sangat Baik</label>
             </div>
             <div>
-                <input type="radio" id="baik{{ $key}}" name="answer{{ $key}}" value="Baik">
+                <input type="radio" id="baik{{ $key}}" name="answer[{{$key}}]" value="Baik">
                 <label for="baik{{ $key}}">Baik</label>
             </div>
             <div>
-                <input type="radio" id="cukup{{ $key}}" name="answer{{ $key}}" value="Cukup">
+                <input type="radio" id="cukup{{ $key}}" name="answer[{{$key}}]" value="Cukup">
                 <label for="cukup{{ $key}}">Cukup</label>
             </div>
             <div>
-                <input type="radio" id="kurang{{ $key}}" name="answer{{ $key}}" value="Kurang">
+                <input type="radio" id="kurang{{ $key}}" name="answer[{{$key}}]" value="Kurang">
                 <label for="kurang{{ $key}}">Kurang</label>
             </div>
             <div>
-                <input type="radio" id="sangat_kurang{{ $key}}" name="answer{{ $key}}" value="Sangat Kurang">
+                <input type="radio" id="sangat_kurang{{ $key}}" name="answer[{{$key}}]" value="Sangat Kurang">
                 <label for="sangat_kurang{{ $key}}">Sangat Kurang</label>
             </div>
             @endforeach

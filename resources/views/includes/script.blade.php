@@ -52,11 +52,19 @@
     });
 
     @if (session('sendSurvey'))
-iziToast.success({
- icon: 'fa fa-save',
- message: 'Survey Berhasil Dikirim',
-});
-@endif
+  iziToast.success({
+      icon: 'fa fa-save',
+      message: 'Penilaian Berhasil Dikirim',
+  });
+  @endif
+
+  @if (session('sendSurveyError'))
+  iziToast.warning({
+      icon: 'fa fa-save',
+      message: 'Penilaian Gagal Dikirim',
+  });
+  $('#penilaianApp').modal('show');
+  @endif
 
 // $(document).ready(function() {
 //     // Menghentikan event klik agar tidak menyebar ke dropdown profil

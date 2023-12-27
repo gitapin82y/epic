@@ -13,6 +13,7 @@ use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Session;
 
 
@@ -139,26 +140,69 @@ class PertanyaanSurveyKepuasanController extends Controller
       return response()->json($data);
     }
 
+    // public function sendSurveyKepuasan(Request $req) {
+    //   $questions = $req->except(['_token']);
+    //   $totalPertanyaan = DB::table('ulasan_pertanyaan')->where('is_active','Y')->get();
+    //   $ulasanId = DB::table('ulasan_hasil')->insertGetId([
+    //       'user_id' => Auth::user()->id,
+    //       'created_at' => Carbon::now("Asia/Jakarta"),
+    //   ]);
+      
+    //   foreach ($totalPertanyaan as $key => $answer) {
+    //     $question_id = intval($key);
+    //     DB::table('ulasan')->insertGetId([
+    //       'ulasan_hasil_id' => $ulasanId,
+    //       'ulasan_pertanyaan_id' => $req->input("question{$question_id}"),
+    //       'isi' => $req->input("answer{$question_id}"),
+    //       'created_at' => Carbon::now("Asia/Jakarta"),
+    //     ]);
+    //   }
+    //   Session::flash('sendSurvey', 'sendSurvey');
+
+    //   return back();
+    // }
+
     public function sendSurveyKepuasan(Request $req) {
-      $questions = $req->except(['_token']);
-      $totalPertanyaan = DB::table('ulasan_pertanyaan')->where('is_active','Y')->get();
+      // Validasi jumlah pertanyaan yang dijawab
+      $validator = Validator::make($req->all(), [
+          'question.*' => 'required',
+          'answer.*' => 'required',
+      ]);
+  
+      if ($validator->fails()) {
+          Session::flash('sendSurveyError', 'Semua pertanyaan harus dijawab.');
+          return back()->withErrors($validator)->withInput();
+      }
+  
+      $questions = $req->input('question');
+      $answers = $req->input('answer');
+  
+      // Memastikan semua pertanyaan dijawab
+      if (count($answers) !== count($questions)) {
+          Session::flash('sendSurveyError', 'Jumlah pertanyaan yang dijawab tidak sesuai');
+          return back();
+      }
+  
       $ulasanId = DB::table('ulasan_hasil')->insertGetId([
           'user_id' => Auth::user()->id,
-          'created_at' => Carbon::now("Asia/Jakarta"),
+          'created_at' => now("Asia/Jakarta"),
       ]);
-      foreach ($totalPertanyaan as $key => $answer) {
-        $question_id = intval($key);
-        DB::table('ulasan')->insertGetId([
-          'ulasan_hasil_id' => $ulasanId,
-          'ulasan_pertanyaan_id' => $req->input("question{$question_id}"),
-          'isi' => $req->input("answer{$question_id}"),
-          'created_at' => Carbon::now("Asia/Jakarta"),
-        ]);
+  
+      foreach ($questions as $key => $question_id) {
+          $answer = $answers[$key];
+  
+          DB::table('ulasan')->insertGetId([
+              'ulasan_hasil_id' => $ulasanId,
+              'ulasan_pertanyaan_id' => $question_id,
+              'isi' => $answer,
+              'created_at' => now("Asia/Jakarta"),
+          ]);
       }
+  
       Session::flash('sendSurvey', 'sendSurvey');
-
+  
       return back();
-    }
+  }
 
     public function getDataPertanyaan(Request $req){
       try{
