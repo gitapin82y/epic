@@ -182,6 +182,7 @@ else if(Auth::user()->role_id == 6){
               "alamat_lokasi" => $req->alamat_lokasi,
               "longitude" => $req->longitude,
               "latitude" => $req->latitude,
+              'is_dikembalikan' => 'N',
               "created_at" => Carbon::now("Asia/Jakarta"),
               "updated_at" => Carbon::now("Asia/Jakarta")
             ]);
@@ -209,6 +210,8 @@ else if(Auth::user()->role_id == 6){
               "is_dikembalikan"=> "N",
               "longitude" => $req->longitude,
               "latitude" => $req->latitude,
+              'is_dikembalikan' => 'N',
+
               "updated_at" => Carbon::now("Asia/Jakarta")
             ]);
 
@@ -334,6 +337,7 @@ else if(Auth::user()->role_id == 6){
              ->where("id", $req->surat_id)
              ->update([
                "status" => 'Validasi Operator',
+              'is_dikembalikan' => 'N',
                "updated_at" => Carbon::now("Asia/Jakarta")
              ]);
 
@@ -692,29 +696,29 @@ else if(Auth::user()->role_id == 6){
     try{
       if($req->input('user_id') ){
         if ($req->keyword == "" && $req->surat_jenis_id == "" && $req->status == "") {
-          $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('user_id', $req->input('user_id'))->whereNotIn('surat.status', ['Selesai', 'Ditolak', 'Pengisian Dokumen'])->orderByDesc('id')->get();
+          $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('user_id', $req->input('user_id'))->whereNotIn('surat.status', ['Selesai', 'Ditolak'])->orWhere('is_dikembalikan', 'Y')->orderByDesc('id')->get();
         } else if ($req->keyword != "" && $req->surat_jenis_id == "" && $req->status == "") {
           $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")
           ->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('user_id', $req->input('user_id'))
-          ->whereNotIn('surat.status', ['Selesai', 'Ditolak', 'Pengisian Dokumen'])
+          ->whereNotIn('surat.status', ['Selesai', 'Ditolak'])->orWhere('is_dikembalikan', 'Y')
           ->where('surat.id', 'like', "%" .$req->input('keyword') . "%" )
           ->orderByDesc('id')->get();
         }else if ($req->keyword == "" && $req->surat_jenis_id != "" && $req->status == "") {
           $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")
           ->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('user_id', $req->input('user_id'))
-          ->whereNotIn('surat.status', ['Selesai', 'Ditolak', 'Pengisian Dokumen'])
+          ->whereNotIn('surat.status', ['Selesai', 'Ditolak'])->orWhere('is_dikembalikan', 'Y')
           ->where('surat_jenis_id', $req->input('surat_jenis_id'))
           ->orderByDesc('id')->get();
         }  
         else if ($req->keyword != "" && $req->surat_jenis_id != "" && $req->status == "") {
           $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")
           ->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('user_id', $req->input('user_id'))
-          ->whereNotIn('surat.status', ['Selesai', 'Ditolak', 'Pengisian Dokumen'])
+          ->whereNotIn('surat.status', ['Selesai', 'Ditolak'])->orWhere('is_dikembalikan', 'Y')
           ->where('surat.id', 'like', "%" .$req->input('keyword') . "%" )
           ->where('surat_jenis_id', $req->input('surat_jenis_id'))
           ->orderByDesc('id')->get();
         } else {
-          $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('surat.id', 'like', "%" .$req->input('keyword') . "%" )->where('user_id', $req->input('user_id'))->whereNotIn('surat.status', ['Selesai', 'Ditolak', 'Pengisian Dokumen'])->orderByDesc('id')->get();
+          $data = DB::table('surat')->join('surat_jenis', 'surat_jenis.id', '=', "surat.surat_jenis_id")->select('surat.*', 'surat_jenis.nama as surat_jenis_nama')->where('surat.id', 'like', "%" .$req->input('keyword') . "%" )->where('user_id', $req->input('user_id'))->whereNotIn('surat.status', ['Selesai', 'Ditolak'])->orWhere('is_dikembalikan', 'Y')->orderByDesc('id')->get();
         }
         }
         // else if($req->input('surat_jenis_id')){
