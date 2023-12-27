@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div id="tambah" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-xs">
+  <div class="modal-dialog modal-lg">
 
     <!-- Modal content-->
     <div class="modal-content ">
