@@ -37,8 +37,8 @@ class ChatController extends Controller
       try {
 
             $cek = DB::table("roomchat")
-                      ->ORwhere("account", Auth::user()->id . "-" . $req->id)
-                      ->ORwhere("account", $req->id . "-" . Auth::user()->id)
+                      ->orWhere("account", Auth::user()->id . "-" . $req->id)
+                      ->orWhere("account", $req->id . "-" . Auth::user()->id)
                       ->first();
 
             if ($cek != null) {
@@ -70,8 +70,8 @@ class ChatController extends Controller
       try {
 
             $cek = DB::table("roomchat")
-                      ->ORwhere("account", $req->auth_id . "-" . $req->id)
-                      ->ORwhere("account", $req->id . "-" . $req->auth_id)
+                      ->orWhere("account", $req->auth_id . "-" . $req->id)
+                      ->orWhere("account", $req->id . "-" . $req->auth_id)
                       ->first();
 
             $data = DB::table("roomchat")
@@ -133,8 +133,8 @@ class ChatController extends Controller
 
         if (Auth::user()->role_id == "9" || Auth::user()->role_id == "7" ) {
           $cekOperatorRoom = $chat = DB::table('roomchat')
-                                      ->ORwhere('account', Auth::user()->id . "-" . $getOperator->id)
-                                      ->ORwhere('account', $getOperator->id . "-" . Auth::user()->id)
+                                      ->orWhere('account', Auth::user()->id . "-" . $getOperator->id)
+                                      ->orWhere('account', $getOperator->id . "-" . Auth::user()->id)
                                       ->orderby("created_at", "DESC")
                                       ->first();
 
@@ -164,8 +164,8 @@ class ChatController extends Controller
             ]);
 
             $cekOperatorRoom = DB::table('roomchat')
-                                      ->ORwhere('account', Auth::user()->id . "-" . $getOperator->id)
-                                      ->ORwhere('account', $getOperator->id . "-" . Auth::user()->id)
+                                      ->orWhere('account', Auth::user()->id . "-" . $getOperator->id)
+                                      ->orWhere('account', $getOperator->id . "-" . Auth::user()->id)
                                       ->orderby("created_at", "DESC")
                                       ->first();
             
@@ -261,8 +261,8 @@ class ChatController extends Controller
 
       if ($req->role_id == "9" || $req->role_id == "7" ) {
         $cekOperatorRoom = $chat = DB::table('roomchat')
-                                      ->ORwhere('account', $req->id . "-" . $getOperator->id)
-                                      ->ORwhere('account', $getOperator->id . "-" . $req->id)
+                                      ->orWhere('account', $req->id . "-" . $getOperator->id)
+                                      ->orWhere('account', $getOperator->id . "-" . $req->id)
                                       ->orderby("created_at", "DESC")
                                       ->first();
         
@@ -302,8 +302,8 @@ if ($created_at->diffInHours() >= 24) {
           ]);
 
           $cekOperatorRoom = $chat = DB::table('roomchat')
-                                      ->ORwhere('account', $req->id . "-" . $getOperator->id)
-                                      ->ORwhere('account', $getOperator->id . "-" . $req->id)
+                                      ->orWhere('account', $req->id . "-" . $getOperator->id)
+                                      ->orWhere('account', $getOperator->id . "-" . $req->id)
                                       ->orderby("created_at", "DESC")
                                       ->first();
           
