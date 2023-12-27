@@ -61,6 +61,19 @@
           >Cetak Nomor Registrasi</a
         >
         </div>
+
+
+        <div class="col-12">
+          <button class="btn btn-main w-100 mt-4" id="chatSurveyor" type="button" onclick="chatSurveyor()">
+              Chat Surveyor
+          </button>
+        </div>
+
+        <div class="col-12">
+         <button class="btn btn-main w-100 mt-4" id="chatOperator" type="button" type="button" onclick="chatSurveyor({{$data->id}})">
+            Chat Operator
+         </button>
+        </div>
         
         </div>
       </div>

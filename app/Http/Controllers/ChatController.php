@@ -37,7 +37,8 @@ class ChatController extends Controller
       try {
 
             $cek = DB::table("roomchat")
-                      ->where("account", Auth::user()->id . "-" . $req->id)
+                      ->ORwhere("account", Auth::user()->id . "-" . $req->id)
+                      ->ORwhere("account", $req->id . "-" . Auth::user()->id)
                       ->first();
 
             if ($cek != null) {
@@ -69,7 +70,8 @@ class ChatController extends Controller
       try {
 
             $cek = DB::table("roomchat")
-                      ->where("account", $req->auth_id . "-" . $req->id)
+                      ->ORwhere("account", $req->auth_id . "-" . $req->id)
+                      ->ORwhere("account", $req->id . "-" . $req->auth_id)
                       ->first();
 
             $data = DB::table("roomchat")
@@ -131,7 +133,8 @@ class ChatController extends Controller
 
         if (Auth::user()->role_id == "9" || Auth::user()->role_id == "7" ) {
           $cekOperatorRoom = $chat = DB::table('roomchat')
-                                      ->where('account', 'like', '%' . Auth::user()->id . "-" . $getOperator->id . '%')
+                                      ->ORwhere('account', Auth::user()->id . "-" . $getOperator->id)
+                                      ->ORwhere('account', $getOperator->id . "-" . Auth::user()->id)
                                       ->orderby("created_at", "DESC")
                                       ->first();
 
@@ -151,8 +154,6 @@ class ChatController extends Controller
             $cekOperatorRoom->created_at = Carbon::parse($cekOperatorRoom->created_at)->locale('id')->diffForHumans();
 
             $resultRoom[0] = $cekOperatorRoom;
-
-            // dd($resultRoom);
           } else {
             DB::table('roomchat')
               ->insert([
@@ -162,10 +163,11 @@ class ChatController extends Controller
                 'created_at' => Carbon::now('Asia/Jakarta'),
             ]);
 
-            $cekOperatorRoom = $chat = DB::table('roomchat')
-                                        ->where('account', 'like', '%' . Auth::user()->id . "-" . $getOperator->id . '%')
-                                        ->orderby("created_at", "DESC")
-                                        ->first();
+            $cekOperatorRoom = DB::table('roomchat')
+                                      ->ORwhere('account', Auth::user()->id . "-" . $getOperator->id)
+                                      ->ORwhere('account', $getOperator->id . "-" . Auth::user()->id)
+                                      ->orderby("created_at", "DESC")
+                                      ->first();
             
             if($cekOperatorRoom != null) {
               $account = explode("-",$cekOperatorRoom->account);
@@ -259,9 +261,10 @@ class ChatController extends Controller
 
       if ($req->role_id == "9" || $req->role_id == "7" ) {
         $cekOperatorRoom = $chat = DB::table('roomchat')
-                                    ->where('account', 'like', '%' . $req->id . "-" . $getOperator->id . '%')
-                                    ->orderby("created_at", "DESC")
-                                    ->first();
+                                      ->ORwhere('account', $req->id . "-" . $getOperator->id)
+                                      ->ORwhere('account', $getOperator->id . "-" . $req->id)
+                                      ->orderby("created_at", "DESC")
+                                      ->first();
         
         if($cekOperatorRoom != null) {
           $account = explode("-",$cekOperatorRoom->account);
@@ -299,7 +302,8 @@ if ($created_at->diffInHours() >= 24) {
           ]);
 
           $cekOperatorRoom = $chat = DB::table('roomchat')
-                                      ->where('account', 'like', '%' . $req->id . "-" . $getOperator->id . '%')
+                                      ->ORwhere('account', $req->id . "-" . $getOperator->id)
+                                      ->ORwhere('account', $getOperator->id . "-" . $req->id)
                                       ->orderby("created_at", "DESC")
                                       ->first();
           

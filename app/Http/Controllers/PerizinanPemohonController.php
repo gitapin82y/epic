@@ -22,9 +22,10 @@ use Yajra\Datatables\Datatables;
 class PerizinanPemohonController extends Controller
 {
     public function index() {
-      
-            return view('public.perizinan-pemohon.index');
-          }
+      $data = DB::table("user")->where("role_id", "5")->first();
+
+      return view('public.perizinan-pemohon.index', compact("data"));
+    }
       
           public function datatable($status) {
             // $data = DB::table('surat')->get();
