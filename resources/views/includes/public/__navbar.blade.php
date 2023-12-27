@@ -36,7 +36,7 @@
         </li>
         <li class="nav-item {{Request::is('arsip') ? 'active' : ''}}">
           <a class="nav-link" href="{{url('arsip')}}"
-            >Arsip Perizinan</a
+            >Arsip Perizinan Saya</a
           >
         </li>
         @endif

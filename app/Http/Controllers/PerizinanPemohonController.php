@@ -39,14 +39,15 @@ class PerizinanPemohonController extends Controller
             $data = DB::table('surat')->whereNotIn('status', ['Ditolak','Selesai','Pengisian Dokumen'])->orderBy("created_at", "asc")->where('user_id', Auth::user()->id)->get();
       
           }
-        }else if(Auth::user()->role_id == 5){
-          $data = DB::table('surat')->where('status', 'Validasi Operator')->get();
+        }
+      //   else if(Auth::user()->role_id == 5){
+      //     $data = DB::table('surat')->where('status', 'Validasi Operator')->get();
         
-      }
-      else if(Auth::user()->role_id == 6){
-        $data = DB::table('surat')->where('status', 'Verifikasi Verifikator')->get();
+      // }
+      // else if(Auth::user()->role_id == 6){
+      //   $data = DB::table('surat')->where('status', 'Verifikasi Verifikator')->get();
       
-      }
+      // }
       
       
               // return $data;
@@ -67,14 +68,20 @@ class PerizinanPemohonController extends Controller
                 }
               })
               ->addColumn('status', function ($data) {
-                $color = '<div><strong class="text-warning">' . $data->status . '</strong></div>';
+                $color = '<div><strong class="text-warning">' . $data->status  .'</strong></div>';
             
                 if ($data->status == "Selesai") {
                     // Tombol "Approve" hanya muncul jika is_active == 1
                     $color =  '<div><strong class="text-success">' . $data->status . '</strong></div>';
                 } else if ($data->status == "Ditolak"){
                   $color = '<div><strong class="text-danger">' . $data->status . '</strong></div>';
-                }else{
+                }else if($data->status == "Penjadwalan Survey"){
+                $statusSurvey = DB::table('survey')->where('surat_id', $data->id)->first();
+                // $color = '<div><strong class="text-warning">' . $data->id  .'</strong></div>';
+
+                  $color = '<div><strong class="text-warning">' . $data->status .'<br>( '. $statusSurvey->status .' )</strong></div>';
+                }
+                else{
                   $color;
                 }
                 return $color;

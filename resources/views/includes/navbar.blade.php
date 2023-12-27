@@ -21,7 +21,7 @@
     </li>
     <li class="nav-item mt-1 {{Request::is('arsip') ? 'active' : ''}}">
       <a class="nav-link" href="{{url('arsip')}}"
-        >Arsip Perizinan</a
+        >Arsip Perizinan Saya</a
       >
     </li>
     <li class="nav-item mt-1 {{Request::is('lacak-perizinan') || Request::is('detail-perizinan') ? 'active' : ''}}">

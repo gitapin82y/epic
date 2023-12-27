@@ -45,7 +45,14 @@
                     @endif
                 @endif
 
-            <li class=""><a class="nav-link" href="{{ url('arsip') }}"><i class="fas fa-folder-open"></i><span>Arsip Perizinan</span></a></li>
+            <li class=""><a class="nav-link" href="{{ url('arsip') }}"><i class="fas fa-folder-open"></i><span>
+                @if (Auth::user()->role_id == 9)
+                Arsip Perizinan Saya
+                @else
+                Arsip Perizinan
+                @endif
+               
+            </span></a></li>
             @endif
 
             @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 6  || Auth::user()->role_id == 7)
