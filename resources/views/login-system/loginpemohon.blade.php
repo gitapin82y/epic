@@ -37,7 +37,7 @@
                     
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input id="email"class="form-control" type="email" name="email" id="email" placeholder="email" required autofocus="">
+                        <input id="email"class="form-control" type="email" name="email" id="email" placeholder="Email" required autofocus="">
                         @if (session('email'))
                         <div class="red"  style="color: red"><b>Email Tidak Ada</b></div>
                       @endif
@@ -123,7 +123,7 @@
     </script>
 
 <script>
-
+  localStorage.setItem("selected", 0)
   @if (session('berhasilLogin'))
   iziToast.success({
       icon: 'fa fa-save',

@@ -84,6 +84,7 @@
 </body>
 
 <script>
+  localStorage.setItem("selected", 0)
   const togglePassword = document.getElementById('togglePassword');
   const passwordInput = document.getElementById('password');
 

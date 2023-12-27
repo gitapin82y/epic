@@ -145,10 +145,12 @@ class ChatController extends Controller
               $cekOperatorRoom->account = DB::table("user")
                                   ->where("id", $account[0])
                                   ->first();
+              $cekOperatorRoom->counter_kedua = $cekOperatorRoom->counter_kedua;
             } else if ($account[1] != Auth::user()->id) {
               $cekOperatorRoom->account = DB::table("user")
                                   ->where("id", $account[1])
                                   ->first();
+              $cekOperatorRoom->counter_kedua = $cekOperatorRoom->counter_satu;
             }
   
             $cekOperatorRoom->created_at = Carbon::parse($cekOperatorRoom->created_at)->locale('id')->diffForHumans();
@@ -176,10 +178,12 @@ class ChatController extends Controller
                 $cekOperatorRoom->account = DB::table("user")
                                     ->where("id", $account[0])
                                     ->first();
+                                    $cekOperatorRoom->counter_kedua = $value->counter_kedua;
               } else if ($account[1] != Auth::user()->id) {
                 $cekOperatorRoom->account = DB::table("user")
                                     ->where("id", $account[1])
                                     ->first();
+                                    $cekOperatorRoom->counter_kedua = $value->counter_satu;
               }
     
               $cekOperatorRoom->created_at = Carbon::parse($cekOperatorRoom->created_at)->locale('id')->diffForHumans();
@@ -203,10 +207,12 @@ class ChatController extends Controller
               $value->account = DB::table("user")
                                   ->where("id", $account[0])
                                   ->first();
+              $value->counter_kedua = $value->counter_kedua;
             } else if ($account[1] != Auth::user()->id) {
               $value->account = DB::table("user")
                                   ->where("id", $account[1])
                                   ->first();
+              $value->counter_kedua = $value->counter_satu;
             }
   
             $value->created_at = Carbon::parse($value->created_at)->locale('id')->diffForHumans();
@@ -226,10 +232,12 @@ class ChatController extends Controller
               $value->account = DB::table("user")
                                   ->where("id", $account[0])
                                   ->first();
+              $value->counter_kedua = $value->counter_kedua;
             } else if ($account[1] != Auth::user()->id) {
               $value->account = DB::table("user")
                                   ->where("id", $account[1])
                                   ->first();
+              $value->counter_kedua = $value->counter_satu;
             }
   
             $value->created_at = Carbon::parse($value->created_at)->locale('id')->diffForHumans();
@@ -606,7 +614,7 @@ if ($created_at->diffInHours() >= 24) {
                $count = $room->counter_satu;
 
                DB::table('roomchat')
-                    ->where("id", $req->id)
+                    ->where("id", $req->room)
                     ->update([
                       'last_message' => $req->message,
                       'counter_satu' => $count + 1,
@@ -617,7 +625,7 @@ if ($created_at->diffInHours() >= 24) {
                $count = $room->counter_kedua;
 
                DB::table('roomchat')
-                    ->where("id", $req->id)
+                    ->where("id", $req->room)
                     ->update([
                       'last_message' => $req->message,
                       'counter_kedua' => $count + 1,

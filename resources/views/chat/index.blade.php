@@ -79,7 +79,7 @@
       align-self: flex-end;
       }
       .message-wrap .message-list.me .msg {
-      text-align: center;
+      text-align: right;
       background: #C4EAF3;
       color: black;
       box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.1);
@@ -88,7 +88,7 @@
       border-radius: 10px;
       }
       .message-wrap .message-list .msg {
-      text-align: center;
+      text-align: left;
       background: #F3F9FA;
       color: black;
       box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.1);
@@ -373,6 +373,7 @@
 
                 if (selectedroom == false) {
                   idselect = data.data[0].id;
+                  penerima = data.data[0].id;
                 }
 
                 // listchat();
