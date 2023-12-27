@@ -33,16 +33,30 @@
                         <div class="d-block">
                             <label for="password" class="control-label">Password</label>
                         </div>
+                        <div class="input-group">
                         <input id="password" type="password"
                             class="form-control" value="" type="password" name="password" id="password" required placeholder="Password">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fa fa-eye" id="togglePassword"></i>
+                                </span>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <div class="d-block">
                             <label for="password" class="control-label">Konfirmasi Password</label>
                         </div>
+                        <div class="input-group">
                         <input id="password" type="password"
                             class="form-control" value="" type="password" name="confirmpassword" id="confirmpassword" required placeholder="Konfirmasi Password">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fa fa-eye" id="togglePassword"></i>
+                                </span>
+                            </div>
+                        </div>
                             @if (session('password'))
                             <div class="red"  style="color: red"><b>Password Tidak Sama</b></div>
                             @endif
@@ -75,4 +89,16 @@
   
   @include('sweetalert::alert')
 </body>
+<script>
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordInput = document.getElementById('password');
+
+console.log(passwordInput)
+
+  togglePassword.addEventListener('click', function () {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      togglePassword.classList.toggle('fa-eye-slash');
+  });
+</script>
 </html>

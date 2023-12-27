@@ -24,7 +24,7 @@
       <div class="modal-body bg-light">
             <div class="form-group">
                 <label for="otp">Masukkan Kode OTP</label>
-                <input id="otp"class="form-control" type="number" name="otp" id="otp" autofocus="">
+                <input id="otp"class="form-control" type="number" name="otp" id="otp" autofocus="" min="0">
                 <div class="red" id="redotp" style="color: red; display:none;"><b>Kode OTP Salah!</b></div>
                 *Masukkan kode OTP yang telah dikirim ke email anda
             </div>

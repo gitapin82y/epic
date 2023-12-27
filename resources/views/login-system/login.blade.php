@@ -55,10 +55,19 @@
                         @endif
                     </div>
 
+                    <a href="{{url('lupapassword')}}" style="float:right;" class="text-main">Lupa Kata Sandi</a>
+                    <br>
+                    <br>
+
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                             Login
                         </button>
+                    </div>
+                    <div class="form-group">
+                        {{-- <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4" > --}}
+                            <a href="{{ url('login/google') }}" class="btn btn-primary btn-lg btn-block">Login with Google</a>
+
                     </div>
                    
                 </form>

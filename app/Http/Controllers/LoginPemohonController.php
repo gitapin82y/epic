@@ -186,11 +186,18 @@ class LoginPemohonController extends Controller
         $user = Socialite::driver('google')->user();
 
         // dd($user);
-        $findUser = Account::where("email", $user->email)->where("role_id", "9")->first();
+        // $findUser = Account::where("email", $user->email)->where("role_id", "9")->first();
+        $findUser = Account::where("email", $user->email)->first();
+
 
         if ($findUser != null) {
+            if($findUser->role_id == 9){
             Auth::login($findUser);
             return redirect('/');
+            }else{
+                Auth::login($findUser);
+                return redirect('/home');
+            }
         } else {
             // return response()->json(2);
             return redirect('/registerpemohon?fullname='.$user->name.'&email='.$user->email);
