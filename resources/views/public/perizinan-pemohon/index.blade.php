@@ -164,41 +164,6 @@ id="buat-perizinan"
                   }
 });
 
-function chatSurveyor(id) {
-  $.ajax({
-        url:baseUrl + '/newroom?id='+id,
-        dataType:'json',
-        success:function(data){
-          if (data == "sukses") {
-            localStorage.setItem("selected", 1)
-            window.location.href = baseUrl + "/chat";
-          } else {
-            iziToast.warning({
-                icon: 'fa fa-info',
-                message: 'Chat Gagal!',
-            });
-          }
-        }
-  });
-}
-
-function chatOperator(id) {
-  $.ajax({
-        url:baseUrl + '/newroom?id='+id,
-        dataType:'json',
-        success:function(data){
-          if (data == "sukses") {
-            window.location.href = baseUrl + "/chat";
-          } else {
-            iziToast.warning({
-                icon: 'fa fa-info',
-                message: 'Chat Gagal!',
-            });
-          }
-        }
-  });
-}
-
 function edit(id) {
       // body...
       $.ajax({
@@ -208,14 +173,6 @@ function edit(id) {
         success:function(data){
           console.log({data})
           $('.id').val(data.surat.id);
-
-          if (data.surveyor_id != null) {
-            $("#chatSurveyor").css("display", "");
-            $("#chatSurveyor").attr("onclick", "chatSurveyor("+data.surveyor_id+")");
-          } else {
-            $("#chatSurveyor").css("display", "none");
-          }
-
           document.getElementById("jenis_perizinan").innerHTML = data.surat_jenis.nama;
           document.getElementById("surat_id").innerHTML = data.surat.id;
           document.getElementById("status_surat").innerHTML = data.surat.status;
@@ -327,6 +284,9 @@ function edit(id) {
   
     }
 
+    
+
+
     function alasanDikembalikan(text, suratJenis, idSurat){
       $('.alasan_dikembalikan').html(text);
       $('.kirimUlang').attr('href',baseUrl+'/ajukan-perizinan?jenis='+suratJenis);
@@ -414,7 +374,37 @@ function edit(id) {
         ]
       });
     })
-  
+
+    
+    function clearNamaSuratSyarat() {
+    // Dapatkan referensi ke elemen div dengan ID "nama_surat_syarat"
+    var container = document.getElementById("nama_surat_syarat");
+
+    // Hapus semua elemen di dalam container
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+}
+  function closeModal() {
+  // Menutup modal
+  // ...
+  // const container = document.getElementById("nama_surat_syarat");
+
+// Create paragraph element
+// const para = document.createElement("p");
+// para.remove()
+  // Menghapus elemen <p> jika sudah dibuat sebelumnya
+  // if (para) {
+
+    clearNamaSuratSyarat()
+    
+
+    // $('#detail').modal('hide');
+    // table.ajax.reload();
+    
+
+  // }
+}
   
     function reloadall() {
       $('.table_modal :input').val("");

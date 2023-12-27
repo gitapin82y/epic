@@ -68,14 +68,8 @@ class HomeController extends Controller
         Account::where('id', Auth::user()->id)->update([
              'updated_at' => Carbon::now('Asia/Jakarta'),
              'is_login' => "N"
-            //  "users_accesstoken" => md5(uniqid(Auth::user()->users_username, true)),
         ]);
 
-        // Account::where('m_id', Auth::user()->m_id)->update([
-        //      'm_statuslogin' => 'N'
-        //     ]);
-
-        // logController::inputlog('Logout', 'Logout', Auth::user()->m_username);
         Auth::logout();
 
         Session::forget('key');

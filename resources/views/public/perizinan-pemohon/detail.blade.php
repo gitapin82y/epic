@@ -6,7 +6,7 @@
     <div class="modal-content">
       <div class="modal-header bg-main text-white py-2">
         <h4 class="modal-title">Detail Surat Perizinan</h4>
-        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()"></button>
       </div>
       <div class="modal-body bg-light">
         <div class="row table_modal">
@@ -74,6 +74,7 @@
             Chat Operator
          </button>
         </div>
+
         
         </div>
       </div>

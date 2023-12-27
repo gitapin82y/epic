@@ -83,6 +83,8 @@ class SurveyController extends Controller
             '<button type="button" onclick="detail('.$data->id.')" class="btn btn-warning btn-lg pt-2" title="penjadwalan survey">'.
             '<label class="fa fa-calendar-check-o w-100" style="padding:0 2px"></label></button>'.
          '</div>';
+         if(Auth::user()->role_id == 6){
+
          if ($data->jadwal_survey == NULL) {
           $aksi = '<div class="btn-group">'.
           '<button type="button" onclick="edit('.$data->id.')" class="btn btn-success btn-lg pt-2" title="penjadwalan survey">'.
@@ -94,6 +96,19 @@ class SurveyController extends Controller
             '<label class="fa fa-eye w-100" ></label></button>'.
          '</div>';
          }
+        }else{
+          if ($data->jadwal_survey == NULL) {
+            $aksi = '<div class="btn-group">'.
+            '<button type="disable" onclick="" class="btn btn-secondary btn-lg pt-2" title="lihat detail penugasan">'.
+            '<label class="fa fa-eye w-100" ></label></button>'.
+         '</div>';
+                   } else if ($data->jadwal_survey != NULL) {
+            $aksi = '<div class="btn-group">'.
+              '<button type="button" onclick="detail('.$data->id.')" class="btn btn-info btn-lg pt-2" title="lihat detail penugasan">'.
+              '<label class="fa fa-eye w-100" ></label></button>'.
+           '</div>';
+           }
+        }
          
             return $aksi;
           })

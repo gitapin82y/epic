@@ -53,6 +53,10 @@
 /* 2. Mixin */
 /* 3. Bootstrap Override */
 /* 3.1 Misc */
+
+.id-column {
+  width: 20px;
+}
 @import url("//fonts.googleapis.com/css?family=Nunito:400,600,700,800");
 
 .btn:focus,
@@ -3475,11 +3479,11 @@ pre {
   background-repeat: no-repeat;
   background-size: cover;
 }
-.bg-main{
-    background-color: #499DB1;
+.bg-main {
+  background-color: #499db1;
 }
-.text-main{
-    color: #499DB1;
+.text-main {
+  color: #499db1;
 }
 /* 4.2 Section */
 .section {
