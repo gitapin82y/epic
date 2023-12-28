@@ -28,7 +28,7 @@
             >Buat Permohonan</a
           >
         </li>
-        @if (Auth::check())
+        @if (Auth::check() && Auth::user()->role_id == 9)
         <li class="nav-item {{Request::is('permohonan-saya') ? 'active' : ''}}">
           <a class="nav-link" href="{{route('list-perizinan')}}"
             >Permohonan Saya</a
