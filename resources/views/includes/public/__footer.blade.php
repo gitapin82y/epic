@@ -18,19 +18,19 @@
         <h3>Sosial Media</h3>
         <ul>
           <li>
-            <a href="#" class="text-dark">Instagram</a>
+            <a href="https://www.instagram.com/epic.smartcity?igsh=ZmE2OGw0bjI5NjF5&utm_source=qr" class="text-dark">Instagram</a>
           </li>
 
           <li>
-            <a href="#" class="text-dark">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/urbanifycompany/" class="text-dark">LinkedIn</a>
           </li>
 
           <li>
-            <a href="#" class="text-dark">Twitter</a>
+            <a href="https://twitter.com/epicurbanify" class="text-dark">Twitter</a>
           </li>
 
           <li>
-            <a href="#" class="text-dark">Youtube</a>
+            <a href="https://www.youtube.com/channel/UC_cKinCVMkjnOY3H1LwHacA" class="text-dark">Youtube</a>
           </li>
         </ul>
       </div>
