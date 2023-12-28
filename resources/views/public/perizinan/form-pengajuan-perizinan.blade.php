@@ -43,15 +43,21 @@ id="ajukan-perizinan"
     name="nama_perizinan"
     value="{{$perizinan->nama}}"
   />
+  <input
+  type="hidden" id="noPerizinan"
+  class="form-control"
+  name="id"
+  value="{{ isset($updatePerizinan) ? $updatePerizinan->id : '' }}"
+/>
       <div class="form-group my-3">
         <label for="kategori_perizinan">Kategori Perizinan</label>
         
         <select class="form-select" name="kategori" id="kategori_perizinan">
           <option disabled selected>Pilih Kategori</option>
-          <option value="TK">TK</option>
-          <option value="PAUD">PAUD</option>
-          <option value="SD">SD</option>
-          <option value="SMP">SMP</option>
+          <option value="TK" @if (isset($updatePerizinan) && $updatePerizinan->kategori == 'TK') selected @endif>TK</option>
+          <option value="PAUD" @if (isset($updatePerizinan) && $updatePerizinan->kategori == 'PAUD') selected @endif>PAUD</option>
+          <option value="SD" @if (isset($updatePerizinan) && $updatePerizinan->kategori == 'SD') selected @endif>SD</option>
+          <option value="SMP" @if (isset($updatePerizinan) && $updatePerizinan->kategori == 'SMP') selected @endif>SMP</option>
         </select>
         <span id="error_kategori" class="text-danger"></span>
       </div>
@@ -62,12 +68,13 @@ id="ajukan-perizinan"
           class="form-control"
           id="nama_perizinan"
           name="nama"
+          value="{{ isset($updatePerizinan) ? $updatePerizinan->nama : '' }}"
         />
         <span id="error_nama" class="text-danger"></span>
       </div>
       <div class="form-group my-3">
         <label for="alamat">Alamat</label>
-        <textarea class="form-control" name="alamat_lokasi" id="alamat" rows="3"></textarea>
+        <textarea class="form-control" name="alamat_lokasi" id="alamat" rows="3">{{ isset($updatePerizinan) ? $updatePerizinan->alamat_lokasi : '' }}</textarea>
         <span id="error_alamat" class="text-danger"></span>
       </div>
       <div class="form-group">

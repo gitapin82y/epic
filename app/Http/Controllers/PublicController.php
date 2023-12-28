@@ -33,6 +33,10 @@ class PublicController extends Controller
 
     public function ajukanPerizinan(Request $request){
         $perizinan = DB::table('surat_jenis')->find($request->jenis);
+        if($request->surat){
+            $updatePerizinan = DB::table('surat')->find($request->surat);
+            return view('public.perizinan.form-pengajuan-perizinan',compact('perizinan','updatePerizinan'));
+        }
         return view('public.perizinan.form-pengajuan-perizinan',compact('perizinan'));
     }
 
@@ -43,18 +47,35 @@ class PublicController extends Controller
     public function createPerizinan(Request $req){
         $tgl = Carbon::now('Asia/Jakarta');
 
-        $surat = DB::table('surat')->insertGetId([
-            'user_id' => Auth::user()->id,
-            'surat_jenis_id' => $req['surat_jenis_id'],
-            'nama' => $req['nama'],
-            'kategori' => $req['kategori'],
-            'alamat_lokasi' => $req['alamat_lokasi'],
-            'longitude' => $req['longitude'],
-            'latitude' => $req['latitude'],
-            'status' => 'Validasi Operator',
-            "created_at" => $tgl,
-            "updated_at" => $tgl
-        ]);
+        if($req['id']){
+            $surat = DB::table('surat')->where('id', $req['id'])->update([
+                'user_id' => Auth::user()->id,
+                'surat_jenis_id' => $req['surat_jenis_id'],
+                'nama' => $req['nama'],
+                'kategori' => $req['kategori'],
+                'alamat_lokasi' => $req['alamat_lokasi'],
+                'longitude' => $req['longitude'],
+                'latitude' => $req['latitude'],
+                'is_dikembalikan' => 'N',
+                'status' => 'Validasi Operator',
+                'updated_at' => $tgl
+                ]);
+                $surat = DB::table('surat')->where('id', $req['id'])->value('id');
+                DB::table('surat_dokumen')->where('surat_id', $req['id'])->delete();
+        }else{
+            $surat = DB::table('surat')->insertGetId([
+                'user_id' => Auth::user()->id,
+                'surat_jenis_id' => $req['surat_jenis_id'],
+                'nama' => $req['nama'],
+                'kategori' => $req['kategori'],
+                'alamat_lokasi' => $req['alamat_lokasi'],
+                'longitude' => $req['longitude'],
+                'latitude' => $req['latitude'],
+                'status' => 'Validasi Operator',
+                "created_at" => $tgl,
+                "updated_at" => $tgl
+            ]);
+        }
 
         $surat = DB::table('surat')->where('id', $surat)->first();
 

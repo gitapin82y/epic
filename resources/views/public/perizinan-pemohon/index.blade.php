@@ -332,7 +332,7 @@ function edit(id) {
 
     function alasanDikembalikan(text, suratJenis, idSurat){
       $('.alasan_dikembalikan').html(text);
-      $('.kirimUlang').attr('href',baseUrl+'/ajukan-perizinan?jenis='+suratJenis);
+      $('.kirimUlang').attr('href',baseUrl+'/ajukan-perizinan?jenis='+suratJenis+'&surat='+idSurat);
       $('#showTolak').modal('show');
     }
   

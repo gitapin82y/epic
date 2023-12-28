@@ -95,10 +95,15 @@ class PerizinanPemohonController extends Controller
       
             })
                 ->addColumn('aksi', function ($data) {
-                  return  '<div class="btn-group">'.
+                  $aksi = '<div class="btn-group">'.
                            '<button type="button" onclick="edit('.$data->id.')" class="btn btn-success btn-lg pt-2" title="edit">'.
                            '<label class="fa fa-eye w-100"></label></button>'.
                         '</div>';
+                  if ($data->is_dikembalikan == "Y" && $data->alasan_dikembalikan !== NULL) {
+                    $aksi .= '<button type="button" onclick="alasanDikembalikan(\'' . $data->alasan_dikembalikan . '\', \'' . $data->surat_jenis_id . '\', \'' . $data->id . '\')" class="btn btn-danger btn-lg pt-2 ml-2" title="dikembalikan">'.
+                    '<label class="fa-solid fa-circle-info"></label></button>';
+                  }
+                  return $aksi;
                 })
                 ->rawColumns(['aksi','jadwal_survey','status', 'tanggal_pengajuan'])
                 ->addIndexColumn()

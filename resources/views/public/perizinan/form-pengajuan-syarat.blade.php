@@ -79,6 +79,7 @@ id="ajukan-perizinan"
 
           // Simpan data dari form 1 dan dokumen ke database
           var formData = new FormData(this);
+          formData.append('id', form1Data.find(item => item.name === 'id').value);
           formData.append('surat_jenis_id', form1Data.find(item => item.name === 'surat_jenis_id').value);
           formData.append('nama', form1Data.find(item => item.name === 'nama').value);
           formData.append('kategori', form1Data.find(item => item.name === 'kategori').value);
