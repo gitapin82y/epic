@@ -151,7 +151,7 @@ class RegisterPemohonController extends Controller
         }
 
         if ($ceknohp != null) {
-          $message = 'Username sudah terdaftar!';
+          $message = 'No Hp sudah terdaftar!';
           $valid = false;
         }
 

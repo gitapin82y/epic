@@ -1394,5 +1394,168 @@ else {
     }
   }
 
+  public function schedule(Request $req) {
+    // $schedule->call(function () {
+      DB::table('surat')
+        ->where('status', 'Validasi Operator')
+        ->where('is_terlambat','N')
+        ->where('updated_at', '<', now()->subDay(2))
+        ->update(['is_terlambat' => 'Y', 'updated_at' => now()]);
+
+      $surat = DB::table('surat')
+        ->where('status', 'Validasi Operator')
+        ->where('is_terlambat', 'Y')
+        ->where('updated_at', '>=', now()->subDay())
+        ->first();
+
+      if ($surat) {
+        $userRoleIds = [1, 2];
+        $users = DB::table('user')
+          ->whereIn('role_id', $userRoleIds)
+          ->get();
+
+        foreach ($users as $user) {
+          // PushNotifController::create([
+          //   'user_id' => $user->id,
+          //   'judul' => 'Keterlambatan untuk memverifikasi',
+          //   'deskripsi' => 'Kami memberitahukan bahwa surat dengan nomor ' . $surat->id . ' mengalami keterlambatan verifikasi oleh operator.',
+          //   'is_seen' => 'N',
+          // ]);
+
+         PushNotifController::sendMessage($user->id,'Keterlambatan untuk memvalidasi','Kami memberitahukan bahwa surat dengan nomor ' . $surat->id . ' mengalami keterlambatan verifikasi oleh operator.' );
+
+        }
+      }
+    // })->daily();
+
+    // $schedule->call(function () {
+      DB::table('surat')
+        ->where('status', 'Verifikasi Verifikator')
+        ->where('is_terlambat', 'N')
+        ->where('updated_at', '<', now()->subDay(4))
+        ->update(['is_terlambat' => 'Y', 'updated_at' => now()]);
+
+      $surat = DB::table('surat')
+        ->where('status', 'Verifikasi Verifikator')
+        ->where('is_terlambat', 'Y')
+        ->where('updated_at', '>=', now()->subDay())
+        ->first();
+
+      if ($surat) {
+        $userRoleIds = [1, 2];
+        $users = DB::table('user')
+          ->whereIn('role_id', $userRoleIds)
+          ->get();
+
+        foreach ($users as $user) {
+          // PushNotifController::create([
+          //   'user_id' => $user->id,
+          //   'judul' => 'Keterlambatan untuk memverifikasi',
+          //   'deskripsi' => 'Kami memberitahukan bahwa surat dengan nomor ' . $surat->id . ' mengalami keterlambatan verifikasi oleh verifikator.',
+          //   'is_seen' => 'N',
+          // ]);
+         PushNotifController::sendMessage($user->id,'Keterlambatan untuk memverifikasi','Kami memberitahukan bahwa surat dengan nomor ' . $surat->id . ' mengalami keterlambatan verifikasi oleh verifikator.' );
+
+        }
+      }
+    // })->daily();
+
+    // $schedule->call(function () {
+      DB::table('surat')
+        ->where('status', 'Penjadwalan Survey')
+        ->where('is_terlambat', 'N')
+        ->where('updated_at', '<', now()->subDay(3))
+        ->update(['is_terlambat' => 'Y', 'updated_at' => now()]);
+
+      $surat = DB::table('surat')
+        ->where('status', 'Penjadwalan Survey')
+        ->where('is_terlambat', 'Y')
+        ->where('updated_at', '>=', now()->subDay())
+        ->first();
+
+      if ($surat) {
+        $userRoleIds = [1, 2];
+        $users = DB::table('user')
+          ->whereIn('role_id', $userRoleIds)
+          ->get();
+
+        foreach ($users as $user) {
+          // PushNotifController::create([
+          //   'user_id' => $user->id,
+          //   'judul' => 'Keterlambatan untuk memverifikasi',
+          //   'deskripsi' => 'Kami memberitahukan bahwa surat dengan nomor ' . $surat->id . ' mengalami keterlambatan untuk jadwal survey.',
+          //   'is_seen' => 'N',
+          // ]);
+         PushNotifController::sendMessage($user->id,'Keterlambatan untuk membuat jadwal','Kami memberitahukan bahwa surat dengan nomor ' . $surat->id . ' mengalami keterlambatan untuk jadwal survey.' );
+
+        }
+      }
+    // })->daily();
+
+    // $schedule->call(function () {
+      DB::table('surat')
+        ->where('status', 'Verifikasi Hasil Survey')
+        ->where('is_terlambat', 'N')
+        ->where('updated_at', '<', now()->subDay(2))
+        ->update(['is_terlambat' => 'Y', 'updated_at' => now()]);
+
+      $surat = DB::table('surat')
+        ->where('status', 'Verifikasi Hasil Survey')
+        ->where('is_terlambat', 'Y')
+        ->where('updated_at', '>=', now()->subDay())
+        ->first();
+
+      if ($surat) {
+        $userRoleIds = [1, 2];
+        $users = DB::table('user')
+          ->whereIn('role_id', $userRoleIds)
+          ->get();
+
+        foreach ($users as $user) {
+          // PushNotifController::create([
+          //   'user_id' => $user->id,
+          //   'judul' => 'Keterlambatan untuk memverifikasi',
+          //   'deskripsi' => 'Kami memberitahukan bahwa surat dengan nomor ' . $surat->id . ' mengalami keterlambatan verifikasi hasil survey.',
+          //   'is_seen' => 'N',
+          // ]);
+         PushNotifController::sendMessage($user->id,'Keterlambatan untuk memverifikasi hasil survey','Kami memberitahukan bahwa surat dengan nomor ' . $surat->id . ' mengalami keterlambatan verifikasi hasil survey.' );
+
+        }
+      }
+    // })->daily();
+
+    // $schedule->call(function () {
+      DB::table('surat')
+        ->where('status', 'Verifikasi Kepala Dinas')
+        ->where('is_terlambat', 'N')
+        ->where('updated_at', '<', now()->subDay(3))
+        ->update(['is_terlambat' => 'Y', 'updated_at' => now()]);
+
+      $surat = DB::table('surat')
+        ->where('status', 'Verifikasi Kepala Dinas')
+        ->where('is_terlambat', 'Y')
+        ->where('updated_at', '>=', now()->subDay())
+        ->first();
+
+      if ($surat) {
+        $userRoleIds = [1, 2];
+        $users = DB::table('user')
+          ->whereIn('role_id', $userRoleIds)
+          ->get();
+
+        foreach ($users as $user) {
+          // PushNotifController::create([
+          //   'user_id' => $user->id,
+          //   'judul' => 'Keterlambatan untuk memverifikasi',
+          //   'deskripsi' => 'Kami memberitahukan bahwa surat dengan nomor ' . $surat->id . ' mengalami keterlambatan verifikasi oleh kepala dinas.',
+          //   'is_seen' => 'N',
+          // ]);
+         PushNotifController::sendMessage($user->id,'Keterlambatan untuk memverifikasi','Kami memberitahukan bahwa surat dengan nomor ' . $surat->id . ' mengalami keterlambatan verifikasi oleh kepala dinas' );
+
+        }
+      }
+    // })->daily();
+  }
+
 
 }

@@ -189,6 +189,8 @@ Route::get('survey/penugasan/laporan/{id}',  [PenugasanSurveyController::class, 
  Route::get('hasilkepuasan', 'HasilKepuasanController@datatable');
  Route::get('detailhasilkepuasan/{id}', 'HasilKepuasanController@detail');
 
+ Route::get('schedule', 'SuratController@schedule');
+
 
 
 
