@@ -141,7 +141,7 @@ class RegisterPemohonController extends Controller
       DB::beginTransaction();
       try { 
         $cekemail = DB::table("user")->where("email", $req->email)->first();
-        $ceknohp = DB::table("user")->where("no_telp", $req->no_telp)->first();
+        // $ceknohp = DB::table("user")->where("no_telp", $req->no_telp)->first();
         $message = "";
 
         $valid = true;
@@ -150,10 +150,10 @@ class RegisterPemohonController extends Controller
           $valid = false;
         }
 
-        if ($ceknohp != null) {
-          $message = 'No Hp sudah terdaftar!';
-          $valid = false;
-        }
+        // if ($ceknohp != null) {
+        //   $message = 'No Hp sudah terdaftar!';
+        //   $valid = false;
+        // }
 
         if ($req->password != $req->konfirmasi_password) {
           $message = 'Password confirm tidak sama!';
